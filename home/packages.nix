@@ -24,5 +24,6 @@
     readest
     libreoffice-qt
     swaybg
+    bibata-cursors
   ];
 }

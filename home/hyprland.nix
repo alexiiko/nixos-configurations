@@ -15,6 +15,8 @@ wayland.windowManager.hyprland = {
 
 	env = XCURSOR_SIZE,24
 	env = HYPRCURSOR_SIZE,24
+	env = HYPRCURSOR_THEME,Bibata-Modern-Ice
+	env = XCURSOR_THEME,Bibata-Modern-Ice
 
 	general {
 	gaps_in = 5

@@ -16,4 +16,11 @@
 
   home.stateVersion = "25.11";
   programs.home-manager.enable = true;
+
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
 }
