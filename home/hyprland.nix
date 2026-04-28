@@ -22,8 +22,8 @@ wayland.windowManager.hyprland = {
 
 	border_size = 2
 
-	col.active_border = rgba(0,0,0,0.95)
-	col.inactive_border = rgba(0,0,0,0.15)
+	col.active_border = rgba(0,0,0,1.0)
+	col.inactive_border = rgba(0,0,0,0.0)
 
 	resize_on_border = false
 
