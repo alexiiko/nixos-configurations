@@ -7,7 +7,7 @@
     ./home/waybar.nix
     ./home/default.nix
     ./home/zsh.nix
-    #./home/nixvim.nix
+    ./home/nixvim.nix
   ];
 
   home.username = "alex";
