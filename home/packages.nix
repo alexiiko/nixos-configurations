@@ -21,5 +21,7 @@
     nerd-fonts.symbols-only
     xclip
     btop
+    readest
+    libreoffice-qt
   ];
 }
