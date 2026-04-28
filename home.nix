@@ -9,6 +9,8 @@
     ./home/zsh.nix
     ./home/nixvim.nix
     ./home/swaybg.nix
+    ./home/kitty.nix
+    ./home/oh-my-posh.nix
   ];
 
   home.username = "alex";

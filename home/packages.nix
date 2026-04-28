@@ -25,5 +25,7 @@
     libreoffice-qt
     swaybg
     bibata-cursors
+    oh-my-posh
+    eza
   ];
 }
