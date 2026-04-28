@@ -6,7 +6,8 @@
     kitty
     firefox
     kdePackages.dolphin
-    rofi
+    walker
+    elephant
     waybar
     dunst
     libnotify

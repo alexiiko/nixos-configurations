@@ -8,10 +8,12 @@ wayland.windowManager.hyprland = {
 
 	$terminal = kitty
 	$fileManager = dolphin
-	$menu = rofi -show drun
+	$menu = walker
 
 	exec-once = dunst &
 	exec-once = waybar 
+	exec-once = walker --gapplication-service
+	exec-once = elephant
 
 	env = XCURSOR_SIZE,24
 	env = HYPRCURSOR_SIZE,24
@@ -175,11 +177,11 @@ wayland.windowManager.hyprland = {
 
 	# Example binds, see https://wiki.hypr.land/Configuring/Binds/ for more
 	bind = $mainMod, Q, exec, $terminal
-	bind = $mainMod, C, killactive,
+	bind = $mainMod, W, killactive,
 	bind = $mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
 	bind = $mainMod, E, exec, $fileManager
 	bind = $mainMod, V, togglefloating,
-	bind = $mainMod, R, exec, $menu
+	bind = $mainMod, SPACE, exec, $menu
 	bind = $mainMod, P, pseudo, # dwindle
 	bind = $mainMod, J, layoutmsg, togglesplit # dwindle
 
