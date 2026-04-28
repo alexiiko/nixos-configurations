@@ -23,5 +23,6 @@
     btop
     readest
     libreoffice-qt
+    swaybg
   ];
 }

@@ -8,6 +8,7 @@
     ./home/default.nix
     ./home/zsh.nix
     ./home/nixvim.nix
+    ./home/swaybg.nix
   ];
 
   home.username = "alex";
