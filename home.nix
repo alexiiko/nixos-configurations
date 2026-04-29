@@ -12,6 +12,7 @@
     ./home/kitty.nix
     ./home/oh-my-posh.nix
     ./home/walker.nix
+    ./home/power.nix
   ];
 
   home.username = "alex";
