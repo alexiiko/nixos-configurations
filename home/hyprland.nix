@@ -220,8 +220,23 @@ wayland.windowManager.hyprland = {
 	bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 
 	# Scroll through existing workspaces with mainMod + scroll
-	bind = $mainMod, mouse_down, workspace, e+1
-	bind = $mainMod, mouse_up, workspace, e-1
+	bind = $mainMod, TAB, workspace, e+1
+        bind = $mainMod SHIFT, TAB, workspace, e-1
+
+	# resize windows with arrow keys
+	bind = $mainMod, left, resizeactive, -10 0
+        bind = $mainMod, right, resizeactive, 10 0
+        bind = $mainMod, up, resizeactive, 0 -10
+        bind = $mainMod, down, resizeactive, 0 10
+
+	# swap windows
+	bind = $mainMod CTRL, left, swapwindow, l
+	bind = $mainMod CTRL, right, swapwindow, r
+	bind = $mainMod CTRL, up, swapwindow, u
+	bind = $mainMod CTRL, down, swapwindow, d
+
+	# toggle fullscreen
+	bind = $mainMod, F, fullscreen, 0
 
 	# Move/resize windows with mainMod + LMB/RMB and dragging
 	bindm = $mainMod, mouse:272, movewindow
