@@ -5,8 +5,6 @@
     pavucontrol
     kitty
     kdePackages.dolphin
-    walker
-    elephant
     waybar
     dunst
     libnotify
