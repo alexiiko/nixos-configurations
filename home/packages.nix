@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     pavucontrol
     kitty
-    firefox
     kdePackages.dolphin
     walker
     elephant
@@ -38,5 +37,6 @@
     xdg-desktop-portal-gtk
     shared-mime-info
     glib
+    obsidian
   ];
 }
