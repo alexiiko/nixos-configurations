@@ -117,5 +117,15 @@
 
   services.power-profiles-daemon.enable = true;
 
+    # XDG Portals für Hyprland (wichtig für Datei-Öffnen-Dialoge)
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+    config.common.default = [ "hyprland" "gtk" ];
+  };
+
   system.stateVersion = "25.11"; # Did you read the comment?
 }

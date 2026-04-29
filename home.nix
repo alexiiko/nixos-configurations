@@ -13,6 +13,8 @@
     ./home/oh-my-posh.nix
     ./home/walker.nix
     ./home/power.nix
+    ./home/helium.nix
+    ./home/webapps.nix
   ];
 
   home.username = "alex";

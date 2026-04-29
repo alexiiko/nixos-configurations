@@ -28,5 +28,15 @@
     bibata-cursors
     oh-my-posh
     eza
+    appimage-run
+    eog
+    zip
+    unzip
+    file-roller
+    xdg-desktop-portal
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-gtk
+    shared-mime-info
+    glib
   ];
 }
