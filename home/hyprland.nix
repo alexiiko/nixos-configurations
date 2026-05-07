@@ -20,6 +20,8 @@ wayland.windowManager.hyprland = {
 	env = HYPRCURSOR_THEME,Bibata-Modern-Ice
 	env = XCURSOR_THEME,Bibata-Modern-Ice
 
+	env = NIXOS_OZONE_WL,1
+
 	general {
 	gaps_in = 5
 	gaps_out = 5
@@ -246,6 +248,7 @@ bind = SHIFT, Print, exec, grim -t png - | tee ~/Pictures/screenshots/screenshot
 
 	# Shift + Print  → Ganzer Bildschirm
 	bind = SHIFT, Print, exec, grim -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png --copy-command "wl-copy -t image/png"
+
 
 
 	# ── Screen Recording ───────────────────────────────

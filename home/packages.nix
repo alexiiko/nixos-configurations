@@ -46,6 +46,11 @@
     wl-clipboard
     antigravity
     nodejs
+    vite
+    tailwindcss
+    typescript
+    eslint
+    tsx
     (python3.withPackages (ps: with ps; [
 	pip
 	virtualenv

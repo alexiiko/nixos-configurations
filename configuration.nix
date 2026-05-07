@@ -131,5 +131,13 @@
     modulePackages = [ pkgs.librsvg ];
   };
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+    openssl
+    libgcc
+  ];
+
   system.stateVersion = "25.11"; # Did you read the comment?
 }
