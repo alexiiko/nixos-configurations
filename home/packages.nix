@@ -40,5 +40,10 @@
     librsvg
     desktop-file-utils
     notion-app
+    grim
+    slurp
+    satty
+    wf-recorder
+    wl-clipboard
   ];
 }
