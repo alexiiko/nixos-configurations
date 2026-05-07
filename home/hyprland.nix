@@ -224,10 +224,10 @@ wayland.windowManager.hyprland = {
         bind = $mainMod SHIFT, TAB, workspace, e-1
 
 	# resize windows with arrow keys
-	bind = $mainMod, left, resizeactive, -10 0
-        bind = $mainMod, right, resizeactive, 10 0
-        bind = $mainMod, up, resizeactive, 0 -10
-        bind = $mainMod, down, resizeactive, 0 10
+	bind = $mainMod SHIFT, left, resizeactive, -10 0
+        bind = $mainMod SHIFT, right, resizeactive, 10 0
+        bind = $mainMod SHIFT, up, resizeactive, 0 -10
+        bind = $mainMod SHIFT, down, resizeactive, 0 10
 
 	# swap windows
 	bind = $mainMod CTRL, left, swapwindow, l
