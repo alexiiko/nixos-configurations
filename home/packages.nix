@@ -44,5 +44,14 @@
     satty
     wf-recorder
     wl-clipboard
+    antigravity
+    nodejs
+    (python3.withPackages (ps: with ps; [
+	pip
+	virtualenv
+	requests
+    ]))
+    go
+    gopls
   ];
 }
