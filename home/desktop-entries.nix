@@ -1,6 +1,8 @@
 { pkgs, ... }:
+
 {
   xdg.desktopEntries = {
+    # Deine bestehenden Web-Apps (bleiben unverändert)
     whatsapp = {
       name = "WhatsApp";
       exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=https://web.whatsapp.com'';
@@ -16,6 +18,34 @@
       icon = "google-calendar";
       comment = "Google Calendar";
       categories = [ "Network" "InstantMessaging" ];
+      terminal = false;
+    };
+
+    # ← NEU: Die Power-Einträge hier hinzufügen
+    suspend = {
+      name = "Energie sparen";
+      exec = "suspend";
+      icon = "energie-sparen";
+      comment = "Laptop in den Ruhezustand versetzen";
+      categories = [ "System" ];
+      terminal = false;
+    };
+
+    reboot = {
+      name = "Neustarten";
+      exec = "reboot";
+      icon = "restart";
+      comment = "System neu starten";
+      categories = [ "System" ];
+      terminal = false;
+    };
+
+    shutdown = {
+      name = "Herunterfahren";
+      exec = "shutdown";
+      icon = "shutdown";
+      comment = "System herunterfahren";
+      categories = [ "System" ];
       terminal = false;
     };
   };

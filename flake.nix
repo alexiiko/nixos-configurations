@@ -12,6 +12,17 @@
 			url = "github:nix-community/nixvim";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
+		elephant = {
+			url = "github:abenz1267/elephant";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		walker = {
+			url = "github:abenz1267/walker";
+			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.elephant.follows = "elephant";
+		};
 	};
 
 	outputs = {nixpkgs, home-manager, ...} @inputs: {
@@ -21,6 +32,15 @@
 			modules = [
 				./configuration.nix
 				./hardware-configuration.nix
+
+				({ pkgs, ... }: {
+					nixpkgs.overlays = [
+					  (final: prev: {
+					    walker   = inputs.walker.packages.${prev.system}.default;
+					    elephant = inputs.elephant.packages.${prev.system}.default;
+					  })
+					];
+				})
 
 				home-manager.nixosModules.home-manager {
 					home-manager.useGlobalPkgs = true;

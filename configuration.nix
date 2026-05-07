@@ -127,5 +127,9 @@
     config.common.default = [ "hyprland" "gtk" ];
   };
 
+  programs.gdk-pixbuf = {
+    modulePackages = [ pkgs.librsvg ];
+  };
+
   system.stateVersion = "25.11"; # Did you read the comment?
 }

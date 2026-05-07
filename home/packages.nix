@@ -36,5 +36,8 @@
     shared-mime-info
     glib
     obsidian
+    gtk4
+    librsvg
+    desktop-file-utils
   ];
 }

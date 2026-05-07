@@ -14,7 +14,7 @@
     ./home/walker.nix
     ./home/power.nix
     ./home/helium.nix
-    ./home/webapps.nix
+    ./home/desktop-entries.nix
   ];
 
   home.username = "alex";
