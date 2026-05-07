@@ -39,5 +39,6 @@
     gtk4
     librsvg
     desktop-file-utils
+    notion-app
   ];
 }
