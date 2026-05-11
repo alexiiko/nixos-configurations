@@ -58,5 +58,6 @@
     ]))
     go
     gopls
+    filezilla
   ];
 }

@@ -15,7 +15,7 @@
     ./home/power.nix
     ./home/helium.nix
     ./home/desktop-entries.nix
-    ./home/usdiskie.nix
+    ./home/udiskie.nix
   ];
 
   home.username = "alex";
