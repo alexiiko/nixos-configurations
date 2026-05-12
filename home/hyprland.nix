@@ -154,9 +154,15 @@ wayland.windowManager.hyprland = {
 
 	sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
 
-	touchpad {
-	natural_scroll = true
-	}
+		touchpad {
+			natural_scroll = true
+			clickfinger_behavior = true
+			natural_scroll = true
+			disable_while_typing = true
+			middle_button_emulation = false   -- disable if you get unwanted middle clicks
+			tap-and-drag = true
+			drag_lock = false
+		}
 	}
 
 	# See https://wiki.hypr.land/Configuring/Gestures

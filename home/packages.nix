@@ -59,5 +59,6 @@
     go
     gopls
     filezilla
-  ];
+    libinput
+ ];
 }
