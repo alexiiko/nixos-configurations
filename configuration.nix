@@ -146,4 +146,8 @@
 
   virtualisation.docker.enable = true;
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 }
