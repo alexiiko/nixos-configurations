@@ -55,7 +55,7 @@
   users.users.alex = {
     isNormalUser = true;
     description = "Alexander Moseliani";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio"];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "docker"];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -143,4 +143,7 @@
   services.gvfs.enable = true;
 
   system.stateVersion = "25.11"; # Did you read the comment?
+
+  virtualisation.docker.enable = true;
+
 }

@@ -60,5 +60,6 @@
     gopls
     filezilla
     libinput
+    anki
  ];
 }
