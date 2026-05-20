@@ -61,5 +61,6 @@
     filezilla
     libinput
     anki
+    docker-compose
  ];
 }
