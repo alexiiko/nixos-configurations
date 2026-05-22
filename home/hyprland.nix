@@ -5,6 +5,7 @@ wayland.windowManager.hyprland = {
     enable = true;
     extraConfig = ''
         monitor=,preferred,auto,auto
+	# option for screen capturing at 60fps
 
 	$terminal = kitty
 	$fileManager = dolphin
@@ -39,7 +40,7 @@ wayland.windowManager.hyprland = {
 	}
 
 	cursor {
-		no_hardware_cursors = true	
+		no_hardware_cursors = false	
 	}
 
 	# https://wiki.hypr.land/Configuring/Variables/#decoration
@@ -304,26 +305,26 @@ bind = SHIFT, Print, exec, grim -t png - | tee ~/Pictures/screenshots/screenshot
 	}
 
 	windowrule {
-	# Fix some dragging issues with XWayland
-	name = fix-xwayland-drags
-	match:class = ^$
-	match:title = ^$
-	match:xwayland = true
-	match:float = true
-	match:fullscreen = false
-	match:pin = false
+		# Fix some dragging issues with XWayland
+		name = fix-xwayland-drags
+		match:class = ^$
+		match:title = ^$
+		match:xwayland = true
+		match:float = true
+		match:fullscreen = false
+		match:pin = false
 
-	no_focus = true
+		no_focus = true
 	}
 
 	# Hyprland-run windowrule
 	windowrule {
-	name = move-hyprland-run
+		name = move-hyprland-run
 
-	match:class = hyprland-run
+		match:class = hyprland-run
 
-	move = 20 monitor_h-120
-	float = yes
+		move = 20 monitor_h-120
+		float = yes
 	}
     '';
   };

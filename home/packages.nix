@@ -62,5 +62,8 @@
     libinput
     anki
     docker-compose
+    chromium
+    google-chrome
+    playwright-driver.browsers
  ];
 }
