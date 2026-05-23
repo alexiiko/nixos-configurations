@@ -117,7 +117,6 @@
 
   services.power-profiles-daemon.enable = true;
 
-    # XDG Portals für Hyprland (wichtig für Datei-Öffnen-Dialoge)
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -150,4 +149,6 @@
     enable = true;
     binfmt = true;
   };
+
+  programs.chromium.enable = true;
 }

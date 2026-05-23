@@ -16,6 +16,7 @@
     ./home/helium.nix
     ./home/desktop-entries.nix
     ./home/udiskie.nix
+    ./home/nodejs.nix
   ];
 
   home.username = "alex";

@@ -65,5 +65,6 @@
     chromium
     google-chrome
     playwright-driver.browsers
+    vscode-fhs
  ];
 }
