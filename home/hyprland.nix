@@ -260,15 +260,6 @@ bind = SHIFT, Print, exec, grim -t png - | tee ~/Pictures/screenshots/screenshot
 	# Shift + Print  → Ganzer Bildschirm
 	bind = SHIFT, Print, exec, grim -t ppm - | satty --filename - --fullscreen --output-filename ~/Pictures/screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png --copy-command "wl-copy -t image/png"
 
-
-
-	# ── Screen Recording ───────────────────────────────
-	# Super + R      → Region auswählen und aufnehmen (mp4)
-	bind = SUPER, R, exec, wf-recorder -g "$(slurp)" -f ~/Videos/recording-$(date +%Y-%m-%d_%H-%M-%S).mp4
-
-	# Super + Shift + R → Ganzen Bildschirm aufnehmen
-	bind = SUPER SHIFT, R, exec, wf-recorder -f ~/Videos/recording-$(date +%Y-%m-%d_%H-%M-%S).mp4
-
 	# Move/resize windows with mainMod + LMB/RMB and dragging
 	bindm = $mainMod, mouse:272, movewindow
 	bindm = $mainMod, mouse:273, resizewindow

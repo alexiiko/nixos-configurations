@@ -45,6 +45,14 @@
 
       setopt autocd
       setopt interactive_comments
+
+      # === PATH Fix für uv + npm ===
+      export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
     '';
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"    
+    "$HOME/.npm-global/bin"
+  ];
 }

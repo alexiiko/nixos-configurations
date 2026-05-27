@@ -13,6 +13,7 @@
     grim slurp
     brightnessctl
     networkmanagerapplet
+    gnome-keyring
     qpwgraph
     playerctl
     nerd-fonts.jetbrains-mono
@@ -55,7 +56,14 @@
 	pip
 	virtualenv
 	requests
+	weasyprint
+	jinja2
+	pillow
     ]))
+    cairo
+    pango
+    fontconfig
+    freetype
     go
     gopls
     filezilla
@@ -66,5 +74,6 @@
     google-chrome
     playwright-driver.browsers
     vscode-fhs
+    networkmanager
  ];
 }

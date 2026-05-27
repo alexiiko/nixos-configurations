@@ -56,7 +56,8 @@
           format-ethernet = "{ipaddr} ";
           format-disconnected = "⚠";
           tooltip-format = "{ifname}: {ipaddr}/{cidr}";
-          on-click = "nm-connection-editor";
+          # on-click = "nm-connection-editor";
+          on-click = "kitty nmtui";
         };
         battery = {
           format = "{capacity}% {icon}";
