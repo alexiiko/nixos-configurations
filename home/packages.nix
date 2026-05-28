@@ -75,5 +75,14 @@
     playwright-driver.browsers
     vscode-fhs
     networkmanager
+    potrace
+    imagemagick
+    inkscape
+    rustc
+    cargo
+    pkg-config
+    gcc
+    openssl
+    libiconv
  ];
 }
