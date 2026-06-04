@@ -2,87 +2,131 @@
 
 {
   home.packages = with pkgs; [
+    ################################################
+    # Audio & Media
+    ################################################
     pavucontrol
+    pamixer
+    qpwgraph
+    playerctl
+
+    ################################################
+    # Terminal & Shell
+    ################################################
     kitty
+    eza
+    btop
+    oh-my-posh
+
+    ################################################
+    # File Management
+    ################################################
     kdePackages.dolphin
+    file-roller
+    eog
+
+    ################################################
+    # Wayland / Hyprland Tools
+    ################################################
     waybar
     dunst
     libnotify
-    pamixer
     wl-clipboard
-    grim slurp
-    brightnessctl
-    networkmanagerapplet
-    gnome-keyring
-    qpwgraph
-    playerctl
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.symbols-only
     xclip
-    btop
-    readest
-    libreoffice-qt
     swaybg
-    bibata-cursors
-    oh-my-posh
-    eza
-    appimage-run
-    eog
-    zip
-    unzip
-    file-roller
-    xdg-desktop-portal
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
-    shared-mime-info
-    glib
-    obsidian
-    gtk4
-    librsvg
-    desktop-file-utils
+    networkmanagerapplet
+
+    ################################################
+    # Screenshots & Recording
+    ################################################
     grim
     slurp
     satty
     wf-recorder
-    wl-clipboard
-    antigravity
+
+    ################################################
+    # Theming & Fonts
+    ################################################
+    bibata-cursors
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.symbols-only
+    gtk4
+    librsvg
+    shared-mime-info
+    glib
+    desktop-file-utils
+
+    ################################################
+    # Development - Core
+    ################################################
+    gcc
+    pkg-config
+    openssl
+    libiconv
+    cairo
+    pango
+    fontconfig
+    freetype
+
+    ################################################
+    # Development - Languages
+    ################################################
+    # Node.js
     nodejs
     vite
     tailwindcss
     typescript
     eslint
     tsx
+
+    # Python
     (python3.withPackages (ps: with ps; [
-	pip
-	virtualenv
-	requests
-	weasyprint
-	jinja2
-	pillow
+      pip
+      virtualenv
+      requests
+      weasyprint
+      jinja2
+      pillow
     ]))
-    cairo
-    pango
-    fontconfig
-    freetype
+
+    # Go
     go
     gopls
-    filezilla
-    libinput
-    anki
-    docker-compose
+
+    # Rust
+    rustc
+    cargo
+
+    ################################################
+    # Browsers & Web
+    ################################################
     chromium
     google-chrome
     playwright-driver.browsers
     vscode-fhs
-    networkmanager
+
+    ################################################
+    # Productivity
+    ################################################
+    obsidian
+    anki
+    readest
+    libreoffice-qt
+
+    ################################################
+    # System & Utilities
+    ################################################
+    brightnessctl
+    gnome-keyring
+    appimage-run
+    zip
+    unzip
+    filezilla
     potrace
     imagemagick
     inkscape
-    rustc
-    cargo
-    pkg-config
-    gcc
-    openssl
-    libiconv
- ];
+
+    # Eigener Editor
+    antigravity
+  ];
 }

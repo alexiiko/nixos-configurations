@@ -1,17 +1,50 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
-  # === NPM Global Configuration ===
-  home.sessionVariables = {
-    NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
-  };
+  ################################################
+  # Imports
+  ################################################
+  imports = [
+    # --- Core ---
+    ./core/npm.nix
 
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.npm-global/bin"
+    # --- Desktop / WM ---
+    ./desktop/hyprland.nix
+    ./desktop/waybar/waybar.nix
+    ./desktop/swaybg.nix
+    ./desktop/kitty.nix
+
+    # --- Shell ---
+    ./shell/zsh.nix
+    ./shell/oh-my-posh.nix
+
+    # --- Editor ---
+    ./editor/nixvim.nix
+
+    # --- Tools ---
+    ./tools/walker.nix
+    ./tools/power.nix
+    ./tools/udiskie.nix
+    ./tools/helium.nix
+    ./tools/desktop-entries.nix
   ];
 
-  # .npmrc anlegen
-  home.file.".npmrc".text = ''
-    prefix=~/.npm-global
-  '';
+  ################################################
+  # Home Manager Basics
+  ################################################
+  home.username = "alex";
+  home.homeDirectory = "/home/alex";
+  home.stateVersion = "25.11";
+
+  programs.home-manager.enable = true;
+
+  ################################################
+  # Global Cursor
+  ################################################
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
 }

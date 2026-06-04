@@ -1,0 +1,24 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+window#waybar {
+      background: transparent; /* Leicht weißer Hintergrund */
+  }
+#workspaces button {
+    color: #000000;
+    padding: 0 5px;
+    margin: 0 2px;
+    min-width: 28px;
+  }
+#workspaces button.active {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.4);
+  }
+#pulseaudio, #network, #battery, #clock, #custom-bluetooth, #power-profiles-daemon {
+    padding: 0 12px;
+  }
+#pulseaudio:hover, #network:hover, #battery:hover, #clock:hover, #custom-bluetooth:hover, #power-profiles-daemon:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
