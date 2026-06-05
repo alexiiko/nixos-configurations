@@ -16,7 +16,7 @@
 
     # --- Shell ---
     ./shell/zsh.nix
-    ./shell/oh-my-posh.nix
+    ./shell/oh-my-posh/default.nix
 
     # --- Editor ---
     ./editor/nixvim.nix
