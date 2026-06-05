@@ -121,6 +121,9 @@
     powerOnBoot = true;
   };
 
+  ################################################
+  # System packages
+  ################################################
   environment.systemPackages = with pkgs; [
     bluez
     bluez-tools
