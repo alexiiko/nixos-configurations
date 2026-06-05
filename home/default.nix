@@ -22,7 +22,7 @@
     ./editor/nixvim.nix
 
     # --- Tools ---
-    ./tools/walker.nix
+    ./tools/walker/default.nix
     ./tools/power.nix
     ./tools/udiskie.nix
     ./tools/helium.nix
