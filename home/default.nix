@@ -9,8 +9,8 @@
     ./core/npm.nix
 
     # --- Desktop / WM ---
-    ./desktop/hyprland.nix
-    ./desktop/waybar/waybar.nix
+    ./desktop/hyprland/default.nix
+    ./desktop/waybar/default.nix
     ./desktop/swaybg.nix
     ./desktop/kitty.nix
 
