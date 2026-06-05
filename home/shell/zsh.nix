@@ -26,7 +26,7 @@
       lla = "eza -la --icons --color=always --header";
     };
 
-    initExtra = ''
+    initContent = ''
       # Oh My Posh Prompt laden
       eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.omp.json)"
 

@@ -5,7 +5,7 @@
     ./theme.omp.json;
 
   # Oh My Posh initialisieren (in Zsh)
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     eval "$(oh-my-posh init zsh --config ${config.home.homeDirectory}/.config/oh-my-posh/theme.omp.json)"
   '';
 }
