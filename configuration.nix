@@ -43,6 +43,27 @@
   console.keyMap = "de";
 
   ################################################
+  # Fonts
+  ################################################
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      noto-fonts-extra
+    ];
+
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        sansSerif = [ "Noto Sans" ];
+        serif = [ "Noto Serif" ];
+        monospace = [ "JetBrainsMono Nerd Font" ];
+      };
+    };
+  };
+
+  ################################################
   # User
   ################################################
   users.users.alex = {
