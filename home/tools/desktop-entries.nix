@@ -21,7 +21,6 @@
       terminal = false;
     };
 
-    # ← NEU: Die Power-Einträge hier hinzufügen
     suspend = {
       name = "Energie sparen";
       exec = "suspend";
@@ -52,7 +51,7 @@
     notion = {
       name = "Notion";
       exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=https://www.notion.so/'';
-      icon = "notion";          # nutzt das schöne Icon vom Paket
+      icon = "notion";
       comment = "Notion – All-in-one workspace";
       categories = [ "Office" ];
       terminal = false;
@@ -60,8 +59,8 @@
 
     antigravity = {
       name = "Antigravity";
-      exec = "/etc/profiles/per-user/alex/bin/antigravity";          # ← hier kommt der genaue Befehl/Pfad rein
-      icon = "antigravity";                    # später Icon wie bei Notion
+      exec = "/etc/profiles/per-user/alex/bin/antigravity";
+      icon = "antigravity";
       comment = "Google Antigravity AI Code Editor";
       categories = [ "Development" "IDE" ];
       terminal = false;
