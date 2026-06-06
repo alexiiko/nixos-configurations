@@ -7,12 +7,11 @@
       mainBar = {
         layer = "top";
         position = "bottom";
-        height = 28;                    # Etwas höher machen (16 war sehr klein)
-        spacing = 8;
+        height = 28;
+        spacing = 4;
 
         modules-left = [
-          "custom/power"
-          "battery"
+          "group/power-battery"
           "hyprland/workspaces"
         ];
 
@@ -21,15 +20,30 @@
         ];
 
         modules-right = [
-          "pulseaudio"
-          "custom/bluetooth"
-          "network"
+          "group/right-modules"
         ];
+
+        "group/power-battery" = {
+          orientation = "inherit";
+          modules = [
+            "custom/power"
+            "battery"
+          ];
+        };
+
+        "group/right-modules" = { 
+          orientation = "inherit";
+          modules = [
+            "pulseaudio"
+            "custom/bluetooth"
+            "network"
+          ];
+        };
 
         # === Module Konfigurationen ===
 
         "custom/power" = {
-          format = "";                    # Power Symbol
+          format = "";
           on-click = "bash -c 'nohup $HOME/Programming/nixos-config/home/desktop/waybar/power-menu.sh > /dev/null 2>&1 &'";
           tooltip = false;
         };
@@ -43,11 +57,12 @@
         "hyprland/workspaces" = {
           format = "{name}";
           on-click = "activate";
+          cursor = true;
         };
 
         clock = {
-          format = "{:%H:%M}";
-          format-alt = "{:%d.%m.%Y}";
+          format = " {:%H:%M}";
+          format-alt = " {:%d.%m.%Y}";
           tooltip-format = "{:%A, %d. %B %Y}";
           on-click = "mode";
         };

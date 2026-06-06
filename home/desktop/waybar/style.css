@@ -1,24 +1,88 @@
 * {
-    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-  }
+  font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
 window#waybar {
-      background: transparent; /* Leicht weißer Hintergrund */
-  }
+  background: transparent;
+}
+
+/* --- Pill Design --- */
+#workspaces,
+#clock,
+#power-battery,
+#right-modules {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 24px;
+  margin: 4px 0;
+  color: #ffffff;
+}
+
+#power-battery {
+  margin-left: 8px;
+}
+
+#right-modules {
+  margin-right: 8px;
+}
+
+/* Workspaces inside its pill */
+#workspaces {
+  padding: 2px 4px;
+}
+
 #workspaces button {
-    color: #000000;
-    padding: 0 5px;
-    margin: 0 2px;
-    min-width: 28px;
-  }
+  color: #ffffff;
+  padding: 0 8px;
+  margin: 0 2px;
+  min-width: 28px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  text-shadow: none;
+}
+
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  box-shadow: none;
+  outline: none;
+  text-shadow: none;
+}
+
 #workspaces button.active {
-    color: #ffffff;
-    background: rgba(0, 0, 0, 0.4);
-  }
-#pulseaudio, #network, #battery, #clock, #custom-bluetooth, #power-profiles-daemon {
-    padding: 0 12px;
-  }
-#pulseaudio:hover, #network:hover, #battery:hover, #clock:hover, #custom-bluetooth:hover, #power-profiles-daemon:hover {
-    background: rgba(0, 0, 0, 0.2);
-  }
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+  text-shadow: none;
+}
+
+/* Spacing and hovers inside groups */
+#custom-power,
+#battery,
+#pulseaudio,
+#network,
+#custom-bluetooth {
+  padding: 0 12px;
+  border-radius: 24px;
+  transition: all 0.2s ease;
+}
+
+#network {
+  padding-right: 18px;
+}
+
+#clock {
+  padding: 0 16px;
+  transition: all 0.2s ease;
+}
+
+#custom-power:hover,
+#battery:hover,
+#pulseaudio:hover,
+#network:hover,
+#custom-bluetooth:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
