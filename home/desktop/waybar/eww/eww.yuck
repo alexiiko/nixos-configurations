@@ -22,25 +22,25 @@
   (box :class "container" :orientation "v" :space-evenly false :spacing 20
     (box :class "row top-row" :orientation "h" :space-evenly true :spacing 20
       (eventbox :cursor "pointer"
-        (button :class "btn small-btn" :onclick "powerprofilesctl set power-saver && eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset" "   powerSaver"))
+        (button :class "btn small-btn" :onclick "powerprofilesctl set power-saver && eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset" "   Power Saver"))
       (eventbox :cursor "pointer"
-        (button :class "btn small-btn" :onclick "powerprofilesctl set balanced && eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset" "   balanced"))
+        (button :class "btn small-btn" :onclick "powerprofilesctl set balanced && eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset" "   Balanced"))
       (eventbox :cursor "pointer"
-        (button :class "btn small-btn" :onclick "powerprofilesctl set performance && eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset" "   performance"))
+        (button :class "btn small-btn" :onclick "powerprofilesctl set performance && eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset" "   Performance"))
     )
     (box :class "row mid-row" :orientation "h" :space-evenly true :spacing 20
       (eventbox :cursor "pointer"
         (button :class "btn big-card" :onclick "eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset && hyprctl dispatch exit"
           (box :orientation "v" :space-evenly false :valign "center" :halign "center" :spacing 15
             (label :class "card-icon" :text "󰍃")
-            (label :class "card-text" :text "logOut")
+            (label :class "card-text" :text "Log Out")
           )
         ))
       (eventbox :cursor "pointer"
         (button :class "btn big-card" :onclick "eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset && systemctl suspend"
           (box :orientation "v" :space-evenly false :valign "center" :halign "center" :spacing 15
             (label :class "card-icon" :text "󰤄")
-            (label :class "card-text" :text "suspend")
+            (label :class "card-text" :text "Suspend")
           )
         ))
     )
@@ -49,14 +49,14 @@
         (button :class "btn big-card" :onclick "systemctl reboot"
           (box :orientation "v" :space-evenly false :valign "center" :halign "center" :spacing 15
             (label :class "card-icon" :text "")
-            (label :class "card-text" :text "restart")
+            (label :class "card-text" :text "Restart")
           )
         ))
       (eventbox :cursor "pointer"
         (button :class "btn big-card" :onclick "systemctl poweroff"
           (box :orientation "v" :space-evenly false :valign "center" :halign "center" :spacing 15
             (label :class "card-icon" :text "⏻")
-            (label :class "card-text" :text "shutDown")
+            (label :class "card-text" :text "Shutdown")
           )
         ))
     )
