@@ -8,5 +8,8 @@
     ./workspace-rules.nix
   ];
 
-  wayland.windowManager.hyprland.enable = true;
+  wayland.windowManager.hyprland.enable = {
+    enable = true;
+    configType = "hyprlang";
+  };
 }

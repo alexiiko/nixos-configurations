@@ -7,56 +7,70 @@
       mainBar = {
         layer = "top";
         position = "bottom";
-        height = 16;
-        spacing = 4;
-        modules-left = [ "hyprland/workspaces" ];
-        modules-right = [ "pulseaudio" "custom/bluetooth" "network" "battery" "power-profiles-daemon" "clock" ];
+        height = 28;                    # Etwas höher machen (16 war sehr klein)
+        spacing = 8;
+
+        modules-left = [
+          "custom/power"
+          "battery"
+          "hyprland/workspaces"
+        ];
+
+        modules-center = [
+          "clock"
+        ];
+
+        modules-right = [
+          "pulseaudio"
+          "custom/bluetooth"
+          "network"
+        ];
+
+        # === Module Konfigurationen ===
+
+        "custom/power" = {
+          format = "";                    # Power Symbol
+          on-click = "/home/alex/Programming/nixos-config/home/desktop/waybar/power-menu.sh";            # Oder ein eigenes Script
+          tooltip = false;
+        };
+
+        battery = {
+          format = "{capacity}% {icon}";
+          format-charging = "{capacity}% ";
+          format-icons = [ "" "" "" "" "" ];
+        };
+
         "hyprland/workspaces" = {
-          format = "{icon}";
+          format = "{name}";
           on-click = "activate";
         };
+
         clock = {
           format = "{:%H:%M}";
+          format-alt = "{:%d.%m.%Y}";
           tooltip-format = "{:%A, %d. %B %Y}";
+          on-click = "mode";
         };
+
         pulseaudio = {
           format = "{volume}% {icon}";
           format-muted = "󰝟";
           format-icons = [ "" "" "" ];
           on-click = "pavucontrol";
         };
-        network = {
-          format-wifi = "";
-          format-ethernet = "{ipaddr} ";
-          format-disconnected = "⚠";
-          tooltip-format = "{ifname}: {ipaddr}/{cidr}";
-          # on-click = "nm-connection-editor";
-          on-click = "kitty nmtui";
-        };
-        battery = {
-          format = "{capacity}% {icon}";
-          format-charging = "{capacity}% ";
-          format-icons = [ "" "" "" "" "" ];
-          states = {
-            warning = 30;
-            critical = 15;
-          };
-        };
+
         "custom/bluetooth" = {
           format = "";
           on-click = "blueman-manager";
           tooltip = false;
         };
 
-        "power-profiles-daemon" = {
-          format = "{icon}";
-          tooltip-format = "Leistungsmodus: {profile}\nDriver: {driver}";
-          tooltip = true;
-          format-icons = {
-	    "power-saver" = "󰾆";
-            "balanced"    = "󰾅";
-            "performance" = "󰓅";
-          };
+        network = {
+          format-wifi = "";
+          format-ethernet = "{ipaddr} ";
+          format-disconnected = "⚠";
+          tooltip-format = "{ifname}: {ipaddr}/{cidr}";
+          on-click = "kitty nmtui";
         };
       };
     };

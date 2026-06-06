@@ -43,6 +43,20 @@
   console.keyMap = "de";
 
   ################################################
+  # Automatic Updates (flakes)
+  ################################################
+  system.autoUpgrade = {
+    enable = true;
+    flake = "/home/alex/Programming/nixos-config";
+    flags = [
+      "--update-input"
+      "nixpkgs"
+    ];
+    dates = "weekly";
+    randomizedDelaySec = "45min";
+  };
+
+  ################################################
   # Fonts
   ################################################
   fonts = {
@@ -50,6 +64,7 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
+      nerd-fonts.jetbrains-mono
     ];
 
     fontconfig = {
