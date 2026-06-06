@@ -1,6 +1,12 @@
 { ... }:
 
 {
+  wayland.windowManager.hyprland.extraConfig = ''
+    submap = powermenu
+    bind = , escape, exec, eww -c ~/Programming/nixos-config/home/desktop/waybar/eww close powermenu && hyprctl dispatch submap reset
+    submap = reset
+  '';
+
   wayland.windowManager.hyprland.settings = {
     "$mainMod" = "SUPER";
 

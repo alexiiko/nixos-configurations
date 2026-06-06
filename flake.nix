@@ -17,7 +17,6 @@
     # Neovim
     nixvim = {
       url = "github:nix-community/nixvim";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Walker + Elephant (App Launcher)
@@ -41,7 +40,6 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
-
       modules = [
         ./configuration.nix
         ./hardware-configuration.nix
@@ -64,7 +62,6 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-
           home-manager.users.alex = import ./home.nix;
 
           home-manager.sharedModules = [

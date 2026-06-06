@@ -30,7 +30,7 @@
 
         "custom/power" = {
           format = "";                    # Power Symbol
-          on-click = "/home/alex/Programming/nixos-config/home/desktop/waybar/power-menu.sh";            # Oder ein eigenes Script
+          on-click = "bash -c 'nohup $HOME/Programming/nixos-config/home/desktop/waybar/power-menu.sh > /dev/null 2>&1 &'";
           tooltip = false;
         };
 

@@ -35,6 +35,7 @@
     xclip
     swaybg
     networkmanagerapplet
+    eww
 
     ################################################
     # Screenshots & Recording
@@ -128,5 +129,11 @@
 
     # Eigener Editor
     antigravity
+
+    ################################################
+    # Funny Stuff
+    ################################################
+    pipes
+    fastfetch
   ];
 }
