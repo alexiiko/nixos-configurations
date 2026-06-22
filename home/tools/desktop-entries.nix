@@ -66,5 +66,15 @@
       terminal = false;
       startupNotify = true;
     };
+
+    claude-desktop = {
+      name = "Claude";
+      exec = "claude-desktop --ozone-platform=wayland";
+      icon = "claude-desktop";
+      comment = "Claude Desktop by Anthropic";
+      categories = [ "Network" "Office" ];
+      terminal = false;
+      startupNotify = true;
+    };
   };
 }

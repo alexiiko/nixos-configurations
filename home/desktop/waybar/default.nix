@@ -40,8 +40,6 @@
           ];
         };
 
-        # === Module Konfigurationen ===
-
         "custom/power" = {
           format = "";
           on-click = "bash -c 'nohup $HOME/Programming/nixos-config/home/desktop/waybar/power-menu.sh > /dev/null 2>&1 &'";

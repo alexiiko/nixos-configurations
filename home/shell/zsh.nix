@@ -30,6 +30,8 @@
       # Oh My Posh Prompt laden
       eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.omp.json)"
 
+      source ~/.venv/headroom/bin/activate
+
       # Deine Copy-Funktionen bleiben erhalten
       function copy-last {
         print -z $history[$((HISTCMD-1))] | wl-copy

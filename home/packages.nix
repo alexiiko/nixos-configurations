@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -11,12 +11,21 @@
     playerctl
 
     ################################################
+    # Camera
+    ################################################
+    v4l-utils
+    cheese
+    ipu6-camera-hal
+    ipu6-camera-bins
+
+    ################################################
     # Terminal & Shell
     ################################################
     kitty
     eza
     btop
     oh-my-posh
+    zoxide
 
     ################################################
     # File Management
@@ -72,6 +81,9 @@
     ################################################
     # Development - Languages
     ################################################
+    # Claude Code Flake
+    inputs.claude-code-nix.packages.${pkgs.system}.default
+
     # Node.js
     nodejs
     vite
@@ -81,7 +93,7 @@
     tsx
 
     # Python
-    (python3.withPackages (ps: with ps; [
+    (pkgs.python312.withPackages (ps: with ps; [
       pip
       virtualenv
       requests
@@ -104,6 +116,7 @@
     chromium
     google-chrome
     playwright-driver.browsers
+    firefox
     vscode-fhs
 
     ################################################

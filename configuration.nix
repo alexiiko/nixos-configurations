@@ -120,6 +120,10 @@
     defaultSession = "hyprland";
   };
 
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -146,6 +150,14 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+  };
+
+  ################################################
+  # Camera
+  ################################################
+  hardware.ipu6 = {
+    enable = true;
+    platform = "ipu6ep";
   };
 
   ################################################
@@ -182,6 +194,7 @@
     enable = true;
     libraries = with pkgs; [
       stdenv.cc.cc
+      stdenv.cc.cc.lib
       zlib
       openssl
       libgcc
