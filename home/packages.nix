@@ -77,6 +77,7 @@
     pango
     fontconfig
     freetype
+    stdenv.cc.cc.lib
 
     ################################################
     # Development - Languages
