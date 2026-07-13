@@ -9,6 +9,7 @@
     pamixer
     qpwgraph
     playerctl
+    ffmpeg
 
     ################################################
     # Camera
@@ -101,6 +102,7 @@
       weasyprint
       jinja2
       pillow
+      pandas
     ]))
 
     # Go

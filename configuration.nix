@@ -10,6 +10,12 @@
   ################################################
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
+
+  ################################################
+  # Power & Thermal Management
+  ################################################
+  services.thermald.enable = true;
 
   ################################################
   # Networking
@@ -222,5 +228,6 @@
   ################################################
   # System
   ################################################
+  hardware.enableAllFirmware = true;
   system.stateVersion = "26.05";
 }

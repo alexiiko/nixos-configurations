@@ -59,8 +59,8 @@
         };
 
         clock = {
-          format = " {:%H:%M}";
-          format-alt = " {:%d.%m.%Y}";
+          format = " {:%d.%m.%Y}";
+          format-alt = " {:%H:%M}";
           tooltip-format = "{:%A, %d. %B %Y}";
           on-click = "mode";
         };
