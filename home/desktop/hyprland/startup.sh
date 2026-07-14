@@ -22,7 +22,7 @@ sleep 1.5
 # Workspace 3 - Antigravity
 # ============================================
 hyprctl dispatch workspace 3
-hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/antigravity"
+hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/code"
 sleep 1.5
 
 # ============================================
@@ -36,4 +36,4 @@ sleep 1.5
 # Workspace 5 - Notion
 # ============================================
 hyprctl dispatch workspace 5
-hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86_64.AppImage' --app='https://www.notion.so/'"
+hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/claude"

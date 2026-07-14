@@ -27,6 +27,7 @@
     btop
     oh-my-posh
     zoxide
+    tree
 
     ################################################
     # File Management
