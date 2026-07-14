@@ -132,7 +132,7 @@
     # ======================
     input = {
       kb_layout = "de";
-      kb_options = "caps:super";
+      kb_options = "";
       follow_mouse = 1;
       sensitivity = 0;
 
