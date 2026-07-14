@@ -48,6 +48,10 @@
       setopt autocd
       setopt interactive_comments
 
+      bindkey '^H' backward-kill-word
+      bindkey '^[[1;5D' backward-word
+      bindkey '^[[1;5C' forward-word
+
       # === PATH Fix für uv + npm ===
       export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
     '';
