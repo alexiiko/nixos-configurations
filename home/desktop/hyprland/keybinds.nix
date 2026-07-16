@@ -68,8 +68,7 @@
       "$mainMod, F, fullscreen, 0"
 
       # Screenshots
-      "$mainMod SHIFT, S, exec, grim -g \"$(slurp -d)\" -t png - | tee ~/Pictures/screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy -t image/png"
-      "SHIFT, Print, exec, grim -t png - | tee ~/Pictures/screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy -t image/png"
+      "$mainMod SHIFT, S, exec, grim -g \"$(slurp -b 00000080 -w 0)\" -s 2 -t png - | tee ~/Pictures/screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy -t image/png"
 
       # Startup Script
       "$mainMod SHIFT CTRL ALT, S, exec, ~/Programming/nixos-config/home/desktop/hyprland/startup.sh"
