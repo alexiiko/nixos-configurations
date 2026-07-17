@@ -143,6 +143,7 @@
     potrace
     imagemagick
     inkscape
+    turso-cli
 
     # Eigener Editor
     antigravity
