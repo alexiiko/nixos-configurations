@@ -16,6 +16,8 @@
   # Power & Thermal Management
   ################################################
   services.thermald.enable = true;
+  powerManagement.powertop.enable = true;
+  boot.kernel.sysctl."kernel.nmi_watchdog" = 0;
 
   ################################################
   # Networking
@@ -171,7 +173,7 @@
   ################################################
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = true;
+    powerOnBoot = false;
   };
 
   ################################################
@@ -204,6 +206,7 @@
       zlib
       openssl
       libgcc
+      libxcrypt-legacy
       docker-compose
       libinput
       networkmanager
@@ -213,7 +216,7 @@
   ################################################
   # Virtualisation & Extras
   ################################################
-  virtualisation.docker.enable = true;
+  virtualisation.docker.enable = false;
 
   programs.appimage = {
     enable = true;

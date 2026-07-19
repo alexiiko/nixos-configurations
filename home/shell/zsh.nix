@@ -24,6 +24,7 @@
       la  = "eza -la --icons --color=always --header";
       lt  = "eza --tree --icons --color=always";
       lla = "eza -la --icons --color=always --header";
+      sl  = "eza --icons --color=always";
     };
 
     initContent = ''
