@@ -7,7 +7,7 @@
   xdg.desktopEntries.helium = {
     name = "Helium Browser";
     exec = "appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage";
-    icon = "helium";                    # später kannst du hier ein echtes Icon einbauen
+    icon = "helium";
     comment = "Schneller und privater Browser";
     categories = [ "Network" "WebBrowser" ];
     terminal = false;

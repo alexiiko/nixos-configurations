@@ -47,6 +47,7 @@
     swaybg
     networkmanagerapplet
     eww
+    glib-networking
 
     ################################################
     # Screenshots & Recording
@@ -144,9 +145,15 @@
     imagemagick
     inkscape
     turso-cli
+    libayatana-appindicator 
 
     # Eigener Editor
     antigravity
+
+    ################################################
+    # Misc
+    ################################################
+    localsend
 
     ################################################
     # Funny Stuff

@@ -210,6 +210,10 @@
       docker-compose
       libinput
       networkmanager
+      libayatana-appindicator
+      gtk3
+      glib
+      webkitgtk_4_1
     ];
   };
 
