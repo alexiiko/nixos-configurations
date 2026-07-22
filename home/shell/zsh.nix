@@ -25,6 +25,7 @@
       lt  = "eza --tree --icons --color=always";
       lla = "eza -la --icons --color=always --header";
       sl  = "eza --icons --color=always";
+      zed = "zeditor";
     };
 
     initContent = ''
@@ -59,7 +60,7 @@
   };
 
   home.sessionPath = [
-    "$HOME/.local/bin"    
+    "$HOME/.local/bin"
     "$HOME/.npm-global/bin"
     "$HOME/.cargo/bin"
   ];

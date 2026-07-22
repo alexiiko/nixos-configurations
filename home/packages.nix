@@ -10,6 +10,7 @@
     qpwgraph
     playerctl
     ffmpeg
+    vlc
 
     ################################################
     # Camera
@@ -83,8 +84,12 @@
     stdenv.cc.cc.lib
 
     ################################################
-    # Development - Languages
+    # Development - Languages - Programming
     ################################################
+    # Editors
+    vscode-fhs
+    zed-editor
+
     # Claude Code Flake
     inputs.claude-code-nix.packages.${pkgs.system}.default
 
@@ -115,6 +120,10 @@
     rustc
     cargo
 
+    # nix
+    nil
+    nixd
+
     ################################################
     # Browsers & Web
     ################################################
@@ -122,7 +131,6 @@
     google-chrome
     playwright-driver.browsers
     firefox
-    vscode-fhs
 
     ################################################
     # Productivity
@@ -145,7 +153,7 @@
     imagemagick
     inkscape
     turso-cli
-    libayatana-appindicator 
+    libayatana-appindicator
 
     # Eigener Editor
     antigravity

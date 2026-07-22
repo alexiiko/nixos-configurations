@@ -241,6 +241,8 @@
 
   programs.chromium.enable = true;
 
+  hardware.graphics.enable = true;
+
   ################################################
   # System
   ################################################
