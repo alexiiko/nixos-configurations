@@ -19,6 +19,15 @@
   powerManagement.powertop.enable = true;
   boot.kernel.sysctl."kernel.nmi_watchdog" = 0;
 
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
+  '';
+
+  boot.extraModprobeConfig = ''
+    options snd_hda_intel power_save=1
+  '';
+
   ################################################
   # Networking
   ################################################
