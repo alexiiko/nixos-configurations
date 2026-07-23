@@ -22,7 +22,7 @@ sleep 1.5
 # Workspace 3 - VS Code
 # ============================================
 hyprctl dispatch workspace 3
-hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/code"
+hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/zeditor"
 sleep 1.5
 
 # ============================================

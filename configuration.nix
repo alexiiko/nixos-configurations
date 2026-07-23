@@ -223,6 +223,16 @@
       gtk3
       glib
       webkitgtk_4_1
+      mesa
+      libGL
+      libGLU
+      egl-wayland
+      wayland
+      libxkbcommon
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
     ];
   };
 
