@@ -58,7 +58,9 @@
               elephant = inputs.elephant.packages.${prev.system}.default;
             })
           ];
-          environment.systemPackages = [ pkgs.claude-desktop-fhs ];
+          environment.systemPackages = [ 
+            pkgs.claude-desktop-fhs 
+          ];
         })
         ################################################
         # Home Manager
