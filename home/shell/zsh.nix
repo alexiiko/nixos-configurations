@@ -26,7 +26,7 @@
       lla = "eza -la --icons --color=always --header";
       sl  = "eza --icons --color=always";
       zed = "zeditor";
-      tppfrsync = "rsync -avz -e 'ssh -p 65002' dist/ u559670375@82.25.83.191:/home/u559670375/domains/pivot-pilot.com/public_html/";
+      tppfrsync = "rsync -avz -e 'ssh -p 65002 -i ~/.ssh/hostinger_pivot_pilot' dist/ u559670375@82.25.83.191:/home/u559670375/domains/pivot-pilot.com/public_html/";
     };
 
     initContent = ''
