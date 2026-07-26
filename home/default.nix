@@ -27,6 +27,7 @@
     ./tools/udiskie.nix
     ./tools/helium.nix
     ./tools/desktop-entries.nix
+    ./tools/tmux.nix
   ];
 
   ################################################

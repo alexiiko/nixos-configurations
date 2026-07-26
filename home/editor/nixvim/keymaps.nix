@@ -4,6 +4,11 @@
   programs.nixvim = {
     keymaps = [
       { mode = "n"; key = "<Esc>"; action = "<cmd>nohlsearch<CR>"; }
+
+      { mode = "i"; key = "<C-BS>"; action = "<C-w>"; options.desc = "Delete word before cursor"; }
+      { mode = "i"; key = "<C-h>"; action = "<C-w>"; options.desc = "Delete word before cursor (terminal C-BS)"; }
+      { mode = "c"; key = "<C-BS>"; action = "<C-w>"; }
+      { mode = "c"; key = "<C-h>"; action = "<C-w>"; }
       { mode = "n"; key = "<leader>q"; action.__raw = "vim.diagnostic.setloclist"; options.desc = "Open diagnostic quickfix list"; }
       { mode = "t"; key = "<Esc><Esc>"; action = "<C-\\><C-n>"; options.desc = "Exit terminal mode"; }
       { mode = "n"; key = "<C-h>"; action = "<C-w><C-h>"; options.desc = "Move focus to the left window"; }

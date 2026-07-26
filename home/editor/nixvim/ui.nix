@@ -5,22 +5,25 @@
     web-devicons.enable = true;
     guess-indent.enable = true;
     fidget.enable = true;
+    nvim-autopairs.enable = true;
 
     neo-tree = {
       enable = true;
-      closeIfLastWindow = true;
-      filesystem = {
-        followCurrentFile.enabled = true;
-        useLibuvFileWatcher = true;
-        filteredItems = {
-          hideDotfiles = false;
-          hideGitignored = true;
+      settings = {
+        close_if_last_window = true;
+        filesystem = {
+          follow_current_file.enabled = true;
+          use_libuv_file_watcher = true;
+          filtered_items = {
+            hide_dotfiles = false;
+            hide_gitignored = true;
+          };
         };
-      };
-      window = {
-        width = 32;
-        mappings = {
-          "<space>" = "none";
+        window = {
+          width = 32;
+          mappings = {
+            "<space>" = "none";
+          };
         };
       };
     };

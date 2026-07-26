@@ -2,16 +2,13 @@
 
 {
   programs.nixvim.extraPackages = with pkgs; [
-    # Formatters
-    gofmt                # go (comes with go toolchain, but explicit here)
-    nodePackages.prettier # astro, html, css, svelte
+    go                   # provides gofmt
+    prettier             # astro, html, css, svelte
     ruff                 # python format + lint
     rustfmt              # rust
     clang-tools          # clang-format for c
     google-java-format   # java
     shfmt                # bash
-    # Extra tooling
-    go
   ];
 
   programs.nixvim.plugins = {
@@ -106,7 +103,7 @@
     blink-cmp = {
       enable = true;
       settings = {
-        keymap.preset = "default";
+        keymap.preset = "enter";
         appearance.nerd_font_variant = "mono";
         completion.documentation.auto_show = false;
         sources = {
