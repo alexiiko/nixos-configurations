@@ -19,7 +19,7 @@
     ./shell/oh-my-posh/default.nix
 
     # --- Editor ---
-    ./editor/nixvim.nix
+    ./editor/nixvim/default.nix
 
     # --- Tools ---
     ./tools/walker/default.nix
