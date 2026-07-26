@@ -54,8 +54,8 @@
           nixpkgs.overlays = [
             inputs.claude-desktop.overlays.default
             (final: prev: {
-              walker = inputs.walker.packages.${prev.system}.default;
-              elephant = inputs.elephant.packages.${prev.system}.default;
+              walker = inputs.walker.packages.${prev.stdenv.hostPlatform.system}.default;
+              elephant = inputs.elephant.packages.${prev.stdenv.hostPlatform.system}.default;
             })
           ];
           environment.systemPackages = [ 

@@ -28,6 +28,7 @@
     ./tools/helium.nix
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
+    ./tools/workspace.nix
   ];
 
   ################################################
@@ -43,6 +44,7 @@
   # Global Cursor
   ################################################
   home.pointerCursor = {
+    enable = true;
     name = "Bibata-Modern-Ice";
     package = pkgs.bibata-cursors;
     size = 24;

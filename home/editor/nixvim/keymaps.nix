@@ -16,6 +16,15 @@
       { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move focus to the lower window"; }
       { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move focus to the upper window"; }
 
+      { mode = "n"; key = "<C-Tab>"; action = "<cmd>BufferLineCycleNext<CR>"; options.desc = "Next buffer tab"; }
+      { mode = "n"; key = "<C-S-Tab>"; action = "<cmd>BufferLineCyclePrev<CR>"; options.desc = "Prev buffer tab"; }
+      { mode = "i"; key = "<C-Tab>"; action = "<Esc><cmd>BufferLineCycleNext<CR>"; options.desc = "Next buffer tab"; }
+      { mode = "i"; key = "<C-S-Tab>"; action = "<Esc><cmd>BufferLineCyclePrev<CR>"; options.desc = "Prev buffer tab"; }
+      { mode = "n"; key = "<leader>bc"; action = "<cmd>bdelete<CR>"; options.desc = "Close buffer"; }
+      { mode = "n"; key = "<leader>bo"; action = "<cmd>BufferLineCloseOthers<CR>"; options.desc = "Close other buffers"; }
+      { mode = "n"; key = "<leader>bl"; action = "<cmd>BufferLineCloseRight<CR>"; options.desc = "Close buffers right"; }
+      { mode = "n"; key = "<leader>bh"; action = "<cmd>BufferLineCloseLeft<CR>"; options.desc = "Close buffers left"; }
+
       { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree toggle<CR>"; options.desc = "Toggle file [E]xplorer"; }
       { mode = "n"; key = "<leader>o"; action = "<cmd>Neotree focus<CR>"; options.desc = "F[o]cus file explorer"; }
 

@@ -35,6 +35,14 @@
     lsp = {
       enable = true;
       inlayHints = true;
+      luaConfig.post = ''
+        vim.o.winborder = "rounded"
+        vim.diagnostic.config({
+          float = { border = "rounded", source = true },
+          virtual_text = true,
+          severity_sort = true,
+        })
+      '';
       servers = {
         lua_ls = {
           enable = true;
@@ -105,7 +113,14 @@
       settings = {
         keymap.preset = "enter";
         appearance.nerd_font_variant = "mono";
-        completion.documentation.auto_show = false;
+        completion = {
+          documentation = {
+            auto_show = true;
+            auto_show_delay_ms = 200;
+            window.border = "rounded";
+          };
+          menu.border = "rounded";
+        };
         sources = {
           default = [ "lsp" "path" "snippets" "lazydev" ];
           providers.lazydev = {
@@ -115,7 +130,10 @@
         };
         snippets.preset = "luasnip";
         fuzzy.implementation = "lua";
-        signature.enabled = true;
+        signature = {
+          enabled = true;
+          window.border = "rounded";
+        };
       };
     };
 
