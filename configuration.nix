@@ -11,13 +11,50 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   ################################################
   # Power & Thermal Management
   ################################################
   services.thermald.enable = true;
-  powerManagement.powertop.enable = true;
   boot.kernel.sysctl."kernel.nmi_watchdog" = 0;
+
+  boot.kernelParams = [
+      "pcie_aspm=force"
+      "i915.enable_psr=2"
+      "i915.enable_fbc=1"
+      "i915.enable_dc=4"
+      "iwlwifi.power_save=1"
+      "iwlwifi.power_level=5"
+    ];
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "balance_performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;
+      CPU_HWP_DYN_BOOST_ON_AC = 1;
+      CPU_HWP_DYN_BOOST_ON_BAT = 0;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 30;
+      PLATFORM_PROFILE_ON_AC = "balanced";
+      PLATFORM_PROFILE_ON_BAT = "low-power";
+      INTEL_GPU_MIN_FREQ_ON_BAT = 100;
+      INTEL_GPU_MAX_FREQ_ON_BAT = 800;
+      WIFI_PWR_ON_BAT = "on";
+      SOUND_POWER_SAVE_ON_BAT = 1;
+      SOUND_POWER_SAVE_CONTROLLER = "Y";
+      USB_AUTOSUSPEND = 1;
+      RUNTIME_PM_ON_BAT = "auto";
+      PCIE_ASPM_ON_BAT = "powersupersave";
+    };
+  };
+
+  services.power-profiles-daemon.enable = false;
 
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
@@ -25,7 +62,9 @@
   '';
 
   boot.extraModprobeConfig = ''
-    options snd_hda_intel power_save=1
+    options snd_hda_intel power_save=1 power_save_controller=Y
+    options iwlwifi power_save=1 power_level=5
+    options i915 enable_fbc=1 enable_psr=2 enable_dc=4
   '';
 
   ################################################
@@ -196,11 +235,6 @@
     wget
     curl
   ];
-
-  ################################################
-  # Power Management
-  ################################################
-  services.power-profiles-daemon.enable = true;
 
   ################################################
   # Theming & Compatibility
