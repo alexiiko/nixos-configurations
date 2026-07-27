@@ -42,6 +42,11 @@
       # Cycle windows without prefix (kitty sends CSI-u for Alt+[Shift+]Tab)
       bind -n M-Tab next-window
       bind -n M-S-Tab previous-window
+      bind -n M-BTab previous-window
+
+      # Rename window via popup so the status bar behind isn't visible
+      bind , display-popup -E -w 40 -h 3 -T " rename window " \
+        "printf 'name: '; read -r n && tmux rename-window -- \"$n\""
 
       # Emacs-style editing in command prompt so Ctrl+W (from kitty's
       # Ctrl+Backspace mapping) deletes the previous word during rename etc.
@@ -61,7 +66,7 @@
       set -g mode-style "bg=#d0d0d0,fg=#1c1c1c"
 
       # Prefix indicator: gray pill when C-Space active (was yellow)
-      set -g status-right "#{?client_prefix,#[bg=#d0d0d0#,fg=#1c1c1c#,bold] PREFIX #[default] ,}#[fg=#1c1c1c]%Y-%m-%d %H:%M "
+      set -g status-right "#{?client_prefix,#[bg=#d0d0d0#,fg=#1c1c1c#,bold] PREFIX #[default] ,}"
     '';
   };
 }

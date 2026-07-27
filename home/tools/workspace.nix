@@ -13,6 +13,7 @@
 
       ${pkgs.tmux}/bin/tmux new-session -d -s "$name" -n neovim -c "$dir"
       ${pkgs.tmux}/bin/tmux new-window  -t "$name" -n term    -c "$dir"
+      ${pkgs.tmux}/bin/tmux new-window  -t "$name" -n ai      -c "$dir"
       ${pkgs.tmux}/bin/tmux select-window -t "$name":neovim
       exec ${pkgs.tmux}/bin/tmux attach -t "$name"
     '')

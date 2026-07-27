@@ -41,7 +41,19 @@
       tabstop = 2;
       shiftwidth = 2;
       expandtab = true;
+      autoread = true;
     };
+
+    autoCmd = [
+      {
+        event = [ "FocusGained" "BufEnter" "CursorHold" "CursorHoldI" ];
+        command = "if mode() !~ '\\v(c|r.?|!|t)' && getcmdwintype() == \"\" | checktime | endif";
+      }
+      {
+        event = [ "FileChangedShellPost" ];
+        command = "echohl WarningMsg | echo 'File changed on disk. Buffer reloaded.' | echohl None";
+      }
+    ];
 
     colorscheme = "ayu-light";
     colorschemes.ayu = {

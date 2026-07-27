@@ -29,6 +29,7 @@
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
     ./tools/workspace.nix
+    ./tools/git.nix
   ];
 
   ################################################
