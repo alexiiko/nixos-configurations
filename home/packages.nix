@@ -86,10 +86,6 @@
     ################################################
     # Development - Languages - Programming
     ################################################
-    # Editors
-    vscode-fhs
-    zed-editor
-
     # Claude Code Flake
     inputs.claude-code-nix.packages.${pkgs.system}.default
 
