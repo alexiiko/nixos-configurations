@@ -19,10 +19,10 @@ hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86
 sleep 1.5
 
 # ============================================
-# Workspace 3 - VS Code
+# Workspace 3 - Kitty
 # ============================================
 hyprctl dispatch workspace 3
-hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/zeditor"
+hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/kitty"
 sleep 1.5
 
 # ============================================
@@ -36,4 +36,4 @@ sleep 1.5
 # Workspace 5 - Claude Desktop
 # ============================================
 hyprctl dispatch workspace 5
-hyprctl dispatch exec "/etc/profiles/per-user/alex/bin/claude"
+hyprctl dispatch exec "/run/current-system/sw/bin/claude-desktop"

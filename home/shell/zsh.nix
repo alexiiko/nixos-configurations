@@ -46,6 +46,15 @@
       alias lastcopy="copy-last"
       alias cl="copy-cmd"
 
+      # tmux attach with session-name tab completion
+      ta() { tmux attach -t "$1"; }
+      _ta() {
+        local -a sessions
+        sessions=(''${(f)"$(tmux ls -F '#S' 2>/dev/null)"})
+        compadd -a sessions
+      }
+      compdef _ta ta
+
       bindkey '^[[67;5u' copy-last
 
       setopt autocd

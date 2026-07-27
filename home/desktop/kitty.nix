@@ -16,12 +16,13 @@
       confirm_os_window_close = "0";
     };
     keybindings = {
-      "ctrl+tab" = "send_text all \\x1b[9;5u";
-      "ctrl+shift+tab" = "send_text all \\x1b[9;6u";
+      "ctrl+tab"        = "send_text all \\x1b[9;5u";
+      "ctrl+shift+tab"  = "send_text all \\x1b[9;6u";
+      "alt+tab"         = "send_text all \\x1b[9;3u";
+      "alt+shift+tab"   = "send_text all \\x1b[9;4u";
+      # Ctrl+Backspace -> Ctrl+W (word delete). Works in zsh, tmux command-prompt,
+      # and TUIs like Claude Code inside tmux without needing per-app CSI-u wiring.
+      "ctrl+backspace"  = "send_text all \\x17";
     };
-    extraConfig = ''
-      # Enable kitty extended keyboard protocol (CSI u)
-      # Lets Ctrl+Tab, Ctrl+Backspace etc pass through as distinct codes
-    '';
   };
 }
