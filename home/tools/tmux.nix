@@ -53,6 +53,9 @@ in
 
     extraConfig = ''
       set -g renumber-windows on
+
+      # Save the session state on every detach.
+      set-hook -g client-detached 'run-shell -b "${resurrectScripts}/save.sh"'
       set -ga terminal-overrides ",*256col*:Tc"
 
       # Enable extended keys (CSI u) so Ctrl+Tab etc. are distinguishable

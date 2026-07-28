@@ -41,6 +41,14 @@
   ################################################
   outputs = { nixpkgs, home-manager, ... } @ inputs:
   {
+    ################################################
+    # Templates
+    ################################################
+    templates.rust = {
+      path = ./templates/rust;
+      description = "Rust dev shell with pkg-config and native libs";
+    };
+
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };

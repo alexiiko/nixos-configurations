@@ -28,6 +28,8 @@
     ./tools/helium.nix
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
+    ./tools/direnv.nix
+    ./tools/rust.nix
     ./tools/workspace.nix
     ./tools/git.nix
   ];
