@@ -69,7 +69,7 @@
 
     claude-desktop = {
       name = "Claude";
-      exec = "claude-desktop --ozone-platform=wayland";
+      exec = "claude-desktop --enable-features=UseOzonePlatform,WaylandWindowDecorations,WaylandFractionalScaleV1 --ozone-platform=wayland --enable-wayland-ime";
       icon = "claude-desktop";
       comment = "Claude Desktop by Anthropic";
       categories = [ "Network" "Office" ];

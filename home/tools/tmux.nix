@@ -1,6 +1,34 @@
 { pkgs, ... }:
 
+let
+  # ponytail: reuse tmux-resurrect's own scripts; restore.sh already skips
+  # sessions that already exist (by name).
+  resurrectScripts = "${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/scripts";
+in
 {
+  home.packages = [
+    (pkgs.writeShellScriptBin "tmux-save" ''
+      set -e
+      ${resurrectScripts}/save.sh
+      echo "Saved sessions:"
+      tmux list-sessions -F '  #{session_name}'
+    '')
+    # restore.sh only works inside tmux (it reads the socket out of $TMUX), so
+    # outside tmux: boot a scratch session, restore via run-shell.
+    (pkgs.writeShellScriptBin "tmux-load" ''
+      set -e
+      if [ -n "''${TMUX:-}" ]; then
+        ${resurrectScripts}/restore.sh
+      else
+        tmux new-session -d -s __resurrect__
+        tmux run-shell ${resurrectScripts}/restore.sh
+        tmux kill-session -t __resurrect__ 2>/dev/null || true
+      fi
+      echo "Restored sessions:"
+      tmux list-sessions -F '  #{session_name}'
+    '')
+  ];
+
   programs.tmux = {
     enable = true;
     mouse = true;
@@ -21,13 +49,6 @@
           set -g @resurrect-strategy-nvim 'session'
         '';
       }
-      {
-        plugin = continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-save-interval '15'
-        '';
-      }
     ];
 
     extraConfig = ''
@@ -43,10 +64,6 @@
       bind -n M-Tab next-window
       bind -n M-S-Tab previous-window
       bind -n M-BTab previous-window
-
-      # Rename window via popup so the status bar behind isn't visible
-      bind , display-popup -E -w 40 -h 3 -T " rename window " \
-        "printf 'name: '; read -r n && tmux rename-window -- \"$n\""
 
       # Emacs-style editing in command prompt so Ctrl+W (from kitty's
       # Ctrl+Backspace mapping) deletes the previous word during rename etc.

@@ -25,8 +25,7 @@
       { mode = "n"; key = "<leader>bl"; action = "<cmd>BufferLineCloseRight<CR>"; options.desc = "Close buffers right"; }
       { mode = "n"; key = "<leader>bh"; action = "<cmd>BufferLineCloseLeft<CR>"; options.desc = "Close buffers left"; }
 
-      { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree toggle<CR>"; options.desc = "Toggle file [E]xplorer"; }
-      { mode = "n"; key = "<leader>o"; action = "<cmd>Neotree focus<CR>"; options.desc = "F[o]cus file explorer"; }
+      { mode = "n"; key = "<C-n>"; action = "<cmd>Neotree toggle<CR>"; options.desc = "Toggle file [E]xplorer"; }
 
       { mode = "n"; key = "<leader>sh"; action = "<cmd>Telescope help_tags<CR>"; options.desc = "[S]earch [H]elp"; }
       { mode = "n"; key = "<leader>sk"; action = "<cmd>Telescope keymaps<CR>"; options.desc = "[S]earch [K]eymaps"; }

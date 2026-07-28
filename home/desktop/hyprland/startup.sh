@@ -36,4 +36,4 @@ sleep 1.5
 # Workspace 5 - Claude Desktop
 # ============================================
 hyprctl dispatch workspace 5
-hyprctl dispatch exec "/run/current-system/sw/bin/claude-desktop"
+hyprctl dispatch exec "/run/current-system/sw/bin/claude-desktop --enable-features=UseOzonePlatform,WaylandWindowDecorations,WaylandFractionalScaleV1 --ozone-platform=wayland --enable-wayland-ime"
