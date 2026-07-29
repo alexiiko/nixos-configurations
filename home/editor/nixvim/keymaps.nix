@@ -16,6 +16,9 @@
       { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move focus to the lower window"; }
       { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move focus to the upper window"; }
 
+      { mode = "n"; key = "j"; action = "gj"; options.desc = "Move focus to the lower window"; }
+      { mode = "n"; key = "k"; action = "gk"; options.desc = "Move focus to the upper window"; }
+
       { mode = "n"; key = "<C-Tab>"; action = "<cmd>BufferLineCycleNext<CR>"; options.desc = "Next buffer tab"; }
       { mode = "n"; key = "<C-S-Tab>"; action = "<cmd>BufferLineCyclePrev<CR>"; options.desc = "Prev buffer tab"; }
       { mode = "i"; key = "<C-Tab>"; action = "<Esc><cmd>BufferLineCycleNext<CR>"; options.desc = "Next buffer tab"; }
