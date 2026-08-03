@@ -145,6 +145,8 @@
       "video"
       "audio"
       "docker"
+      "lp"
+      "scanner"
     ];
     shell = pkgs.zsh;
   };
@@ -206,6 +208,25 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+  };
+
+  ################################################
+  # Printing & Scanning
+  ################################################
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ hplip ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.hplip ];
   };
 
   ################################################

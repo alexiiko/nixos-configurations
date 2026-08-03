@@ -6,7 +6,7 @@ in
 {
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       core.hooksPath = hooksDir;
     };
   };
