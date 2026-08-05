@@ -64,6 +64,7 @@ window#waybar {
 #battery,
 #pulseaudio,
 #network,
+#custom-airpods,
 #custom-bluetooth {
   padding: 0 12px;
   border-radius: 24px;
@@ -83,6 +84,7 @@ window#waybar {
 #battery:hover,
 #pulseaudio:hover,
 #network:hover,
+#custom-airpods:hover,
 #custom-bluetooth:hover {
   background: rgba(255, 255, 255, 0.1);
 }

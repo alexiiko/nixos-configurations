@@ -34,6 +34,7 @@
         "group/right-modules" = { 
           orientation = "inherit";
           modules = [
+            "custom/airpods"
             "pulseaudio"
             "custom/bluetooth"
             "network"
@@ -70,6 +71,15 @@
           format-muted = "󰝟";
           format-icons = [ "" "" "" ];
           on-click = "pavucontrol";
+        };
+
+        "custom/airpods" = {
+          format = "{}";
+          return-type = "json";
+          exec = "$HOME/Programming/nixos-config/home/desktop/waybar/airpods.sh status";
+          on-click = "bash -c 'nohup $HOME/Programming/nixos-config/home/desktop/waybar/airpods.sh toggle > /dev/null 2>&1 &'";
+          interval = 5;
+          signal = 8;
         };
 
         "custom/bluetooth" = {
