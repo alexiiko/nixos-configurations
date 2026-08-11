@@ -150,6 +150,7 @@
     inkscape
     turso-cli
     libayatana-appindicator
+    evince
 
     # Eigener Editor
     antigravity
