@@ -44,6 +44,7 @@
     dunst
     libnotify
     wl-clipboard
+    wtype
     xclip
     swaybg
     networkmanagerapplet

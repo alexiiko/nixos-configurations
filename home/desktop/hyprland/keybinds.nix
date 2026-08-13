@@ -72,6 +72,10 @@
 
       # Startup Script
       "$mainMod SHIFT CTRL ALT, S, exec, ~/Programming/nixos-config/home/desktop/hyprland/startup.sh"
+
+      # Type a fixed string. -s lets Chromium-based apps apply the virtual
+      # keymap before keys arrive, -d keeps them from outrunning it.
+      "$mainMod CTRL SHIFT, A, exec, wtype -s 150 -d 12 -- yi57ikew"
     ];
 
     bindm = [
