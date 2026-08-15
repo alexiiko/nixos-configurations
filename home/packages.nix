@@ -45,6 +45,7 @@
     libnotify
     wl-clipboard
     wtype
+    libinput
     xclip
     swaybg
     networkmanagerapplet

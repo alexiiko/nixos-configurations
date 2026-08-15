@@ -147,6 +147,7 @@
       "docker"
       "lp"
       "scanner"
+      "input"
     ];
     shell = pkgs.zsh;
   };
