@@ -75,7 +75,7 @@
 
       # Type a fixed string. -s lets Chromium-based apps apply the virtual
       # keymap before keys arrive, -d keeps them from outrunning it.
-      "$mainMod CTRL SHIFT, A, exec, wtype -s 150 -d 12 -- yi57ikew"
+      "$mainMod CTRL SHIFT, A, exec, wtype -s 300 -d 45 -- yi57ikew"
     ];
 
     bindm = [
