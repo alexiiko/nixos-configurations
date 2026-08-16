@@ -8,7 +8,7 @@ hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86
 sleep 1.5
 
 hyprctl dispatch workspace 1
-hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86_64.AppImage' --app='https://calendar.google.com/calendar/u/0/r'"
+hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86_64.AppImage' --app='https://calendar.google.com/calendar/u/4/r'"
 sleep 1.5
 
 # ============================================
