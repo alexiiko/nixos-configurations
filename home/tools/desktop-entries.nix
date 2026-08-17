@@ -14,7 +14,7 @@
 
     google-calendar = {
       name = "Google Calendar";
-      exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=https://calendar.google.com/calendar/u/0/r'';
+      exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=https://calendar.google.com/calendar/u/4/r'';
       icon = "google-calendar";
       comment = "Google Calendar";
       categories = [ "Network" "InstantMessaging" ];
