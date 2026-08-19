@@ -154,6 +154,7 @@
     turso-cli
     libayatana-appindicator
     evince
+    pv
 
     # Eigener Editor
     antigravity
