@@ -49,6 +49,7 @@
     xclip
     swaybg
     networkmanagerapplet
+    nmgui
     eww
     glib-networking
 

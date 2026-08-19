@@ -93,7 +93,7 @@
           format-ethernet = "{ipaddr} ";
           format-disconnected = "⚠";
           tooltip-format = "{ifname}: {ipaddr}/{cidr}";
-          on-click = "kitty nmtui";
+          on-click = "nmgui";
         };
       };
     };
