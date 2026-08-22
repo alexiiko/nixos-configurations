@@ -137,7 +137,9 @@
     obsidian
     anki
     readest
-    libreoffice-qt
+    onlyoffice-desktopeditors
+    anki
+    zotero
 
     ################################################
     # System & Utilities
