@@ -59,8 +59,8 @@
 
     antigravity = {
       name = "Antigravity";
-      exec = "/etc/profiles/per-user/alex/bin/antigravity";
-      icon = "antigravity";
+      exec = "/etc/profiles/per-user/alex/bin/antigravity-ide";
+      icon = "antigravity-ide";
       comment = "Google Antigravity AI Code Editor";
       categories = [ "Development" "IDE" ];
       terminal = false;

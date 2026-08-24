@@ -165,7 +165,7 @@
     pv
 
     # Eigener Editor
-    antigravity
+    antigravity-ide
 
     ################################################
     # Misc

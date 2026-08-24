@@ -26,10 +26,11 @@
           enable = true;
           additional_vim_regex_highlighting = [ "ruby" ];
         };
-        indent = {
-          enable = true;
-          disable = [ "ruby" ];
-        };
+      };
+      # Native (modern nvim-treesitter main branch) indentation options.
+      indent = {
+        enable = true;
+        disable = [ "ruby" ];
       };
     };
 
