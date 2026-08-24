@@ -23,6 +23,14 @@
       # Ctrl+Backspace -> Ctrl+W (word delete). Works in zsh, tmux command-prompt,
       # and TUIs like Claude Code inside tmux without needing per-app CSI-u wiring.
       "ctrl+backspace"  = "send_text all \\x17";
+
+      # Font zoom in 10% steps. Terminal-level: nvim has no font size of its own.
+      "ctrl+plus"       = "change_font_size all *1.1";
+      "ctrl+equal"      = "change_font_size all *1.1";
+      "ctrl+kp_add"     = "change_font_size all *1.1";
+      "ctrl+minus"      = "change_font_size all /1.1";
+      "ctrl+kp_subtract" = "change_font_size all /1.1";
+      "ctrl+0"          = "change_font_size all 0";
     };
   };
 }

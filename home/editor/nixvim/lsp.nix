@@ -6,6 +6,7 @@
     prettier             # astro, html, css, svelte
     ruff                 # python format + lint
     rustfmt              # rust
+    typstyle             # typst
     clang-tools          # clang-format for c
     google-java-format   # java
     shfmt                # bash
@@ -18,7 +19,7 @@
         ensure_installed = [
           "bash" "c" "diff" "html" "css" "lua" "luadoc"
           "markdown" "markdown_inline" "query" "vim" "vimdoc"
-          "go" "astro" "python" "svelte" "rust" "java"
+          "go" "astro" "python" "svelte" "rust" "java" "typst"
         ];
         auto_install = false;
         highlight = {
@@ -59,6 +60,15 @@
           installCargo = false;
           installRustc = false;
         };
+        tinymist = {
+          enable = true;
+          settings = {
+            # conform + typstyle owns formatting; don't let the LSP fight it.
+            formatterMode = "disable";
+            # Preview renders live, so don't drop a PDF next to the source on save.
+            exportPdf = "never";
+          };
+        };
         clangd.enable = true;
         jdtls.enable = true;
         bashls.enable = true;
@@ -98,6 +108,7 @@
           svelte = [ "prettier" ];
           python = [ "ruff_format" ];
           rust = [ "rustfmt" ];
+          typst = [ "typstyle" ];
           c = [ "clang_format" ];
           java = [ "google-java-format" ];
           sh = [ "shfmt" ];
@@ -105,6 +116,11 @@
         };
       };
     };
+
+    # Live preview in the browser. The nixvim module points the plugin at the
+    # tinymist/websocat from the store, so it never tries to download binaries.
+    # No open_cmd: fall back to the system default browser handler.
+    typst-preview.enable = true;
 
     luasnip.enable = true;
 
@@ -132,7 +148,15 @@
         fuzzy.implementation = "lua";
         signature = {
           enabled = true;
-          window.border = "rounded";
+          trigger = {
+            # Defaults only show the signature at the instant "(" is typed.
+            show_on_insert = true;   # re-entering an existing call shows it again
+            show_on_keyword = true;  # keep it up while typing argument names
+          };
+          window = {
+            border = "rounded";
+            show_documentation = true;  # off by default; this is the parameter help
+          };
         };
       };
     };
