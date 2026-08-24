@@ -295,7 +295,11 @@
   ################################################
   # Virtualisation & Extras
   ################################################
-  virtualisation.docker.enable = false;
+  # Daemon starts on first use via socket activation, not at boot.
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = false;
+  };
 
   programs.appimage = {
     enable = true;
