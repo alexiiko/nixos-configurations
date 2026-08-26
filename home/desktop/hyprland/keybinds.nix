@@ -76,6 +76,9 @@
       # Type a fixed string. -s lets Chromium-based apps apply the virtual
       # keymap before keys arrive, -d keeps them from outrunning it.
       "$mainMod CTRL SHIFT, A, exec, wtype -s 300 -d 45 -- yi57ikew"
+
+      # Flip the display (and pen/touch) 180 degrees and back
+      "$mainMod SHIFT, R, exec, ~/Programming/nixos-config/home/desktop/hyprland/rotate-screen.sh"
     ];
 
     bindm = [
