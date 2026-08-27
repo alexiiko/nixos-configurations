@@ -9,7 +9,9 @@
 
       # Restore saved sessions first, otherwise a post-reboot `ws` builds a
       # fresh 3-window session and the next detach-save overwrites the layout.
-      tmux-load >/dev/null 2>&1 || true
+      # Only when no server is up yet: restore.sh calls `switch-client` without
+      # -c, so running it later yanks other terminals' clients around.
+      ${pkgs.tmux}/bin/tmux has-session 2>/dev/null || tmux-load >/dev/null 2>&1 || true
 
       if ${pkgs.tmux}/bin/tmux has-session -t "$name" 2>/dev/null; then
         exec ${pkgs.tmux}/bin/tmux attach -t "$name"

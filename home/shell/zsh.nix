@@ -46,7 +46,13 @@
       alias cl="copy-cmd"
 
       # tmux attach with session-name tab completion
-      ta() { tmux-load >/dev/null 2>&1; tmux attach -t "$1"; }
+      # Only restore when no tmux server is up yet. restore.sh calls
+      # `switch-client` without -c, so running it while other clients are
+      # attached yanks them to a different session.
+      ta() {
+        tmux has-session 2>/dev/null || tmux-load >/dev/null 2>&1
+        tmux attach -t "$1"
+      }
       _ta() {
         local -a sessions
         sessions=(''${(f)"$(tmux ls -F '#S' 2>/dev/null)"})
