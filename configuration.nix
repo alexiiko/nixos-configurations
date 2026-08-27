@@ -148,6 +148,7 @@
       "lp"
       "scanner"
       "input"
+      "ydotool"
     ];
     shell = pkgs.zsh;
   };
@@ -295,6 +296,9 @@
   ################################################
   # Virtualisation & Extras
   ################################################
+  # Input synthesis daemon; the pen-button script uses it to emit right-clicks.
+  programs.ydotool.enable = true;
+
   # Daemon starts on first use via socket activation, not at boot.
   virtualisation.docker = {
     enable = true;

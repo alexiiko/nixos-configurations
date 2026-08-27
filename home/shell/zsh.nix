@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -33,7 +33,6 @@
       # Oh My Posh Prompt laden
       eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.omp.json)"
 
-      source ~/.venv/headroom/bin/activate
 
       # Deine Copy-Funktionen bleiben erhalten
       function copy-last {
@@ -68,6 +67,11 @@
       export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
     '';
   };
+
+  # headroom lives in a venv, but its shebang is absolute, so a symlink is
+  # enough. Activating the venv shell-wide would shadow the nix python.
+  home.file.".local/bin/headroom".source =
+    config.lib.file.mkOutOfStoreSymlink "/home/alex/.venv/headroom/bin/headroom";
 
   home.sessionPath = [
     "$HOME/.local/bin"
