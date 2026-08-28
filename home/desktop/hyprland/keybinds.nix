@@ -18,13 +18,13 @@
       "$mainMod, V, togglefloating,"
       "$mainMod, SPACE, exec, $menu"
       "$mainMod, P, pseudo,"
-      "$mainMod, J, layoutmsg, togglesplit"
+      "$mainMod, T, layoutmsg, togglesplit"
 
-      # Focus
-      "$mainMod, left, movefocus, l"
-      "$mainMod, right, movefocus, r"
-      "$mainMod, up, movefocus, u"
-      "$mainMod, down, movefocus, d"
+      # Focus (vim keys)
+      "$mainMod, H, movefocus, l"
+      "$mainMod, J, movefocus, d"
+      "$mainMod, K, movefocus, u"
+      "$mainMod, L, movefocus, r"
 
       # Workspaces
       "$mainMod, 1, workspace, 1"
