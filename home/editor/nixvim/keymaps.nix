@@ -16,8 +16,18 @@
       { mode = "n"; key = "<C-j>"; action = "<C-w><C-j>"; options.desc = "Move focus to the lower window"; }
       { mode = "n"; key = "<C-k>"; action = "<C-w><C-k>"; options.desc = "Move focus to the upper window"; }
 
-      { mode = "n"; key = "j"; action = "gj"; options.desc = "Move focus to the lower window"; }
-      { mode = "n"; key = "k"; action = "gk"; options.desc = "Move focus to the upper window"; }
+      # Screen-line motion only without a count: `5j` must stay a real 5 lines,
+      # otherwise it disagrees with the relative line numbers.
+      {
+        mode = [ "n" "v" ]; key = "j";
+        action.__raw = "function() return vim.v.count == 0 and 'gj' or 'j' end";
+        options = { expr = true; silent = true; desc = "Down (screen line without count)"; };
+      }
+      {
+        mode = [ "n" "v" ]; key = "k";
+        action.__raw = "function() return vim.v.count == 0 and 'gk' or 'k' end";
+        options = { expr = true; silent = true; desc = "Up (screen line without count)"; };
+      }
 
       { mode = "n"; key = "<C-Tab>"; action = "<cmd>BufferLineCycleNext<CR>"; options.desc = "Next buffer tab"; }
       { mode = "n"; key = "<C-S-Tab>"; action = "<cmd>BufferLineCyclePrev<CR>"; options.desc = "Prev buffer tab"; }
@@ -29,6 +39,8 @@
       { mode = "n"; key = "<leader>bh"; action = "<cmd>BufferLineCloseLeft<CR>"; options.desc = "Close buffers left"; }
 
       { mode = "n"; key = "<C-n>"; action = "<cmd>Neotree toggle<CR>"; options.desc = "Toggle file [E]xplorer"; }
+      { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree focus<CR>"; options.desc = "Focus file [E]xplorer"; }
+      { mode = "n"; key = "<leader>x"; action = "<cmd>bdelete<CR>"; options.desc = "Close current buffer"; }
 
       { mode = "n"; key = "<leader>sh"; action = "<cmd>Telescope help_tags<CR>"; options.desc = "[S]earch [H]elp"; }
       { mode = "n"; key = "<leader>sk"; action = "<cmd>Telescope keymaps<CR>"; options.desc = "[S]earch [K]eymaps"; }
@@ -85,6 +97,11 @@
     ];
 
     autoCmd = [
+      {
+        event = [ "FocusLost" ];
+        callback.__raw = "function() if vim.fn.mode():sub(1,1) == 'i' then vim.cmd('stopinsert') end end";
+        desc = "Leave insert mode when the window loses focus";
+      }
       {
         event = [ "TextYankPost" ];
         group = "kickstart-highlight-yank";

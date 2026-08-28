@@ -26,6 +26,12 @@
       "$mainMod, K, movefocus, u"
       "$mainMod, L, movefocus, r"
 
+      # Focus (arrow keys, same actions)
+      "$mainMod, left, movefocus, l"
+      "$mainMod, down, movefocus, d"
+      "$mainMod, up, movefocus, u"
+      "$mainMod, right, movefocus, r"
+
       # Workspaces
       "$mainMod, 1, workspace, 1"
       "$mainMod, 2, workspace, 2"

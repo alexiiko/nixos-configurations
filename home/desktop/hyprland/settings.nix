@@ -50,6 +50,7 @@
 
     cursor = {
       no_hardware_cursors = false;
+      hide_on_key_press = true;
     };
 
     # ======================
