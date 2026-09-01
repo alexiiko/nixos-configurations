@@ -41,6 +41,11 @@
       { mode = "n"; key = "<C-n>"; action = "<cmd>Neotree toggle<CR>"; options.desc = "Toggle file [E]xplorer"; }
       { mode = "n"; key = "<leader>e"; action = "<cmd>Neotree focus<CR>"; options.desc = "Focus file [E]xplorer"; }
       { mode = "n"; key = "<leader>x"; action = "<cmd>bdelete<CR>"; options.desc = "Close current buffer"; }
+      {
+        mode = "n"; key = "<C-S-c>";
+        action = "<cmd>%y+<CR>";
+        options.desc = "Copy whole file to clipboard";
+      }
 
       { mode = "n"; key = "<leader>sh"; action = "<cmd>Telescope help_tags<CR>"; options.desc = "[S]earch [H]elp"; }
       { mode = "n"; key = "<leader>sk"; action = "<cmd>Telescope keymaps<CR>"; options.desc = "[S]earch [K]eymaps"; }

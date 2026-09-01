@@ -163,6 +163,7 @@
     libayatana-appindicator
     evince
     pv
+    bun
 
     # Eigener Editor
     antigravity-ide
