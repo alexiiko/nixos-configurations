@@ -43,8 +43,32 @@
       { mode = "n"; key = "<leader>x"; action = "<cmd>bdelete<CR>"; options.desc = "Close current buffer"; }
       {
         mode = "n"; key = "<C-S-c>";
-        action = "<cmd>%y+<CR>";
-        options.desc = "Copy whole file to clipboard";
+        action.__raw = ''
+          function()
+            -- In neo-tree copy the directory listing, elsewhere the buffer.
+            if vim.bo.filetype ~= "neo-tree" then
+              vim.cmd("%y+")
+              vim.notify("Copied buffer to clipboard")
+              return
+            end
+            local root
+            local ok, mgr = pcall(require, "neo-tree.sources.manager")
+            if ok then
+              local state = mgr.get_state("filesystem")
+              root = state and state.path
+            end
+            root = root or vim.uv.cwd()
+            -- Flags mirror the neo-tree filters: dotfiles shown, gitignored hidden.
+            local out = vim.fn.systemlist({ "tree", "-a", "--gitignore", "-I", ".git", root })
+            if vim.v.shell_error ~= 0 then
+              vim.notify("tree failed: " .. table.concat(out, " "), vim.log.levels.ERROR)
+              return
+            end
+            vim.fn.setreg("+", table.concat(out, "\n"))
+            vim.notify("Copied file tree (" .. #out .. " lines)")
+          end
+        '';
+        options.desc = "Copy buffer, or the file tree when in neo-tree";
       }
 
       { mode = "n"; key = "<leader>sh"; action = "<cmd>Telescope help_tags<CR>"; options.desc = "[S]earch [H]elp"; }
