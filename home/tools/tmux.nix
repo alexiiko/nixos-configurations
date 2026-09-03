@@ -54,6 +54,10 @@ in
     extraConfig = ''
       set -g renumber-windows on
 
+      # Let apps reach the terminal through tmux (Claude Code wraps its desktop
+      # notifications in DCS passthrough; without this tmux swallows them).
+      set -g allow-passthrough on
+
       # Save the session state on every detach. "quiet" so the confirmation
       # doesn't pop up on some other terminal's client.
       set-hook -g client-detached 'run-shell -b "${resurrectScripts}/save.sh quiet"'

@@ -25,7 +25,6 @@
       lt  = "eza --tree --icons --color=always";
       lla = "eza -la --icons --color=always --header";
       sl  = "eza --icons --color=always";
-      zed = "zeditor";
       tppfrsync = "rsync -avz -e 'ssh -p 65002 -i ~/.ssh/hostinger_pivot_pilot' dist/ u559670375@82.25.83.191:/home/u559670375/domains/pivot-pilot.com/public_html/";
     };
 
@@ -61,6 +60,12 @@
       compdef _ta ta
 
       bindkey '^[[67;5u' copy-last
+
+      # kitty forwards Ctrl+Shift+C as CSI-u for nvim; swallow it at the prompt
+      # so it doesn't get echoed as literal "9;6u".
+      _csi_noop() { }
+      zle -N _csi_noop
+      bindkey '^[[99;6u' _csi_noop
 
       setopt autocd
       setopt interactive_comments

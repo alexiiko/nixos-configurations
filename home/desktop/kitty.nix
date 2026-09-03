@@ -24,9 +24,10 @@
       # and TUIs like Claude Code inside tmux without needing per-app CSI-u wiring.
       "ctrl+backspace"  = "send_text all \\x17";
 
-      # Pass Ctrl+Shift+C through to the app (nvim yanks the whole buffer).
-      # NOTE: this overrides kitty's built-in copy_to_clipboard binding.
-      "ctrl+shift+c"    = "send_text all \\x1b[99;6u";
+      # Copy the selection AND forward the key, so kitty's own copy still works
+      # while nvim can bind <C-S-c> to yank the buffer. zsh binds the escape to
+      # a no-op so it doesn't echo "9;6u" at a shell prompt.
+      "ctrl+shift+c"    = "combine : copy_to_clipboard : send_text all \\x1b[99;6u";
 
       # Font zoom in 10% steps. Terminal-level: nvim has no font size of its own.
       "ctrl+plus"       = "change_font_size all *1.1";
