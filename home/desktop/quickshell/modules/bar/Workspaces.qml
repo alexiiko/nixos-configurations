@@ -22,13 +22,12 @@ Column {
             required property var modelData
             readonly property bool focused: modelData.focused
             readonly property bool urgent: modelData.urgent
+            readonly property bool hovered: mouse.containsMouse
 
             width: 28
             height: 28
             radius: 8
             anchors.horizontalCenter: parent.horizontalCenter
-
-            readonly property bool hovered: mouse.containsMouse
 
             color: focused ? Theme.c.onyx
                  : urgent  ? Theme.c.clay

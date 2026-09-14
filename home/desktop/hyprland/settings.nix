@@ -16,7 +16,6 @@
     # ======================
     exec-once = [
       "dunst &"
-      "waybar"
       "qs"
       "walker --gapplication-service"
       "elephant"

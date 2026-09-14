@@ -2,31 +2,37 @@ import QtQuick
 import Quickshell
 import "../../theme"
 import "../power"
+import "../tray"
 
 // The sidebar. Left edge, full height, reserves its width so windows tile
-// beside it rather than under it.
+// beside it rather than under it. The window is transparent and the surface
+// is drawn inside it, so the outer corners can be rounded.
 PanelWindow {
     id: root
 
     anchors { left: true; top: true; bottom: true }
     implicitWidth: 48
     exclusiveZone: implicitWidth
-    color: Theme.c.linen
+    color: "transparent"
 
     Rectangle {
+        id: surface
         anchors.fill: parent
         color: Theme.c.linen
+        border.width: 1
+        border.color: Theme.c.mist
 
-        // right-edge hairline so the bar reads as a surface, not a gap
-        Rectangle {
-            anchors { right: parent.right; top: parent.top; bottom: parent.bottom }
-            width: 1
-            color: Theme.c.mist
-        }
+        // Only the outer corners: the left edge sits on the screen edge.
+        topRightRadius: 14
+        bottomRightRadius: 14
 
-        Workspaces {
+        Column {
             anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
-            anchors.topMargin: 16
+            anchors.topMargin: 10
+            spacing: 8
+
+            NixButton  { anchors.horizontalCenter: parent.horizontalCenter }
+            Workspaces { anchors.horizontalCenter: parent.horizontalCenter }
         }
 
         Column {
@@ -35,7 +41,7 @@ PanelWindow {
             spacing: 12
 
             Clock   { anchors.horizontalCenter: parent.horizontalCenter }
-            Battery { anchors.horizontalCenter: parent.horizontalCenter }
+            Tray    { anchors.horizontalCenter: parent.horizontalCenter }
             PowerMenu { anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
         }
     }

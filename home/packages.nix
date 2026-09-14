@@ -40,7 +40,6 @@
     ################################################
     # Wayland / Hyprland Tools
     ################################################
-    waybar
     dunst
     libnotify
     wl-clipboard
@@ -50,7 +49,6 @@
     swaybg
     networkmanagerapplet
     nmgui
-    eww
     glib-networking
 
     ################################################
