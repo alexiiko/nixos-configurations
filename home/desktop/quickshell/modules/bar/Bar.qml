@@ -34,7 +34,8 @@ PanelWindow {
             anchors.bottomMargin: 12
             spacing: 12
 
-            Clock { anchors.horizontalCenter: parent.horizontalCenter }
+            Clock   { anchors.horizontalCenter: parent.horizontalCenter }
+            Battery { anchors.horizontalCenter: parent.horizontalCenter }
             PowerMenu { anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
         }
     }

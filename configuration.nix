@@ -56,6 +56,9 @@
 
   services.power-profiles-daemon.enable = false;
 
+  # Battery/AC state over D-Bus; the quickshell battery widget reads this.
+  services.upower.enable = true;
+
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
     ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
