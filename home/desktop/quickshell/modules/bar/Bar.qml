@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import "../../theme"
+import "../power"
 
 // The sidebar. Left edge, full height, reserves its width so windows tile
 // beside it rather than under it.
@@ -23,9 +24,18 @@ PanelWindow {
             color: Theme.c.mist
         }
 
-        Clock {
+        Workspaces {
+            anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
+            anchors.topMargin: 16
+        }
+
+        Column {
             anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
-            anchors.bottomMargin: 16
+            anchors.bottomMargin: 12
+            spacing: 12
+
+            Clock { anchors.horizontalCenter: parent.horizontalCenter }
+            PowerMenu { anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
         }
     }
 }

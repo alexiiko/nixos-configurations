@@ -299,6 +299,10 @@
   # Input synthesis daemon; the pen-button script uses it to emit right-clicks.
   programs.ydotool.enable = true;
 
+  # Screen locker. The module wires PAM; without it hyprlock cannot
+  # authenticate and you would be locked out.
+  programs.hyprlock.enable = true;
+
   # Daemon starts on first use via socket activation, not at boot.
   virtualisation.docker = {
     enable = true;
