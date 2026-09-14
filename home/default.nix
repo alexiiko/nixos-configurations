@@ -8,6 +8,9 @@
     # --- Core ---
     ./core/npm.nix
 
+    # --- Theme (palette + light/dark switch) ---
+    ./theme/default.nix
+
     # --- Desktop / WM ---
     ./desktop/hyprland/default.nix
     ./desktop/waybar/default.nix

@@ -85,6 +85,9 @@
 
       # Flip the display (and pen/touch) 180 degrees and back
       "$mainMod SHIFT, R, exec, ~/Programming/nixos-config/home/desktop/hyprland/rotate-screen.sh"
+
+      # Light/dark theme toggle (runtime state, publishes via the portal)
+      "$mainMod SHIFT, D, exec, theme toggle"
     ];
 
     bindm = [
