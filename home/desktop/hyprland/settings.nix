@@ -17,6 +17,7 @@
     exec-once = [
       "dunst &"
       "waybar"
+      "qs"
       "walker --gapplication-service"
       "elephant"
       "~/Programming/nixos-config/home/desktop/hyprland/pen-palm-reject.sh"

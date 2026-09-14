@@ -14,6 +14,7 @@
     # --- Desktop / WM ---
     ./desktop/hyprland/default.nix
     ./desktop/waybar/default.nix
+    ./desktop/quickshell/default.nix
     ./desktop/swaybg.nix
     ./desktop/kitty.nix
 
