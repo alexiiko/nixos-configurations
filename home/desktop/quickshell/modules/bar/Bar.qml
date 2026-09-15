@@ -34,7 +34,7 @@ PanelWindow {
     // top blocks hover from reaching items *beneath* it, but not handlers
     // on its ancestors. Bar stays while the power popover is open, since
     // the mouse leaves us to use it.
-    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered || power.open
+    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered || power.open || calBtn.open
     onWantVisibleChanged: {
         if (wantVisible) { hideTimer.stop(); revealed = true; }
         else hideTimer.restart();
@@ -72,6 +72,7 @@ PanelWindow {
 
             Clock    { anchors.horizontalCenter: parent.horizontalCenter }
             WhatsApp { anchors.horizontalCenter: parent.horizontalCenter }
+            CalendarButton { id: calBtn; anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
             Tray     { anchors.horizontalCenter: parent.horizontalCenter }
             PowerMenu { id: power; anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
         }

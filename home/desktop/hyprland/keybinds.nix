@@ -50,6 +50,7 @@
       "$mainMod SHIFT, 0, movetoworkspace, 10"
 
       "$mainMod, S, togglespecialworkspace, magic"
+      "$mainMod SHIFT, W, togglespecialworkspace, whatsapp"
       "$mainMod, TAB, workspace, e+1"
       "$mainMod SHIFT, TAB, workspace, e-1"
 

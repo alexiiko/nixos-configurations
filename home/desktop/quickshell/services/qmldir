@@ -1,0 +1,5 @@
+module services
+singleton Notifications 1.0 Notifications.qml
+Reminders 1.0 Reminders.qml
+singleton Calendar 1.0 Calendar.qml
+singleton System 1.0 System.qml

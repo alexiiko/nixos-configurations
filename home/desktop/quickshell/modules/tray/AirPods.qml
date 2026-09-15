@@ -15,7 +15,7 @@ BarButton {
     readonly property bool busy: dev?.state === BluetoothDeviceState.Connecting
                               || dev?.state === BluetoothDeviceState.Disconnecting
 
-    icon: busy ? "sync" : "earbuds"
+    icon: busy ? "sync" : "headphones"
     filled: connected
     iconColor: connected ? Theme.c.onyx : Theme.c.graphite
     tooltip: !dev ? "AirPods: not paired" : busy ? "AirPods: working…" : connected ? "AirPods: connected" : "AirPods: disconnected"

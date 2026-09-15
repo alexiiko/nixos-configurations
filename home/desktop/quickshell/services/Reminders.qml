@@ -9,27 +9,19 @@ Scope {
     id: root
     property int leadMinutes: 30
 
-    property var events: []
     property string today: Qt.formatDate(new Date(), "yyyy-MM-dd")
     property var notified: ({})          // "title@startMin" -> true, reset daily
+    readonly property var events: Calendar.eventsFor(today)
 
-    Process {
-        id: fetch
-        command: ["gcal-day", root.today]
-        stdout: StdioCollector { id: out }
-        onExited: (code) => {
-            if (code !== 0) return;
-            try { root.events = JSON.parse(out.text).events; } catch (e) {}
-        }
-    }
-    Timer { interval: 10 * 60 * 1000; running: true; repeat: true; triggeredOnStart: true; onTriggered: if (!fetch.running) fetch.running = true }
+    Component.onCompleted: Calendar.request(today)
+    Timer { interval: 10 * 60 * 1000; running: true; repeat: true; onTriggered: Calendar.request(root.today) }
 
     Process { id: notify }
 
     function check() {
         const d = new Date();
         const day = Qt.formatDate(d, "yyyy-MM-dd");
-        if (day !== root.today) { root.today = day; root.notified = {}; fetch.running = true; return; }
+        if (day !== root.today) { root.today = day; root.notified = {}; Calendar.request(day); return; }
         const now = d.getHours() * 60 + d.getMinutes();
 
         for (const e of root.events) {
@@ -39,7 +31,7 @@ Scope {
             // window rather than exact match, so a late tick can't skip it
             if (lead <= root.leadMinutes && lead > root.leadMinutes - 5 && !root.notified[key]) {
                 root.notified[key] = true;
-                notify.command = ["notify-send", "-a", "Calendar", "-i", "calendar-today",
+                notify.command = ["notify-send", "-a", "Calendar",
                                   `In ${lead} min: ${e.title}`, `${e.start} – ${e.end}`];
                 notify.running = true;
             }

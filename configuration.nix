@@ -56,6 +56,15 @@
 
   services.power-profiles-daemon.enable = false;
 
+  # Fan/thermal profile switch for the dashboard. platform_profile is root-only,
+  # so a fixed, argument-validated helper (in systemPackages below) is allowed
+  # through sudo without a password. TLP still applies its own profile on
+  # AC/battery changes.
+  security.sudo.extraRules = [{
+    users = [ "alex" ];
+    commands = [{ command = "/run/current-system/sw/bin/set-power-mode"; options = [ "NOPASSWD" ]; }];
+  }];
+
   # Battery/AC state over D-Bus; the quickshell battery widget reads this.
   services.upower.enable = true;
 
@@ -260,6 +269,16 @@
     git
     wget
     curl
+
+    # see the sudo rule under Power & Thermal Management
+    (writeShellScriptBin "set-power-mode" ''
+      set -eu
+      f=/sys/firmware/acpi/platform_profile
+      case " $(cat "$f"_choices) " in
+        *" $1 "*) printf '%s' "$1" > "$f" ;;
+        *) echo "invalid mode: $1 (choices: $(cat "$f"_choices))" >&2; exit 2 ;;
+      esac
+    '')
   ];
 
   ################################################

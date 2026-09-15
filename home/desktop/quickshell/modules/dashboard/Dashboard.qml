@@ -63,7 +63,7 @@ PanelWindow {
                 model: [
                     { label: "General", icon: "dashboard" },
                     { label: "Media",   icon: "queue_music" },
-                    { label: "Usage",   icon: "speed" },
+                    { label: "Performance", icon: "speed" },
                 ]
                 delegate: TabButton {
                     required property int index
@@ -93,7 +93,7 @@ PanelWindow {
 
             GeneralTab { anchors.fill: parent; visible: root.currentTab === 0 }
             MediaTab   { anchors.fill: parent; visible: root.currentTab === 1 }
-            UsageTab   { anchors.fill: parent; visible: root.currentTab === 2 }
+            PerformanceTab { anchors.fill: parent; visible: root.currentTab === 2 }
         }
     }
 }

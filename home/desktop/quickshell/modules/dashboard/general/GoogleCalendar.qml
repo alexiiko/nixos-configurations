@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell.Io
 import "../../../theme"
 import "../../../widgets"
+import "../../../services"
 
 // Day timeline for `date`: events placed by time, in their Google colours,
 // with a now-line when the day is today. Data from gcal-day (JSON).
@@ -10,45 +11,21 @@ Card {
     property date date: new Date()
     padding: 10
 
-    property var events: []
-    property bool loading: false
-    property bool failed: false
-    property string error: ""
-
+    // data comes from the shared Calendar service (also feeds the sidebar
+    // popover and the reminders); this card only asks for its day
     readonly property string dayArg: Qt.formatDate(date, "yyyy-MM-dd")
     readonly property bool isToday: Qt.formatDate(new Date(), "yyyy-MM-dd") === dayArg
     readonly property real hourH: 44                     // px per hour
     readonly property real gutter: 20                    // hour labels
 
-    // ---- fetching (pinned per day; stale results dropped) ------------------
-    property bool pending: false
-    property string inflight: ""
-    function refresh() {
-        if (fetch.running) { pending = true; return; }
-        inflight = dayArg; loading = true; fetch.running = true;
-    }
-    onDayArgChanged: { events = []; refresh(); }
-    Timer { interval: root.failed ? 20 * 1000 : 5 * 60 * 1000; running: true; repeat: true; triggeredOnStart: true; onTriggered: root.refresh() }
+    readonly property var events: Calendar.eventsFor(dayArg)
+    readonly property bool loading: Calendar.isLoading(dayArg)
+    readonly property bool failed: Calendar.failed && events.length === 0
+    readonly property string error: Calendar.error
 
-    Process {
-        id: fetch
-        command: ["gcal-day", root.inflight]
-        stdout: StdioCollector { id: out }
-        stderr: StdioCollector { id: err }
-        onExited: (code) => {
-            console.log(`gcal-day ${root.inflight}: exit ${code}`, code !== 0 ? err.text.trim().slice(0, 200) : "");
-            if (root.inflight !== root.dayArg) { root.pending = false; root.refresh(); return; }
-            root.loading = false;
-            if (code !== 0) {
-                root.failed = true; root.error = err.text.trim(); root.events = [];
-            } else {
-                try { root.events = JSON.parse(out.text).events; root.failed = false; }
-                catch (e) { root.failed = true; root.error = "bad JSON"; root.events = []; }
-                if (!root.failed) root.scrollToNow();
-            }
-            if (root.pending) { root.pending = false; root.refresh(); }
-        }
-    }
+    onDayArgChanged: Calendar.request(dayArg)
+    Component.onCompleted: Calendar.request(dayArg)
+    onEventsChanged: if (events.length > 0 || !loading) scrollToNow()
 
     // ---- now line ---------------------------------------------------------
     property int nowMin: { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); }

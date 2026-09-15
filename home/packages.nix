@@ -40,7 +40,6 @@
     ################################################
     # Wayland / Hyprland Tools
     ################################################
-    dunst
     libnotify
     wl-clipboard
     wtype

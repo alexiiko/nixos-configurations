@@ -15,7 +15,6 @@
     # Autostart
     # ======================
     exec-once = [
-      "dunst &"
       "qs"
       "walker --gapplication-service"
       "elephant"

@@ -35,7 +35,7 @@ Card {
     }
     Process {
         id: notify
-        command: ["notify-send", "-a", "Pomodoro", "-i", "timer",
+        command: ["notify-send", "-a", "Pomodoro",
                   root.onRest ? "Focus done" : "Rest done",
                   root.onRest ? "Time to rest. Press play when ready." : "Back to focus. Press play when ready."]
     }
