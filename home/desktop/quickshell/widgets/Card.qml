@@ -7,6 +7,7 @@ Rectangle {
     id: root
     default property alias content: inner.data
     property int padding: 14
+    property int rightPadding: padding
 
     radius: 14
     color: Theme.c.ivory
@@ -17,5 +18,6 @@ Rectangle {
         id: inner
         anchors.fill: parent
         anchors.margins: root.padding
+        anchors.rightMargin: root.rightPadding
     }
 }

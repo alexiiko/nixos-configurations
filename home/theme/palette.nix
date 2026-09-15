@@ -1,4 +1,5 @@
 # Single source of truth for every colour on the system.
+# Neutral greys with a faint cool tint; names are historical.
 #
 # Same token names in both modes, roles inverted: `ivory` is the lightest
 # background in light mode and the darkest in dark mode; `onyx` is always the
@@ -10,49 +11,49 @@
 {
   light = {
     # backgrounds, lightest -> darkest
-    ivory      = "#FDFCFB";
-    shellWhite = "#FBF7F4";
-    linen      = "#F5F0EB";
-    cream      = "#F0ECE8";
-    almondMilk = "#EBE6E1";
-    sand       = "#E6E0DA";
+    ivory      = "#FFFFFF";
+    shellWhite = "#FCFCFD";
+    linen      = "#F6F7F8";
+    cream      = "#F1F2F4";
+    almondMilk = "#ECEDEF";
+    sand       = "#E5E7EA";
     # mid greys: borders, separators, inactive fills
-    mist        = "#E8E6E3";
-    silverBirch = "#DBD8D4";
-    pebble      = "#CCC9C5";
-    driftwood   = "#BFBBB6";
-    cement      = "#B2ADA8";
-    stone       = "#A5A09A";
+    mist        = "#E6E8EB";
+    silverBirch = "#D9DCE0";
+    pebble      = "#CBCFD4";
+    driftwood   = "#BDC1C7";
+    cement      = "#AFB4BA";
+    stone       = "#A1A6AD";
     # foregrounds, lightest -> darkest
-    slate    = "#8A8580";
-    graphite = "#7A7570";
-    basalt   = "#6A6560";
-    charcoal = "#5A5550";
-    obsidian = "#4A4540";
-    onyx     = "#3E3935";
+    slate    = "#868B92";
+    graphite = "#767B82";
+    basalt   = "#666B72";
+    charcoal = "#555A60";
+    obsidian = "#43474D";
+    onyx     = "#26292E";
     # the one accent, reserved for critical states only
-    clay = "#9E6E62";
+    clay = "#B87C7C";
   };
 
   dark = {
-    ivory      = "#2E2B28";
-    shellWhite = "#332F2B";
-    linen      = "#3A3632";
-    cream      = "#403C38";
-    almondMilk = "#46423E";
-    sand       = "#4D4944";
-    mist        = "#54504C";
-    silverBirch = "#5E5A56";
-    pebble      = "#6A6662";
-    driftwood   = "#76726E";
-    cement      = "#827E7A";
-    stone       = "#8E8A86";
-    slate    = "#A8A39E";
-    graphite = "#B5B0AB";
-    basalt   = "#C2BDB8";
-    charcoal = "#CFC9C4";
-    obsidian = "#DBD6D1";
-    onyx     = "#E5E0DB";
-    clay = "#C48D7F";
+    ivory      = "#1A1C1F";
+    shellWhite = "#1F2124";
+    linen      = "#25282B";
+    cream      = "#2B2E32";
+    almondMilk = "#313438";
+    sand       = "#383B40";
+    mist        = "#3F4247";
+    silverBirch = "#4A4D52";
+    pebble      = "#56595E";
+    driftwood   = "#62656A";
+    cement      = "#6E7176";
+    stone       = "#7A7D82";
+    slate    = "#999DA3";
+    graphite = "#A8ABB0";
+    basalt   = "#B6B9BE";
+    charcoal = "#C5C8CC";
+    obsidian = "#D5D7DA";
+    onyx     = "#E8EAEC";
+    clay = "#D19A9A";
   };
 }
