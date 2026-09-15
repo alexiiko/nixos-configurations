@@ -66,7 +66,7 @@ Card {
     Column {
             id: textCol
             anchors.centerIn: parent
-            anchors.horizontalCenterOffset: 12   // text right of centre so icon+text balance as a group
+            anchors.horizontalCenterOffset: 24   // text right of centre so icon+text balance as a group
             spacing: 0
             // temperature with the rain chance tucked beside it, smaller and
             // sitting on the baseline

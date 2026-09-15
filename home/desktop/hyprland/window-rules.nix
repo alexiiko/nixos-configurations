@@ -11,5 +11,9 @@
     # hyprland-run Fenster float + positionieren
     "match:class hyprland-run, float 1"
     "match:class hyprland-run, move 20 monitor_h-120"
+
+    # WhatsApp lives on its own special workspace; the sidebar toggles it.
+    # `silent` so it does not steal focus when it starts at login.
+    "match:class ^(chrome-web\\.whatsapp\\.com.*)$, workspace special:whatsapp silent"
   ];
 }

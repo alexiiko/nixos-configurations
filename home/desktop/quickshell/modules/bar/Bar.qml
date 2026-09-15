@@ -70,8 +70,9 @@ PanelWindow {
             anchors.bottomMargin: 12
             spacing: 12
 
-            Clock   { anchors.horizontalCenter: parent.horizontalCenter }
-            Tray    { anchors.horizontalCenter: parent.horizontalCenter }
+            Clock    { anchors.horizontalCenter: parent.horizontalCenter }
+            WhatsApp { anchors.horizontalCenter: parent.horizontalCenter }
+            Tray     { anchors.horizontalCenter: parent.horizontalCenter }
             PowerMenu { id: power; anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
         }
     }

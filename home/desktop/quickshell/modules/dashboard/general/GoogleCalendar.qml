@@ -18,7 +18,7 @@ Card {
     readonly property string dayArg: Qt.formatDate(date, "yyyy-MM-dd")
     readonly property bool isToday: Qt.formatDate(new Date(), "yyyy-MM-dd") === dayArg
     readonly property real hourH: 44                     // px per hour
-    readonly property real gutter: 30                    // hour labels
+    readonly property real gutter: 20                    // hour labels
 
     // ---- fetching (pinned per day; stale results dropped) ------------------
     property bool pending: false
@@ -54,11 +54,15 @@ Card {
     property int nowMin: { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
     Timer { interval: 60000; running: true; repeat: true; onTriggered: root.nowMin = (() => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); })() }
 
-    function scrollToNow() {
-        if (!root.isToday) { flick.contentY = 8 * root.hourH; return; }   // other days: open at 08:00
+    function nowY() {
         const y = root.nowMin / 60 * root.hourH - flick.height / 3;
-        flick.contentY = Math.max(0, Math.min(y, flick.contentHeight - flick.height));
+        return Math.max(0, Math.min(y, flick.contentHeight - flick.height));
     }
+    // initial position after a fetch: today -> now, other days -> 08:00
+    function scrollToNow() { flick.contentY = root.isToday ? nowY() : 8 * root.hourH; }
+    // the header button: always to the current time, animated
+    function jumpToNow() { scrollAnim.to = nowY(); scrollAnim.restart(); }
+    NumberAnimation { id: scrollAnim; target: flick; property: "contentY"; duration: 260; easing.type: Easing.OutCubic }
 
     Column {
         anchors.fill: parent
@@ -71,8 +75,17 @@ Card {
                 text: root.isToday ? "Today" : Qt.formatDate(root.date, "ddd d MMM")
                 color: Theme.c.onyx; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize; font.weight: Font.Medium
             }
+            Icon {
+                anchors.verticalCenter: parent.verticalCenter
+                name: "schedule"; size: 16
+                color: nowH.containsMouse ? Theme.c.onyx : Theme.c.slate
+                Behavior on color { ColorAnimation { duration: 150 } }
+                MouseArea { id: nowH; anchors.fill: parent; anchors.margins: -3; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.jumpToNow() }
+                Tooltip { target: parent; text: "Scroll to now"; hovered: nowH.containsMouse }
+            }
             Icon { anchors.verticalCenter: parent.verticalCenter; name: "sync"; size: 14; color: Theme.c.pebble; visible: root.loading }
         }
+
 
         Text {
             visible: root.failed
@@ -81,13 +94,17 @@ Card {
             color: Theme.c.slate; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 2
         }
 
-        Flickable {
-            id: flick
+        Item {
+            id: timeline
             width: parent.width
             height: parent.height - y
+            visible: !root.failed
+
+        Flickable {
+            id: flick
+            anchors.fill: parent
             contentHeight: 24 * root.hourH
             clip: true
-            visible: !root.failed
             boundsBehavior: Flickable.StopAtBounds
 
             // hour grid
@@ -121,6 +138,13 @@ Card {
                         width: 3; radius: 2
                         color: modelData.color
                     }
+                    MouseArea { id: blockHover; anchors.fill: parent; hoverEnabled: true; acceptedButtons: Qt.NoButton }
+                    Tooltip {
+                        target: parent
+                        hovered: blockHover.containsMouse
+                        text: modelData.title + "\n" + (modelData.allDay ? "All day" : modelData.start + " – " + modelData.end)
+                    }
+
                     Column {
                         anchors { left: parent.left; right: parent.right; top: parent.top }
                         anchors.leftMargin: 8; anchors.rightMargin: 4; anchors.topMargin: 2
@@ -149,5 +173,33 @@ Card {
                 Rectangle { x: 0; y: -4; width: 8; height: 8; radius: 4; color: Theme.c.clay }
             }
         }
+        }
+    }
+
+    // Opens the Google Calendar app via its desktop entry (same one walker
+    // shows), so the launch command lives in one place. Top-right, fades
+    // in on card hover like the pomodoro's pen.
+    HoverHandler { id: cardHover }
+    Process { id: openApp; command: ["/home/alex/Programming/nixos-config/home/desktop/hyprland/launch-entry.sh", "google-calendar"] }
+    // Focus the existing window if the app is already open (helium reuses the
+    // session, so a second launch does nothing visible); launch only if
+    // hyprctl reports no such window.
+    Process {
+        id: focusWin
+        command: ["hyprctl", "dispatch", "focuswindow", "class:^(chrome-calendar\\.google\\.com.*)$"]
+        stdout: StdioCollector { id: focusOut }
+        onExited: if (!focusOut.text.trim().startsWith("ok")) openApp.running = true
+    }
+    function openCalendar() { focusWin.running = true; }
+    Icon {
+        anchors { top: parent.top; right: parent.right }
+        anchors.topMargin: -2; anchors.rightMargin: -2
+        name: "open_in_new"; size: 18
+        color: openH.containsMouse ? Theme.c.onyx : Theme.c.slate
+        opacity: cardHover.hovered ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: 180 } }
+        Behavior on color   { ColorAnimation  { duration: 150 } }
+        MouseArea { id: openH; anchors.fill: parent; anchors.margins: -3; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.openCalendar() }
+        Tooltip { target: parent; text: "Open Google Calendar"; hovered: openH.containsMouse }
     }
 }

@@ -21,6 +21,7 @@
       "elephant"
       "~/Programming/nixos-config/home/desktop/hyprland/pen-palm-reject.sh"
       "~/Programming/nixos-config/home/desktop/hyprland/pen-button-rightclick.sh"
+      "~/Programming/nixos-config/home/desktop/hyprland/launch-entry.sh whatsapp"
     ];
 
     # ======================

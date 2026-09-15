@@ -47,6 +47,7 @@ Item {
                 color: Theme.c.ivory
                 font.family: Theme.fontFamily
                 font.pixelSize: Theme.fontSize - 1
+                horizontalAlignment: Text.AlignHCenter
             }
         }
     }
