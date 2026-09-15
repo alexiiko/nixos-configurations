@@ -61,7 +61,9 @@ Item {
     Flickable {
         parent: root.host
         anchors.fill: parent
-        visible: root.open
+        opacity: root.open ? 1 : 0
+        visible: opacity > 0
+        Behavior on opacity { NumberAnimation { duration: 180 } }
         contentHeight: col.implicitHeight
         clip: true
         boundsBehavior: Flickable.StopAtBounds

@@ -78,8 +78,6 @@ PanelWindow {
         Behavior on y { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
 
         color: Theme.c.linen
-        border.width: 1
-        border.color: Theme.c.mist
         topLeftRadius: 14
         topRightRadius: 14
         clip: true

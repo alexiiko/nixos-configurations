@@ -71,8 +71,6 @@ PanelWindow {
         Behavior on x { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
 
         color: Theme.c.linen
-        border.width: 1
-        border.color: Theme.c.mist
         topRightRadius: 14
         bottomRightRadius: 14
 

@@ -42,8 +42,6 @@ PanelWindow {
         Behavior on y { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
 
         color: Theme.c.linen
-        border.width: 1
-        border.color: Theme.c.mist
         bottomLeftRadius: 14
         bottomRightRadius: 14
         clip: true                 // content can never draw outside the panel
@@ -91,9 +89,9 @@ PanelWindow {
             anchors { top: divider.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
             anchors.margins: 16
 
-            GeneralTab { anchors.fill: parent; visible: root.currentTab === 0 }
-            MediaTab   { anchors.fill: parent; visible: root.currentTab === 1 }
-            PerformanceTab { anchors.fill: parent; visible: root.currentTab === 2 }
+            GeneralTab { anchors.fill: parent; opacity: root.currentTab === 0 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
+            MediaTab   { anchors.fill: parent; opacity: root.currentTab === 1 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
+            PerformanceTab { anchors.fill: parent; opacity: root.currentTab === 2 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
         }
     }
 }
