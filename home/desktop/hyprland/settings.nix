@@ -9,7 +9,7 @@
 
     "$terminal" = "kitty";
     "$fileManager" = "dolphin";
-    "$menu" = "walker";
+    "$menu" = "qs ipc call launcher toggle";
 
     # ======================
     # Autostart

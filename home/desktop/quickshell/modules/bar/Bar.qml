@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 import "../../theme"
 import "../power"
 import "../tray"
@@ -15,13 +16,34 @@ PanelWindow {
     readonly property int hideDelay: 150
     readonly property int triggerWidth: 6
 
+    readonly property int barWidth: 48
     anchors { left: true; top: true; bottom: true }
-    implicitWidth: 48
+    implicitWidth: barWidth + 380        // room for the tray pill to expand into
     exclusiveZone: 0          // overlay; windows use the full screen
     aboveWindows: true
     color: "transparent"
+    // the wifi password field needs the keyboard; only then
+    WlrLayershell.keyboardFocus: tray.wantsKeyboard ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
-    mask: Region { item: root.revealed ? surface : trigger }
+    // input: the bar surface plus the (possibly expanded) tray pill; never
+    // the empty area to the right of the bar
+    mask: Region {
+        item: root.revealed ? surface : trigger
+        regions: [ Region { item: trayMask } ]
+    }
+    // Region.item takes the item's coordinates relative to its parent, and
+    // the tray is nested two levels down. This window-level item shadows the
+    // pill's real position so the expanded part is clickable.
+    // Plain property sums, not mapToItem: those are reactive, mapToItem is
+    // not (it evaluated once at y=0 before layout and never moved).
+    Item {
+        id: trayMask
+        visible: false
+        x: surface.x + bottomCol.x + tray.x
+        y: surface.y + bottomCol.y + tray.y
+        width: tray.inputWidth
+        height: tray.height
+    }
 
     // hot strip on the very edge; invisible
     Item {
@@ -34,7 +56,7 @@ PanelWindow {
     // top blocks hover from reaching items *beneath* it, but not handlers
     // on its ancestors. Bar stays while the power popover is open, since
     // the mouse leaves us to use it.
-    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered || power.open || calBtn.open
+    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered || power.open || calBtn.open || tray.anyOpen
     onWantVisibleChanged: {
         if (wantVisible) { hideTimer.stop(); revealed = true; }
         else hideTimer.restart();
@@ -43,9 +65,9 @@ PanelWindow {
 
     Rectangle {
         id: surface
-        width: root.width
+        width: root.barWidth
         height: root.height
-        x: root.revealed ? 0 : -width
+        x: root.revealed ? 0 : -root.barWidth
         Behavior on x { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
 
         color: Theme.c.linen
@@ -56,6 +78,13 @@ PanelWindow {
 
         HoverHandler { id: surfaceHover }
 
+        // Click on the bare bar (not a button): close whatever popover is open.
+        // Declared before the content so the buttons sit above it.
+        MouseArea {
+            anchors.fill: parent
+            onClicked: { power.open = false; calBtn.open = false; tray.closeAll(); }
+        }
+
         Column {
             anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
             anchors.topMargin: 10
@@ -65,15 +94,19 @@ PanelWindow {
             Workspaces { anchors.horizontalCenter: parent.horizontalCenter }
         }
 
+        // fixed to the bar width, not centred: the tray pill grows past the
+        // bar when a menu opens and must not drag the column with it
         Column {
-            anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter }
+            id: bottomCol
+            anchors { bottom: parent.bottom; left: parent.left }
             anchors.bottomMargin: 12
+            width: root.barWidth
             spacing: 12
 
             Clock    { anchors.horizontalCenter: parent.horizontalCenter }
             WhatsApp { anchors.horizontalCenter: parent.horizontalCenter }
             CalendarButton { id: calBtn; anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
-            Tray     { anchors.horizontalCenter: parent.horizontalCenter }
+            Tray     { id: tray; x: 6; barWindow: root }
             PowerMenu { id: power; anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
         }
     }
