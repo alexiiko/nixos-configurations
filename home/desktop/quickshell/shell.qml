@@ -11,4 +11,5 @@ ShellRoot {
     Launcher {}
     Toasts {}
     Reminders {}
+    BatteryAlerts {}
 }

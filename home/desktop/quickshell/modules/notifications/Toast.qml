@@ -29,6 +29,7 @@ Rectangle {
     readonly property bool hasImage: n.image !== ""
     readonly property string glyph: {
         const a = n.appName.toLowerCase();
+        if (a.includes("battery"))  return "battery_alert";
         if (n.urgency === NotificationUrgency.Critical) return "priority_high";
         if (a.includes("pomodoro")) return "timer";
         if (a.includes("calendar")) return "event";
