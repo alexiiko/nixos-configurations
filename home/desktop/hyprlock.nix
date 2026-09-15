@@ -45,9 +45,9 @@ in
           monitor = "";
           text = ''cmd[update:1000] echo "$(date +%H:%M)"'';
           color = "$text";
-          font_size = 72;
+          font_size = 144;
           font_family = "JetBrainsMono Nerd Font";
-          position = "0, 140";
+          position = "0, 125";
           halign = "center";
           valign = "center";
         }
@@ -56,9 +56,9 @@ in
           # LC_TIME overrides the system's German date locale
           text = ''cmd[update:60000] echo "$(LC_TIME=en_US.UTF-8 date +'%A, %-d %B %Y')"'';
           color = "$muted";
-          font_size = 15;
+          font_size = 30;
           font_family = "JetBrainsMono Nerd Font";
-          position = "0, 78";
+          position = "0, 5";
           halign = "center";
           valign = "center";
         }
@@ -66,12 +66,12 @@ in
 
       input-field = [{
         monitor = "";
-        size = "300, 46";
-        position = "0, -10";
+        size = "600, 92";
+        position = "0, -145";
         halign = "center";
         valign = "center";
-        rounding = 12;
-        outline_thickness = 1;
+        rounding = 24;
+        outline_thickness = 2;
         outer_color = "$border";
         inner_color = "$surface";
         font_color = "$text";
@@ -95,7 +95,7 @@ in
 
   # Seed the active colour file from the current mode on activation, so a
   # lock right after a rebuild (before `theme` has run) still has colours.
-  home.activation.hyprlockTheme = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.hyprlockTheme = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     mode=$(cat "$HOME/.config/theme/mode" 2>/dev/null || echo light)
     cp -f "$HOME/.config/hypr/hyprlock-$mode.conf" "$HOME/.config/hypr/hyprlock-theme.conf"
   '';
