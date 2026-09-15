@@ -6,7 +6,7 @@ import "../../theme"
 // Existing workspaces, sorted by id, focused one filled. Mirrors waybar's
 // hyprland/workspaces: only workspaces that exist are shown, click focuses.
 // Monochrome: state is carried by fill and text weight, not colour.
-Column {
+Row {
     id: root
     spacing: 6
 
@@ -27,12 +27,11 @@ Column {
             width: 28
             height: 28
             radius: 8
-            anchors.horizontalCenter: parent.horizontalCenter
 
             color: focused ? Theme.c.onyx
                  : urgent  ? Theme.c.clay
                  : hovered ? Theme.c.sand
-                 : Theme.c.linen     // bar bg, not "transparent": that is black@0 and
+                 : Theme.c.linen     // panel bg, not "transparent": that is black@0 and
                                      // the animation would pass through it
             border.width: focused || urgent ? 0 : 1
             border.color: hovered ? Theme.c.cement : Theme.c.pebble

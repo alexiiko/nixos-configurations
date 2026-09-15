@@ -98,7 +98,6 @@ PanelWindow {
             spacing: 8
 
             NixButton  { anchors.horizontalCenter: parent.horizontalCenter }
-            Workspaces { anchors.horizontalCenter: parent.horizontalCenter }
         }
 
         // fixed to the bar width, not centred: the tray pill grows past the
