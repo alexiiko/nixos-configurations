@@ -33,6 +33,13 @@
     onyx     = "#26292E";
     # the one accent, reserved for critical states only
     clay = "#B87C7C";
+    # terminal ANSI colours: muted so diffs/errors stay readable on white
+    ansi = {
+      black = "#26292E"; red = "#B3565A"; green = "#5E8C61"; yellow = "#A98240";
+      blue = "#5C7FA6"; magenta = "#8F6E9E"; cyan = "#4E8F94"; white = "#CBCFD4";
+      brightBlack = "#868B92"; brightRed = "#C46A6E"; brightGreen = "#6FA073"; brightYellow = "#BC9552";
+      brightBlue = "#6F92B8"; brightMagenta = "#A182B0"; brightCyan = "#62A2A7"; brightWhite = "#FFFFFF";
+    };
   };
 
   dark = {
@@ -55,5 +62,11 @@
     obsidian = "#D5D7DA";
     onyx     = "#E8EAEC";
     clay = "#D19A9A";
+    ansi = {
+      black = "#1A1C1F"; red = "#D48A8D"; green = "#9CC49E"; yellow = "#D6BA85";
+      blue = "#94B2D6"; magenta = "#BBA3CA"; cyan = "#8FC2C6"; white = "#C5C8CC";
+      brightBlack = "#7A7D82"; brightRed = "#E09EA1"; brightGreen = "#AFD2B1"; brightYellow = "#E3C99A";
+      brightBlue = "#A9C3E0"; brightMagenta = "#CBB6D8"; brightCyan = "#A5D0D3"; brightWhite = "#E8EAEC";
+    };
   };
 }

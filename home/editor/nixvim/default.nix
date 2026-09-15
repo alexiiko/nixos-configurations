@@ -55,11 +55,20 @@
       }
     ];
 
-    colorscheme = "ayu-light";
-    colorschemes.ayu = {
-      enable = true;
-      settings.mirage = false;
-    };
+    # system palette (home/theme); follows light/dark live
+    extraFiles."colors/mono.lua".source = ./mono.lua;
+    colorscheme = "mono";
+    extraConfigLua = ''
+      -- re-apply when the theme flips: `theme` sends SIGUSR1, and focus
+      -- catches anything missed while the editor was in the background
+      local function retheme()
+        local f = io.open(vim.fn.expand("~/.config/theme/mode")); if not f then return end
+        local mode = f:read("*l"); f:close()
+        if mode ~= vim.o.background then vim.cmd.colorscheme("mono") end
+      end
+      vim.api.nvim_create_autocmd("Signal", { pattern = "SIGUSR1", callback = retheme })
+      vim.api.nvim_create_autocmd("FocusGained", { callback = retheme })
+    '';
 
     extraPackages = with pkgs; [
       stylua

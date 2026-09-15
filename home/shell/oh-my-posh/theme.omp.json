@@ -10,13 +10,13 @@
         {
           "type": "session",
           "style": "plain",
-          "foreground": "#000000",
+          "foreground": "default",
           "template": "\n{{ .UserName }} "
         },
         {
           "type": "path",
           "style": "plain",
-          "foreground": "#000000",
+          "foreground": "default",
           "template": "{{ .Path }} ",
           "properties": {
             "style": "full",
@@ -28,7 +28,7 @@
         {
           "type": "git",
           "style": "plain",
-          "foreground": "#000000",
+          "foreground": "default",
           "template": "({{ .HEAD }}) ",
           "properties": {
             "branch_icon": " ",
@@ -45,7 +45,7 @@
         {
           "type": "text",
           "style": "plain",
-          "foreground": "#000000",
+          "foreground": "default",
           "template": "❯ "
         }
       ]

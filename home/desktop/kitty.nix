@@ -7,9 +7,11 @@
       size = 13;
     };
     settings = {
-      background = "#ffffff";
-      foreground = "#000000";
-      cursor     = "#000000";
+      # colours come from the active theme (see home/theme); the socket lets
+      # `theme` recolour running windows
+      include = "~/.config/theme/kitty.conf";
+      allow_remote_control = "socket-only";
+      listen_on = "unix:/tmp/kitty";
       cursor_shape = "block";
       
       window_padding_width = "8";
