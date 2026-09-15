@@ -11,16 +11,12 @@ in
     material-symbols   # Material Symbols Rounded (variable: wght/FILL/GRAD/opsz)
     gcalcli            # Google Calendar (OAuth token lives in ~/.config/gcalcli, outside the repo)
 
-    # gcal-day YYYY-MM-DD -> TSV of that day's events, for the dashboard card.
-    # Fixed --details so the column order is known: start_date start_time
-    # end_date end_time title calendar. Exit code is gcalcli's, so "not
-    # authenticated" surfaces as a failure rather than an empty day.
+    # gcal-day YYYY-MM-DD -> JSON events with colours, for the dashboard card.
+    # A small Python script that reuses gcalcli's stored token and talks to
+    # the Calendar API directly (gcalcli's own output has no colour field).
     (writeShellScriptBin "gcal-day" ''
-      set -euo pipefail
-      day="$1"
-      next="$(${coreutils}/bin/date -d "$day + 1 day" +%F)"
-      exec ${gcalcli}/bin/gcalcli --nocolor agenda --tsv --military --nodeclined \
-        --details end --details calendar "$day" "$next"
+      exec ${python3.withPackages (ps: [ ps.google-api-python-client ps.google-auth ])}/bin/python3 \
+        ${./scripts/gcal-day.py} "$@"
     '')
   ];
 
