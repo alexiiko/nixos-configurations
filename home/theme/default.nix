@@ -60,6 +60,9 @@ in
 
       printf '%s\n' "$mode" > "$mode_file"
 
+      # hyprlock reads its colours from a plain file at launch
+      cp -f "$HOME/.config/hypr/hyprlock-$mode.conf" "$HOME/.config/hypr/hyprlock-theme.conf"
+
       [ "$mode" = dark ] && scheme=prefer-dark || scheme=prefer-light
       GSETTINGS_SCHEMA_DIR="${schemas}" \
         ${pkgs.glib}/bin/gsettings set org.gnome.desktop.interface color-scheme "$scheme"

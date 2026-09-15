@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Services.UPower
 import "../../theme"
 import "../../widgets"
 import "../../services"
@@ -12,7 +13,6 @@ RowLayout {
     // CPU: temperature on the main arc (0..100 °C), usage on the inner arc
     Gauge {
         Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.preferredHeight: 200; Layout.maximumHeight: 200; Layout.alignment: Qt.AlignVCenter
-        Layout.topMargin: 90
         value: System.cpuTemp / 100
         text: System.cpuTemp + "°C"
         label: "CPU temp"
@@ -21,10 +21,14 @@ RowLayout {
         secondaryLabel: "Usage"
     }
 
+    // Middle column: fan profile on top, battery underneath
+    ColumnLayout {
+        Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.fillHeight: true
+        spacing: 0
+
     // Power / fan profile: arc shows the level, click cycles through modes
     Item {
-        Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.preferredHeight: 200; Layout.maximumHeight: 200; Layout.alignment: Qt.AlignVCenter
-        Layout.bottomMargin: 90
+        Layout.fillWidth: true; Layout.preferredHeight: 150; Layout.maximumHeight: 150; Layout.alignment: Qt.AlignHCenter
         readonly property int idx: Math.max(0, System.modes.indexOf(System.mode))
         readonly property var names: ({ "low-power": "Silent", "quiet": "Quiet", "balanced": "Balanced", "performance": "Performance" })
         readonly property var icons: ({ "low-power": "mode_fan_off", "quiet": "mode_fan", "balanced": "mode_fan", "performance": "mode_fan" })
@@ -51,10 +55,25 @@ RowLayout {
             Tooltip { target: parent; hovered: parent.containsMouse; text: "Fan profile — click to change" }
         }
     }
+
+    // Battery: charge on the arc, remaining time as the label
+    Gauge {
+        Layout.fillWidth: true; Layout.preferredHeight: 150; Layout.maximumHeight: 150; Layout.alignment: Qt.AlignHCenter
+        readonly property var dev: UPower.displayDevice
+        readonly property int pct: Math.round((dev?.percentage ?? 0) * 100)
+        readonly property bool charging: dev?.state === UPowerDeviceState.Charging
+        readonly property bool full: dev?.state === UPowerDeviceState.FullyCharged
+        function fmt(sec) { const m = Math.round(sec / 60), h = Math.floor(m / 60); return h > 0 ? `${h}h ${(m % 60).toString().padStart(2, "0")}m` : `${m}m`; }
+        value: pct / 100
+        text: pct + "%"
+        label: !dev ? "" : full ? "Full" : charging ? (dev.timeToFull > 0 ? fmt(dev.timeToFull) + " to full" : "Charging") : (dev.timeToEmpty > 0 ? fmt(dev.timeToEmpty) + " left" : "Battery")
+        arcColor: !charging && !full && pct <= 10 ? Theme.c.clay : Theme.c.onyx
+    }
+    }
+
     // Memory used on the main arc, storage on the inner arc
     Gauge {
         Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.preferredHeight: 200; Layout.maximumHeight: 200; Layout.alignment: Qt.AlignVCenter
-        Layout.topMargin: 90
         value: System.memTotal > 0 ? System.memUsed / System.memTotal : 0
         text: System.gib(System.memUsed) + "GiB"
         label: "Memory"
