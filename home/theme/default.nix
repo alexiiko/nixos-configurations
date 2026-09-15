@@ -116,7 +116,13 @@ in
       for app in kitty tmux; do
         cp -f "${stateDir}/$app-$mode.conf" "${stateDir}/$app.conf"
       done
-      ${pkgs.procps}/bin/pkill -USR1 -x kitty || true     # kitty reloads its config on SIGUSR1
+      # kitty: SIGUSR1 reloads the config, but windows whose colours an app
+      # touched via escape codes keep them; set-colors over the socket
+      # overrides those too
+      ${pkgs.procps}/bin/pkill -USR1 -x kitty || true
+      for s in /tmp/kitty-*; do
+        [ -S "$s" ] && ${pkgs.kitty}/bin/kitten @ --to "unix:$s" set-colors -a -c "${stateDir}/kitty.conf" 2>/dev/null || true
+      done
       ${pkgs.tmux}/bin/tmux source-file "${stateDir}/tmux.conf" 2>/dev/null || true
       ${pkgs.procps}/bin/pkill -USR1 -x nvim || true      # nvim re-reads the mode file on SIGUSR1
 

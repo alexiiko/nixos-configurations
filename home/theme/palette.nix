@@ -25,20 +25,20 @@
     cement      = "#AFB4BA";
     stone       = "#A1A6AD";
     # foregrounds, lightest -> darkest
-    slate    = "#868B92";
-    graphite = "#767B82";
-    basalt   = "#666B72";
-    charcoal = "#555A60";
-    obsidian = "#43474D";
+    slate    = "#6F747B";
+    graphite = "#61666D";
+    basalt   = "#53585F";
+    charcoal = "#45494F";
+    obsidian = "#34383D";
     onyx     = "#26292E";
     # the one accent, reserved for critical states only
     clay = "#B87C7C";
     # terminal ANSI colours: muted so diffs/errors stay readable on white
     ansi = {
-      black = "#26292E"; red = "#B3565A"; green = "#5E8C61"; yellow = "#A98240";
-      blue = "#5C7FA6"; magenta = "#8F6E9E"; cyan = "#4E8F94"; white = "#CBCFD4";
-      brightBlack = "#868B92"; brightRed = "#C46A6E"; brightGreen = "#6FA073"; brightYellow = "#BC9552";
-      brightBlue = "#6F92B8"; brightMagenta = "#A182B0"; brightCyan = "#62A2A7"; brightWhite = "#FFFFFF";
+      black = "#26292E"; red = "#C62A32"; green = "#2E8B3A"; yellow = "#B07A00";
+      blue = "#2A62C4"; magenta = "#8E3BB0"; cyan = "#0D8A96"; white = "#9AA0A8";
+      brightBlack = "#5C6168"; brightRed = "#D93A42"; brightGreen = "#3A9E47"; brightYellow = "#C48A0A";
+      brightBlue = "#3A74D8"; brightMagenta = "#A04CC4"; brightCyan = "#1A9CA8"; brightWhite = "#FFFFFF";
     };
   };
 
