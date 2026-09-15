@@ -90,7 +90,7 @@ PanelWindow {
             anchors.margins: 16
 
             GeneralTab { anchors.fill: parent; opacity: root.currentTab === 0 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
-            MediaTab   { anchors.fill: parent; opacity: root.currentTab === 1 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
+            MediaTab   { anchors.fill: parent; active: root.revealed && root.currentTab === 1; opacity: root.currentTab === 1 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
             PerformanceTab { anchors.fill: parent; opacity: root.currentTab === 2 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
         }
     }

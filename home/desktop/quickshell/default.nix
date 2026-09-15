@@ -9,6 +9,7 @@ in
   home.packages = with pkgs; [
     quickshell
     material-symbols   # Material Symbols Rounded (variable: wght/FILL/GRAD/opsz)
+    cava               # audio visualizer feed for the dashboard media tab
     gcalcli            # Google Calendar (OAuth token lives in ~/.config/gcalcli, outside the repo)
 
     # gcal-day YYYY-MM-DD -> JSON events with colours, for the dashboard card.

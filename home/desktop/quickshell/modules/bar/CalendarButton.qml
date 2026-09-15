@@ -64,7 +64,8 @@ Item {
             GoogleCalendar {
                 x: root.pillWidth + root.gap
                 width: Math.max(0, pill.width - x)
-                height: pill.height
+                // bottom edge level with the button, not the pill around it
+                height: pill.height - (root.pillWidth - root.implicitWidth) / 2
                 visible: width > 0
                 clip: true
                 date: new Date()

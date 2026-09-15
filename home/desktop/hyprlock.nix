@@ -29,6 +29,19 @@ in
     };
   };
 
+  # Blue light filter: warm from 20:00, off from 06:00. The dashboard clock
+  # card toggles it by hand via `hyprctl hyprsunset`.
+  services.hyprsunset = {
+    enable = true;
+    settings = {
+      max-gamma = 100;
+      profile = [
+        { time = "06:00"; identity = true; }
+        { time = "20:00"; temperature = 4000; }
+      ];
+    };
+  };
+
   programs.hyprlock = {
     enable = true;
     package = pkgs.hyprlock;    # PAM is wired by the NixOS module
