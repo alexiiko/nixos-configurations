@@ -116,11 +116,15 @@ in
       for app in kitty tmux; do
         cp -f "${stateDir}/$app-$mode.conf" "${stateDir}/$app.conf"
       done
-      for s in /tmp/kitty-*; do
-        [ -S "$s" ] && ${pkgs.kitty}/bin/kitten @ --to "unix:$s" set-colors -a -c "${stateDir}/kitty.conf" || true
-      done
+      ${pkgs.procps}/bin/pkill -USR1 -x kitty || true     # kitty reloads its config on SIGUSR1
       ${pkgs.tmux}/bin/tmux source-file "${stateDir}/tmux.conf" 2>/dev/null || true
       ${pkgs.procps}/bin/pkill -USR1 -x nvim || true      # nvim re-reads the mode file on SIGUSR1
+
+      # Claude Code: own themes only (dark/light), follows its settings file
+      cc="$HOME/.claude/settings.json"
+      if [ -f "$cc" ]; then
+        ${pkgs.jq}/bin/jq --arg t "$mode" '.theme = $t' "$cc" > "$cc.tmp" && mv "$cc.tmp" "$cc"
+      fi
 
       [ "$mode" = dark ] && scheme=prefer-dark || scheme=prefer-light
       GSETTINGS_SCHEMA_DIR="${schemas}" \

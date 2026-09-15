@@ -31,6 +31,10 @@
     initContent = ''
       # Oh My Posh Prompt laden
       eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.omp.json)"
+      # the prompt picks its palette from this; refresh before every prompt
+      # so a theme switch shows up on the next line
+      _theme_mode() { export THEME_MODE=$(<~/.config/theme/mode 2>/dev/null); : ''${THEME_MODE:=light}; }
+      precmd_functions+=(_theme_mode)
 
 
       # Deine Copy-Funktionen bleiben erhalten

@@ -7,11 +7,9 @@
       size = 13;
     };
     settings = {
-      # colours come from the active theme (see home/theme); the socket lets
-      # `theme` recolour running windows
+      # colours come from the active theme (see home/theme); `theme` sends
+      # SIGUSR1 so running windows reload
       include = "~/.config/theme/kitty.conf";
-      allow_remote_control = "socket-only";
-      listen_on = "unix:/tmp/kitty";
       cursor_shape = "block";
       
       window_padding_width = "8";
