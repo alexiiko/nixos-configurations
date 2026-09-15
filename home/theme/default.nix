@@ -27,7 +27,8 @@ in
         h=$(${pkgs.coreutils}/bin/date +%H)
         if [ "$h" -ge 20 ] || [ "$h" -lt 6 ]; then theme dark; else theme light; fi
       '');
-      Environment = "PATH=${config.home.profileDirectory}/bin";
+      # coreutils too: the theme script needs mkdir/cat/cp and the user profile does not carry them
+      Environment = "PATH=${config.home.profileDirectory}/bin:${pkgs.coreutils}/bin";
     };
   };
   systemd.user.timers.theme-auto = {
