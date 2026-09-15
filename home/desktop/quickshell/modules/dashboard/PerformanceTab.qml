@@ -12,6 +12,7 @@ RowLayout {
     // CPU: temperature on the main arc (0..100 °C), usage on the inner arc
     Gauge {
         Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.preferredHeight: 200; Layout.maximumHeight: 200; Layout.alignment: Qt.AlignVCenter
+        Layout.topMargin: 90
         value: System.cpuTemp / 100
         text: System.cpuTemp + "°C"
         label: "CPU temp"
@@ -20,20 +21,10 @@ RowLayout {
         secondaryLabel: "Usage"
     }
 
-    // Memory used on the main arc, storage on the inner arc
-    Gauge {
-        Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.preferredHeight: 200; Layout.maximumHeight: 200; Layout.alignment: Qt.AlignVCenter
-        value: System.memTotal > 0 ? System.memUsed / System.memTotal : 0
-        text: System.gib(System.memUsed) + "GiB"
-        label: "Memory"
-        secondary: System.diskTotal > 0 ? System.diskUsed / System.diskTotal : -1
-        secondaryText: Math.round(System.diskUsed / 1073741824) + "GiB"
-        secondaryLabel: "Storage"
-    }
-
     // Power / fan profile: arc shows the level, click cycles through modes
     Item {
         Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.preferredHeight: 200; Layout.maximumHeight: 200; Layout.alignment: Qt.AlignVCenter
+        Layout.bottomMargin: 90
         readonly property int idx: Math.max(0, System.modes.indexOf(System.mode))
         readonly property var names: ({ "low-power": "Silent", "quiet": "Quiet", "balanced": "Balanced", "performance": "Performance" })
         readonly property var icons: ({ "low-power": "mode_fan_off", "quiet": "mode_fan", "balanced": "mode_fan", "performance": "mode_fan" })
@@ -60,4 +51,16 @@ RowLayout {
             Tooltip { target: parent; hovered: parent.containsMouse; text: "Fan profile — click to change" }
         }
     }
+    // Memory used on the main arc, storage on the inner arc
+    Gauge {
+        Layout.fillWidth: true; Layout.preferredWidth: 1; Layout.preferredHeight: 200; Layout.maximumHeight: 200; Layout.alignment: Qt.AlignVCenter
+        Layout.topMargin: 90
+        value: System.memTotal > 0 ? System.memUsed / System.memTotal : 0
+        text: System.gib(System.memUsed) + "GiB"
+        label: "Memory"
+        secondary: System.diskTotal > 0 ? System.diskUsed / System.diskTotal : -1
+        secondaryText: Math.round(System.diskUsed / 1073741824) + "GiB"
+        secondaryLabel: "Storage"
+    }
+
 }

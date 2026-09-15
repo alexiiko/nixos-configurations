@@ -120,9 +120,24 @@
       "--update-input"
       "nixpkgs"
     ];
-    dates = "weekly";
+    # 1st and 15th of the month at 03:00; `persistent` runs a missed slot
+    # at the next boot, so a laptop that was off still gets it.
+    dates = "*-*-01,15 03:00";
+    persistent = true;
     randomizedDelaySec = "45min";
   };
+
+  # The upgrade runs as root against a repo owned by alex. libgit2 refuses
+  # that ("not owned by current user") unless the path is marked safe, which
+  # is why the timer fired for weeks without ever upgrading anything.
+  programs.git = {
+    enable = true;
+    config.safe.directory = [ "/home/alex/Programming/nixos-config" ];
+  };
+  # `--update-input` rewrites flake.lock as root; hand it back so alex can
+  # still commit and update it afterwards.
+  systemd.services.nixos-upgrade.serviceConfig.ExecStopPost =
+    "${pkgs.coreutils}/bin/chown alex:users /home/alex/Programming/nixos-config/flake.lock";
 
   ################################################
   # Fonts

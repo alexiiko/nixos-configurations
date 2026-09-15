@@ -69,13 +69,17 @@ Item {
         Text { anchors.horizontalCenter: parent.horizontalCenter; text: root.label; color: Theme.c.charcoal; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 1 }
     }
 
-    // secondary readout sits in the gap at the lower right of the ring
+    // secondary readout: left-aligned just past the ring's lower-right end,
+    // so a wide value grows outward instead of into the arc
     Column {
         visible: root.secondary >= 0
-        anchors { right: parent.right; bottom: parent.bottom }
-        anchors.rightMargin: 6; anchors.bottomMargin: 18
+        // tucked inside the ring at the lower right: the box's right edge
+        // meets the arc's end (45 degrees), both lines right-aligned to it
+        width: 64
+        x: root.width / 2 + root.r * Math.cos(Math.PI / 4) - width - 14
+        y: root.height / 2 + root.r * Math.sin(Math.PI / 4) - 6
         spacing: 0
-        Text { anchors.right: parent.right; text: root.secondaryText; color: Theme.c.onyx; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 1; font.weight: Font.Medium }
-        Text { anchors.right: parent.right; text: root.secondaryLabel; color: Theme.c.slate; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 3 }
+        Text { width: parent.width; horizontalAlignment: Text.AlignRight; text: root.secondaryText; color: Theme.c.onyx; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 1; font.weight: Font.Medium }
+        Text { width: parent.width; horizontalAlignment: Text.AlignRight; text: root.secondaryLabel; color: Theme.c.slate; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 3 }
     }
 }

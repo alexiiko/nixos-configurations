@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   palette = import ./palette.nix;
@@ -13,6 +13,28 @@ in
   # Palette as JSON for runtime consumers (Quickshell reads this; anything
   # that can't take nix directly can too). Regenerated on rebuild.
   xdg.configFile."theme/palette.json".text = builtins.toJSON palette;
+
+  # Automatic light/dark by time of day: dark from 20:00, light from 06:00.
+  # A oneshot picks the right mode for "now" (also on login, so a session
+  # started at 22:00 comes up dark); timers fire it at both boundaries.
+  # Super+Shift+D still overrides until the next boundary.
+  systemd.user.services.theme-auto = {
+    Unit.Description = "Apply light/dark theme for the current time";
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      Type = "oneshot";
+      ExecStart = toString (pkgs.writeShellScript "theme-auto" ''
+        h=$(${pkgs.coreutils}/bin/date +%H)
+        if [ "$h" -ge 20 ] || [ "$h" -lt 6 ]; then theme dark; else theme light; fi
+      '');
+      Environment = "PATH=${config.home.profileDirectory}/bin";
+    };
+  };
+  systemd.user.timers.theme-auto = {
+    Unit.Description = "Switch theme at 06:00 and 20:00";
+    Install.WantedBy = [ "timers.target" ];
+    Timer = { OnCalendar = [ "*-*-* 06:00:00" "*-*-* 20:00:00" ]; Persistent = true; };
+  };
 
   home.packages = [
     pkgs.gsettings-desktop-schemas
