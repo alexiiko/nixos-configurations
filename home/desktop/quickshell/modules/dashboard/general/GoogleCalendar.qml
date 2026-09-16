@@ -60,6 +60,19 @@ Card {
                 MouseArea { id: nowH; anchors.fill: parent; anchors.margins: -3; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.jumpToNow() }
                 Tooltip { target: parent; text: "Scroll to now"; hovered: nowH.containsMouse }
             }
+            // time left in the block running now
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                readonly property var cur: root.isToday ? root.events.find(e => !e.allDay && e.startMin <= root.nowMin && e.endMin > root.nowMin) : undefined
+                visible: cur !== undefined
+                text: {
+                    if (!cur) return "";
+                    const left = cur.endMin - root.nowMin;
+                    const h = Math.floor(left / 60), m = left % 60;
+                    return `(${h > 0 ? h + "h " : ""}${m}m)`;
+                }
+                color: Theme.c.slate; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 2
+            }
             Icon { anchors.verticalCenter: parent.verticalCenter; name: "sync"; size: 14; color: Theme.c.pebble; visible: root.loading }
         }
 
