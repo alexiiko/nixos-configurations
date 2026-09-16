@@ -1,85 +1,83 @@
 import QtQuick
-import Quickshell
-import Quickshell.Io
 import Quickshell.Hyprland
 import "../../theme"
 import "../../widgets"
 
-// Power button in the bar + a popover that opens beside it.
-// Click outside or Escape closes it (HyprlandFocusGrab).
+// Power button in the bar. Click grows a pill out of it — rightward and
+// upward — holding the actions. Same construction as CalendarButton (constant
+// oversized host, animated pill inside; see Tray.qml for why).
 Item {
     id: root
-    required property var barWindow     // the PanelWindow to anchor to
+    required property var barWindow
+    property bool open: false
 
     implicitWidth: 28
     implicitHeight: 28
 
-    property bool open: false
+    readonly property int pillWidth: 36
+    readonly property int panelWidth: 168
+    readonly property int gap: 16
+    readonly property int panelHeight: list.implicitHeight + 16
 
-    // --- the button in the bar ---------------------------------------------
-    Rectangle {
-        id: button
-        anchors.fill: parent
-        radius: 8
-        color: root.open ? Theme.c.sand : hover.containsMouse ? Theme.c.sand : Theme.c.linen
-        Behavior on color { ColorAnimation { duration: 200 } }
+    // what the bar's input mask should cover, relative to this item
+    readonly property real inputX: host.x
+    readonly property real inputY: host.y + pill.y
+    readonly property alias inputWidth: pill.width
+    readonly property alias inputHeight: pill.height
 
-        Icon { anchors.centerIn: parent; name: "power_settings_new"; size: 20 }
-
-        MouseArea {
-            id: hover
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
-            onClicked: root.open = !root.open
-        }
+    HyprlandFocusGrab {
+        windows: [root.barWindow]
+        active: root.open
+        onCleared: root.open = false
     }
 
-    // --- the popover -------------------------------------------------------
-    PopupWindow {
-        id: popup
-        anchor {
-            window: root.barWindow
-            item: root
-            edges: Edges.Right
-            gravity: Edges.Right
-            margins.left: 10
-        }
-        visible: root.open
-        implicitWidth: 168
-        implicitHeight: list.implicitHeight + 16
-        color: "transparent"
-
-        HyprlandFocusGrab {
-            windows: [popup, root.barWindow]
-            active: root.open
-            onCleared: root.open = false
-        }
+    Item {
+        id: host
+        x: -(root.pillWidth - root.implicitWidth) / 2
+        y: root.implicitHeight + (root.pillWidth - root.implicitWidth) / 2 - height
+        width: root.pillWidth + root.gap + root.panelWidth + 12
+        height: Math.max(root.pillWidth, root.panelHeight)
 
         Rectangle {
-            anchors.fill: parent
-            radius: 12
-            color: Theme.c.ivory
-            border.width: 1
-            border.color: Theme.c.mist
+            id: pill
+            anchors { left: parent.left; bottom: parent.bottom }
+            width: root.open ? parent.width : root.pillWidth
+            height: root.open ? parent.height : root.pillWidth
+            color: "transparent"
+            Behavior on width  { NumberAnimation { duration: 220; easing.type: Easing.OutCubic } }
+            Behavior on height { NumberAnimation { duration: 220; easing.type: Easing.OutCubic } }
 
-            Column {
-                id: list
-                anchors { fill: parent; margins: 8 }
-                spacing: 2
-
-                PowerAction { icon: "lock";                label: "Lock";      command: ["hyprlock"];          onTriggered: root.open = false }
-                PowerAction { icon: "bedtime";             label: "Sleep";     command: ["systemctl", "suspend"]; onTriggered: root.open = false }
-                PowerAction { icon: "restart_alt";         label: "Restart";   command: ["systemctl", "reboot"];  onTriggered: root.open = false }
-                PowerAction { icon: "power_settings_new";  label: "Shut down"; command: ["systemctl", "poweroff"]; onTriggered: root.open = false }
+            BarButton {
+                anchors { left: parent.left; bottom: parent.bottom }
+                anchors.margins: (root.pillWidth - width) / 2
+                icon: "power_settings_new"
+                active: root.open
+                tooltip: "Power"
+                onClicked: root.open = !root.open
             }
-        }
 
-        // Escape closes
-        Item {
-            anchors.fill: parent
-            focus: root.open
-            Keys.onEscapePressed: root.open = false
+            // the card tracks the animated pill size, so it flies out itself
+            Rectangle {
+                x: root.pillWidth + root.gap
+                width: Math.max(0, pill.width - x)
+                height: pill.height - (root.pillWidth - root.implicitWidth) / 2
+                visible: width > 0
+                clip: true
+                radius: 12
+                color: Theme.c.ivory
+
+                Column {
+                    id: list
+                    anchors { left: parent.left; right: parent.right; top: parent.top; margins: 8 }
+                    width: root.panelWidth - 16
+                    spacing: 2
+
+                    PowerAction { icon: "lock";                label: "Lock";      command: ["hyprlock"];              onTriggered: root.open = false }
+                    PowerAction { icon: "bedtime";             label: "Sleep";     command: ["systemctl", "suspend"];  onTriggered: root.open = false }
+                    PowerAction { icon: "restart_alt";         label: "Restart";   command: ["systemctl", "reboot"];   onTriggered: root.open = false }
+                    PowerAction { icon: "power_settings_new";  label: "Shut down"; command: ["systemctl", "poweroff"]; onTriggered: root.open = false }
+                }
+            }
         }
     }
 }

@@ -38,10 +38,9 @@ Item {
 
     Column {
         parent: root.host
-        anchors { left: parent.left; right: parent.right; verticalCenter: parent.verticalCenter }
-        opacity: root.open ? 1 : 0
-        visible: opacity > 0
-        Behavior on opacity { NumberAnimation { duration: 180 } }
+        width: parent.width
+        y: (parent.height - height) / 2 + (3 - root.host.activeSlot) * root.host.height
+        Behavior on y { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
         spacing: 4
 
         Text {

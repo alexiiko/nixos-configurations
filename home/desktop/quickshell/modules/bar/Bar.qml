@@ -29,7 +29,7 @@ PanelWindow {
     // the empty area to the right of the bar
     mask: Region {
         item: root.revealed ? surface : trigger
-        regions: [ Region { item: trayMask }, Region { item: calMask } ]
+        regions: [ Region { item: trayMask }, Region { item: calMask }, Region { item: powerMask } ]
     }
     // Region.item takes the item's coordinates relative to its parent, and
     // the tray is nested two levels down. This window-level item shadows the
@@ -52,6 +52,15 @@ PanelWindow {
         y: surface.y + bottomCol.y + calBtn.y + calBtn.inputY
         width: calBtn.inputWidth
         height: calBtn.inputHeight
+    }
+
+    Item {
+        id: powerMask
+        visible: false
+        x: surface.x + bottomCol.x + power.x + power.inputX
+        y: surface.y + bottomCol.y + power.y + power.inputY
+        width: power.inputWidth
+        height: power.inputHeight
     }
 
     // hot strip on the very edge; invisible

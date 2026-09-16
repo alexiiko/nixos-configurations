@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import "../../theme"
+import "../../widgets"
 
 // Top-centre dashboard. Same auto-hide as the sidebar (see Bar.qml for the
 // hover/mask reasoning), sliding down from the top edge.
@@ -85,13 +86,28 @@ PanelWindow {
         }
 
         // --- tab content ------------------------------------------------
+        // tabs sit side by side as a strip that slides; no fading
         Item {
+            id: tabHost
             anchors { top: divider.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
             anchors.margins: 16
+            clip: true
 
-            GeneralTab { anchors.fill: parent; opacity: root.currentTab === 0 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
-            MediaTab   { anchors.fill: parent; active: root.revealed && root.currentTab === 1; opacity: root.currentTab === 1 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
-            PerformanceTab { anchors.fill: parent; opacity: root.currentTab === 2 ? 1 : 0; visible: opacity > 0; Behavior on opacity { NumberAnimation { duration: 180 } } }
+            GeneralTab {
+                width: parent.width; height: parent.height
+                x: (0 - root.currentTab) * tabHost.width
+                Behavior on x { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
+            }
+            MediaTab {
+                width: parent.width; height: parent.height; active: root.revealed && root.currentTab === 1
+                x: (1 - root.currentTab) * tabHost.width
+                Behavior on x { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
+            }
+            PerformanceTab {
+                width: parent.width; height: parent.height
+                x: (2 - root.currentTab) * tabHost.width
+                Behavior on x { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
+            }
         }
     }
 }

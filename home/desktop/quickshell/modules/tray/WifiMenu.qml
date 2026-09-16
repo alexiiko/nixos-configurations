@@ -60,10 +60,10 @@ Item {
     // content lives in the tray pill's expandable area; scrolls if taller
     Flickable {
         parent: root.host
-        anchors.fill: parent
-        opacity: root.open ? 1 : 0
-        visible: opacity > 0
-        Behavior on opacity { NumberAnimation { duration: 180 } }
+        width: parent.width; height: parent.height
+        // slides up/down toward the menu that replaced it (icon order)
+        y: (2 - root.host.activeSlot) * root.host.height
+        Behavior on y { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
         contentHeight: col.implicitHeight
         clip: true
         boundsBehavior: Flickable.StopAtBounds

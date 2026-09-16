@@ -22,6 +22,9 @@ Item {
     readonly property int gap: 16
 
     readonly property var active: audio.open ? audio : bt.open ? bt : wifi.open ? wifi : bright.open ? bright : null
+    readonly property var menus: [audio, bt, wifi, bright]
+    property int lastSlot: 0                      // keeps the exit direction after closing
+    onActiveChanged: if (active) lastSlot = menus.indexOf(active)
     readonly property bool anyOpen: active !== null
     readonly property bool wantsKeyboard: wifi.open && wifi.wantsKeyboard
     readonly property alias inputWidth: pill.width      // what the bar's input mask should cover
@@ -72,6 +75,8 @@ Item {
     Item {
         id: panelHost
         parent: pill
+        readonly property int activeSlot: root.lastSlot
+        clip: true                                // menus slide through, no fading
         x: root.pillWidth + root.gap
         y: 8
         width: root.panelWidth

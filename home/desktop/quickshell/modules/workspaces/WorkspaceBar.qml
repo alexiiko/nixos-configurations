@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import "../../theme"
+import "../../widgets"
 
 // Workspace pills in their own auto-hide panel: bottom edge, just right of
 // the sidebar. Same reveal logic as the sidebar, sliding up.
