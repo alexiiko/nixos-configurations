@@ -21,11 +21,11 @@ Item {
     readonly property int panelWidth: 300
     readonly property int gap: 16
 
-    readonly property var active: audio.open ? audio : bt.open ? bt : wifi.open ? wifi : null
+    readonly property var active: audio.open ? audio : bt.open ? bt : wifi.open ? wifi : bright.open ? bright : null
     readonly property bool anyOpen: active !== null
     readonly property bool wantsKeyboard: wifi.open && wifi.wantsKeyboard
     readonly property alias inputWidth: pill.width      // what the bar's input mask should cover
-    function closeAll() { audio.open = false; bt.open = false; wifi.open = false; }
+    function closeAll() { audio.open = false; bt.open = false; wifi.open = false; bright.open = false; }
     // opening one closes the others
     function show(menu) { closeAll(); menu.open = true; }
 
@@ -64,6 +64,7 @@ Item {
         Audio    { id: audio; host: panelHost; onRequestOpen: root.show(audio) }
         BluetoothMenu { id: bt; host: panelHost; onRequestOpen: root.show(bt) }
         WifiMenu { id: wifi; host: panelHost; onRequestOpen: root.show(wifi) }
+        Brightness { id: bright; host: panelHost; onRequestOpen: root.show(bright) }
         Battery  {}
     }
 

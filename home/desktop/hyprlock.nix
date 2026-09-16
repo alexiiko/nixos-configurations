@@ -25,7 +25,9 @@ in
     settings.general = {
       lock_cmd = "pidof hyprlock || hyprlock";
       before_sleep_cmd = "loginctl lock-session";
-      after_sleep_cmd = "hyprctl dispatch dpms on";
+      # hyprsunset's schedule does not notice the time jump across a suspend;
+      # a restart re-evaluates the current profile
+      after_sleep_cmd = "hyprctl dispatch dpms on; systemctl --user restart hyprsunset";
     };
   };
 
