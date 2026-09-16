@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell.Io
 import "../../theme"
 import "../../widgets"
+import "../../services"
 
 // Screen brightness button + slider. Reads the backlight from sysfs (watched,
 // so the Fn keys keep it in sync), writes through brightnessctl.
@@ -18,7 +19,7 @@ Item {
     FileView { id: cur; path: root.dev + "/brightness"; watchChanges: true; onFileChanged: reload() }
     FileView { id: max; path: root.dev + "/max_brightness" }
     readonly property real level: Number(max.text()) > 0 ? Number(cur.text()) / Number(max.text()) : 0
-    readonly property string glyph: level < 0.34 ? "brightness_low" : level < 0.67 ? "brightness_medium" : "brightness_high"
+    readonly property string glyph: level < 0.34 ? "brightness_5" : level < 0.67 ? "brightness_6" : "brightness_7"   // sun-with-rays set; brightness_low/high look like cogs
 
     Process { id: setter }
     function set(v) {
@@ -62,6 +63,38 @@ Item {
                 width: 40; horizontalAlignment: Text.AlignRight
                 text: Math.round(root.level * 100) + "%"
                 color: Theme.c.onyx; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 1
+            }
+        }
+
+        Item { width: 1; height: 8 }
+
+        // ---- blue light filter ------------------------------------------
+        Row {
+            width: parent.width
+            Text {
+                width: parent.width - 40
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Blue light filter"
+                color: Theme.c.charcoal; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 2
+            }
+            Toggle { anchors.verticalCenter: parent.verticalCenter; checked: NightLight.on; onToggled: NightLight.toggle() }
+        }
+        Row {
+            width: parent.width
+            spacing: 8
+            Icon { anchors.verticalCenter: parent.verticalCenter; name: "nightlight"; size: 20; color: NightLight.on ? Theme.c.onyx : Theme.c.slate }
+            Slider {
+                anchors.verticalCenter: parent.verticalCenter
+                width: parent.width - 20 - 8 - 40 - 8
+                value: NightLight.strength
+                enabled: NightLight.on
+                onMoved: v => NightLight.setStrength(v)
+            }
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                width: 40; horizontalAlignment: Text.AlignRight
+                text: NightLight.temperature + "K"
+                color: Theme.c.onyx; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 2
             }
         }
     }

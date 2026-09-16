@@ -2,7 +2,7 @@ import QtQuick
 import "../../../theme"
 import "../../../widgets"
 
-import Quickshell.Io
+import "../../../services"
 
 // Big clock with the date underneath. Ticks on the minute. Hovering shows
 // a blue-light-filter toggle above the hour (hyprsunset does the filtering
@@ -11,11 +11,7 @@ Card {
     id: root
     property date now: new Date()
 
-    // hyprsunset has no state query; assume the schedule until toggled
-    property bool night: now.getHours() >= 20 || now.getHours() < 6
-    Process { id: sunset; command: ["hyprctl", "hyprsunset", "temperature", "4000"] }
-    Process { id: sunrise; command: ["hyprctl", "hyprsunset", "identity"] }
-    function toggleNight() { night = !night; (night ? sunset : sunrise).running = true; }
+    readonly property bool night: NightLight.on
 
     HoverHandler { id: hover }
     BarButton {
@@ -26,7 +22,7 @@ Card {
         tooltip: root.night ? "Blue light filter on" : "Blue light filter off"
         opacity: hover.hovered ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 150 } }
-        onClicked: root.toggleNight()
+        onClicked: NightLight.toggle()
     }
 
     Timer {

@@ -4,3 +4,4 @@ Reminders 1.0 Reminders.qml
 singleton Calendar 1.0 Calendar.qml
 singleton System 1.0 System.qml
 BatteryAlerts 1.0 BatteryAlerts.qml
+singleton NightLight 1.0 NightLight.qml
