@@ -17,13 +17,14 @@ Item {
     readonly property int pillWidth: 36
     readonly property int panelWidth: 168
     readonly property int gap: 16
+    readonly property int overhang: 0           // extra card height below the button
     readonly property int panelHeight: list.implicitHeight + 16
 
     // what the bar's input mask should cover, relative to this item
     readonly property real inputX: host.x
     readonly property real inputY: host.y + pill.y
     readonly property alias inputWidth: pill.width
-    readonly property alias inputHeight: pill.height
+    readonly property real inputHeight: pill.height + overhang
 
     HyprlandFocusGrab {
         windows: [root.barWindow]
@@ -60,7 +61,7 @@ Item {
             Rectangle {
                 x: root.pillWidth + root.gap
                 width: Math.max(0, pill.width - x)
-                height: pill.height - (root.pillWidth - root.implicitWidth) / 2
+                height: pill.height - (root.pillWidth - root.implicitWidth) / 2 + root.overhang
                 visible: width > 0
                 clip: true
                 radius: 12
