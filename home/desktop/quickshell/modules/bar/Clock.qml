@@ -1,26 +1,16 @@
 import QtQuick
+import Quickshell
 import "../../theme"
 
-// Vertical clock: hours over minutes. Ticks once a minute, not once a
-// second, so the panel stays static and PSR keeps saving power.
+// Vertical clock: hours over minutes. Minute precision, not seconds, so
+// the panel stays static and PSR keeps saving power. SystemClock follows
+// the real clock across suspend and time changes.
 Column {
     id: root
     spacing: 0
 
-    property date now: new Date()
-
-    Timer {
-        interval: 60000 - (Date.now() % 60000)   // align to the minute boundary
-        running: true
-        repeat: false
-        onTriggered: { root.now = new Date(); minuteTick.start(); }
-    }
-    Timer {
-        id: minuteTick
-        interval: 60000
-        repeat: true
-        onTriggered: root.now = new Date()
-    }
+    SystemClock { id: clock; precision: SystemClock.Minutes }
+    readonly property date now: clock.date
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter

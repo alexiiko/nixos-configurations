@@ -14,12 +14,10 @@ Card {
     property int year: today.getFullYear()
     property int month: today.getMonth()   // 0-11
 
-    signal refreshed()                       // today click: re-sync clock and events too
     function goToday() {
         today = new Date();
         year = today.getFullYear(); month = today.getMonth(); selected = today;
         Calendar.refresh(Qt.formatDate(today, "yyyy-MM-dd"));
-        refreshed();
     }
     function select(d) {
         selected = d;

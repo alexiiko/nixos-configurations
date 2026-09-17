@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import "../../../theme"
 import "../../../widgets"
 
@@ -9,8 +10,8 @@ import "../../../services"
 // and its own 20:00/06:00 schedule; this just overrides by hand).
 Card {
     id: root
-    property date now: new Date()
-    function refresh() { now = new Date(); }
+    SystemClock { id: clock; precision: SystemClock.Minutes }
+    readonly property date now: clock.date
 
     readonly property bool night: NightLight.on
 
@@ -26,11 +27,6 @@ Card {
         onClicked: NightLight.toggle()
     }
 
-    Timer {
-        interval: 60000 - (Date.now() % 60000); running: true; repeat: false
-        onTriggered: { root.now = new Date(); tick.start(); }
-    }
-    Timer { id: tick; interval: 60000; repeat: true; onTriggered: root.now = new Date() }
 
     Column {
         anchors.centerIn: parent
