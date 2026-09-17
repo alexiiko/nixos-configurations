@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import "../../theme"
+import "../../widgets"
 
 // Existing workspaces, sorted by id, focused one filled. Mirrors waybar's
 // hyprland/workspaces: only workspaces that exist are shown, click focuses.
@@ -23,6 +24,12 @@ Row {
             readonly property bool focused: modelData.focused
             readonly property bool urgent: modelData.urgent
             readonly property bool hovered: mouse.containsMouse
+            // title of the leftmost window on this workspace (hyprctl's "at")
+            readonly property string title: {
+                const wins = Hyprland.toplevels.values.filter(t => t.workspace === modelData);
+                wins.sort((a, b) => (a.lastIpcObject?.at?.[0] ?? 0) - (b.lastIpcObject?.at?.[0] ?? 0));
+                return wins[0]?.title ?? "";
+            }
 
             width: 28
             height: 28
@@ -58,6 +65,7 @@ Row {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: pill.modelData.activate()
             }
+            Tooltip { target: pill; text: pill.title; hovered: pill.hovered; above: true }
         }
     }
 }

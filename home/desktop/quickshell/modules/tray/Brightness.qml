@@ -19,7 +19,7 @@ Item {
     FileView { id: cur; path: root.dev + "/brightness"; watchChanges: true; onFileChanged: reload() }
     FileView { id: max; path: root.dev + "/max_brightness" }
     readonly property real level: Number(max.text()) > 0 ? Number(cur.text()) / Number(max.text()) : 0
-    readonly property string glyph: level < 0.34 ? "brightness_5" : level < 0.67 ? "brightness_6" : "brightness_7"   // sun-with-rays set; brightness_low/high look like cogs
+    readonly property string glyph: Theme.mode === "dark" ? "dark_mode" : "light_mode"   // sun / moon by theme
 
     Process { id: setter }
     function set(v) {
@@ -43,9 +43,16 @@ Item {
         Behavior on y { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
         spacing: 4
 
-        Text {
-            text: "Brightness"
-            color: Theme.c.charcoal; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 2
+        Process { id: themeCmd; command: ["theme", "toggle"] }
+        Row {
+            width: parent.width
+            Text {
+                width: parent.width - 40
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Brightness"
+                color: Theme.c.charcoal; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 2
+            }
+            Toggle { anchors.verticalCenter: parent.verticalCenter; checked: Theme.mode === "dark"; onToggled: themeCmd.running = true }
         }
         Row {
             width: parent.width
@@ -81,7 +88,7 @@ Item {
         Row {
             width: parent.width
             spacing: 8
-            Icon { anchors.verticalCenter: parent.verticalCenter; name: "nightlight"; size: 20; color: NightLight.on ? Theme.c.onyx : Theme.c.slate }
+            Icon { anchors.verticalCenter: parent.verticalCenter; name: "wb_twilight"; size: 20; color: NightLight.on ? Theme.c.onyx : Theme.c.slate }
             Slider {
                 anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - 20 - 8 - 40 - 8

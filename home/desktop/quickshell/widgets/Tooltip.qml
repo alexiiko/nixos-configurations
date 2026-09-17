@@ -9,6 +9,7 @@ Item {
     required property Item target
     property string text: ""
     property bool hovered: false
+    property bool above: false            // pop up over the target instead of beside it
 
     Timer {
         id: delay
@@ -27,9 +28,10 @@ Item {
     PopupWindow {
         id: popup
         anchor {
-            edges: Edges.Right
-            gravity: Edges.Right
-            margins.left: 10
+            edges: root.above ? Edges.Top : Edges.Right
+            gravity: root.above ? Edges.Top : Edges.Right
+            margins.left: root.above ? 0 : 10
+            margins.bottom: root.above ? 10 : 0
         }
         visible: false
         implicitWidth: label.implicitWidth + 20

@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import "../../../theme"
 import "../../../widgets"
 
@@ -16,15 +17,27 @@ Card {
     readonly property bool night: NightLight.on
 
     HoverHandler { id: hover }
-    BarButton {
+    Process { id: themeCmd; command: ["theme", "toggle"] }
+    Row {
         anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 6 }
-        icon: root.night ? "nightlight" : "wb_sunny"
-        filled: root.night
-        idleColor: Theme.c.ivory
-        tooltip: root.night ? "Blue light filter on" : "Blue light filter off"
+        spacing: 4
         opacity: hover.hovered ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 150 } }
-        onClicked: NightLight.toggle()
+
+        BarButton {
+            icon: Theme.mode === "dark" ? "dark_mode" : "light_mode"
+            filled: Theme.mode === "dark"
+            idleColor: Theme.c.ivory
+            tooltip: Theme.mode === "dark" ? "Turn dark mode off" : "Turn dark mode on"
+            onClicked: themeCmd.running = true
+        }
+        BarButton {
+            icon: "wb_twilight"           // sun on the horizon: the warm filter
+            filled: root.night
+            idleColor: Theme.c.ivory
+            tooltip: root.night ? "Turn blue light filter off" : "Turn blue light filter on"
+            onClicked: NightLight.toggle()
+        }
     }
 
 
