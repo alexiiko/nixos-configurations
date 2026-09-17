@@ -29,7 +29,12 @@ def main():
     start = day.replace(tzinfo=tz)
     end = start + timedelta(days=1)
 
-    palette = svc.colors().get().execute()["event"]
+    # The API only knows 11 event colour IDs (the web UI's 25 collapse onto
+    # them) and reports the old pastel hexes; these are the modern UI colours.
+    palette = {
+        "1": "#7986cb", "2": "#33b679", "3": "#8e24aa", "4": "#e67c73", "5": "#f6c026", "6": "#f5511d",
+        "7": "#039be5", "8": "#616161", "9": "#3f51b5", "10": "#0b8043", "11": "#d60000",
+    }
     cal = svc.calendarList().get(calendarId="primary").execute()
     default_colour = cal.get("backgroundColor", "#4285f4")
 
@@ -55,7 +60,7 @@ def main():
             em = ed.hour * 60 + ed.minute if ed < end else 24 * 60
             st, et = sd.strftime("%H:%M"), ed.strftime("%H:%M")
         cid = e.get("colorId")
-        colour = palette[cid]["background"] if cid in palette else default_colour
+        colour = palette.get(cid, default_colour)
         out.append({
             "title": e.get("summary", "(no title)"),
             "start": st, "end": et, "startMin": sm, "endMin": em,
