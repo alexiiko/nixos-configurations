@@ -1,5 +1,6 @@
 import QtQuick
 import "../../../theme"
+import "../../../services"
 import "../../../widgets"
 
 // Month grid, Monday-first. Today is a filled onyx pill; days outside the
@@ -13,7 +14,13 @@ Card {
     property int year: today.getFullYear()
     property int month: today.getMonth()   // 0-11
 
-    function goToday() { year = today.getFullYear(); month = today.getMonth(); selected = today; }
+    signal refreshed()                       // today click: re-sync clock and events too
+    function goToday() {
+        today = new Date();
+        year = today.getFullYear(); month = today.getMonth(); selected = today;
+        Calendar.refresh(Qt.formatDate(today, "yyyy-MM-dd"));
+        refreshed();
+    }
     function select(d) {
         selected = d;
         if (d.getMonth() !== month || d.getFullYear() !== year) { year = d.getFullYear(); month = d.getMonth(); }

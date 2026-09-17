@@ -24,8 +24,8 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
         spacing: 12
-        ClockDate      { Layout.preferredWidth: 100; Layout.fillHeight: true }
-        MonthCalendar  { id: cal; Layout.fillWidth: true; Layout.fillHeight: true }
+        ClockDate      { id: clock; Layout.preferredWidth: 100; Layout.fillHeight: true }
+        MonthCalendar  { id: cal; Layout.fillWidth: true; Layout.fillHeight: true; onRefreshed: clock.refresh() }
         GoogleCalendar { Layout.preferredWidth: 190; Layout.fillHeight: true; date: cal.selected }
     }
 }

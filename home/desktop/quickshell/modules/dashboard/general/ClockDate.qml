@@ -10,6 +10,7 @@ import "../../../services"
 Card {
     id: root
     property date now: new Date()
+    function refresh() { now = new Date(); }
 
     readonly property bool night: NightLight.on
 
