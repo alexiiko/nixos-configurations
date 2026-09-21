@@ -8,7 +8,7 @@
     monitor = ",preferred,auto,auto";
 
     "$terminal" = "kitty";
-    "$fileManager" = "dolphin";
+    "$fileManager" = "nautilus";
     "$menu" = "qs ipc call launcher toggle";
 
     # ======================

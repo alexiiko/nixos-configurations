@@ -1,4 +1,5 @@
 import QtQuick
+import Quickshell
 import Quickshell.Hyprland
 import "../../theme"
 import "../../widgets"
@@ -26,6 +27,8 @@ Item {
     readonly property real inputY: host.y + pill.y
     readonly property alias inputWidth: pill.width
     readonly property alias inputHeight: pill.height
+
+    SystemClock { id: clock; precision: SystemClock.Hours }
 
     HyprlandFocusGrab {
         windows: [root.barWindow]
@@ -68,7 +71,7 @@ Item {
                 height: pill.height - (root.pillWidth - root.implicitWidth) / 2
                 visible: width > 0
                 clip: true
-                date: new Date()
+                date: clock.date            // follows the real day, not shell start
             }
         }
     }

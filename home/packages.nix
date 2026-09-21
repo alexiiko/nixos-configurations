@@ -33,7 +33,8 @@
     ################################################
     # File Management
     ################################################
-    kdePackages.dolphin
+    nautilus
+    ffmpegthumbnailer   # video thumbnails in nautilus
     file-roller
     eog
 

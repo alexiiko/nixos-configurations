@@ -9,6 +9,9 @@ set -uo pipefail
 
 DIR="$HOME/Pictures/screenshots"
 
+# one at a time: a second press while slurp is up would stack pickers
+pgrep -x slurp >/dev/null && exit 0
+
 # Capture the whole screen *before* slurp: its overlay takes the pointer, so
 # anything hover-dependent (tooltips, hovered buttons) would vanish. The
 # frozen frame (no cursor) is cropped to the selection afterwards.

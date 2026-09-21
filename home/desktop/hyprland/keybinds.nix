@@ -5,8 +5,8 @@
     "$mainMod" = "SUPER";
 
     bind = [
-      "$mainMod, Q, exec, $terminal"
-      "$mainMod, W, killactive,"
+      "$mainMod, Return, exec, $terminal"
+      "$mainMod, Q, killactive,"
       "$mainMod, Ü, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
       "$mainMod, E, exec, $fileManager"
       "$mainMod, V, togglefloating,"
@@ -50,6 +50,8 @@
       "$mainMod SHIFT, 0, movetoworkspace, 10"
 
       "$mainMod, S, togglespecialworkspace, magic"
+      "SHIFT ALT, S, movetoworkspacesilent, special:magic"
+      "SHIFT ALT, A, movetoworkspace, 1"        # pull a window back out of magic
       "$mainMod SHIFT, W, togglespecialworkspace, whatsapp"
       "$mainMod, TAB, workspace, e+1"
       "$mainMod SHIFT, TAB, workspace, e-1"
