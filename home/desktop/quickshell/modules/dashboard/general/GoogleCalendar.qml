@@ -8,12 +8,15 @@ import "../../../services"
 // with a now-line when the day is today. Data from gcal-day (JSON).
 Card {
     id: root
-    property date date: new Date()
+    property date date: new Date()          // the day the owner selected
+    property int dayOffset: 0               // stepped by the arrows, reset when `date` changes
+    onDateChanged: dayOffset = 0
+    readonly property date shown: new Date(date.getFullYear(), date.getMonth(), date.getDate() + dayOffset)
     padding: 10
 
     // data comes from the shared Calendar service (also feeds the sidebar
     // popover and the reminders); this card only asks for its day
-    readonly property string dayArg: Qt.formatDate(date, "yyyy-MM-dd")
+    readonly property string dayArg: Qt.formatDate(shown, "yyyy-MM-dd")
     readonly property bool isToday: Qt.formatDate(new Date(), "yyyy-MM-dd") === dayArg
     readonly property real hourH: 44                     // px per hour
     readonly property real gutter: 20                    // hour labels
@@ -49,9 +52,10 @@ Card {
             width: parent.width
             spacing: 6
             Text {
-                text: root.isToday ? "Today" : Qt.formatDate(root.date, "ddd d MMM")
+                text: root.isToday ? "Today" : Qt.formatDate(root.shown, "ddd d MMM")
                 color: Theme.c.onyx; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize; font.weight: Font.Medium
             }
+            // step one day back / forward; the clock icon between them returns to now
             Icon {
                 anchors.verticalCenter: parent.verticalCenter
                 name: "schedule"; size: 16
@@ -59,6 +63,22 @@ Card {
                 Behavior on color { ColorAnimation { duration: 150 } }
                 MouseArea { id: nowH; anchors.fill: parent; anchors.margins: -3; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.jumpToNow() }
                 Tooltip { target: parent; text: "Scroll to now"; hovered: nowH.containsMouse }
+            }
+            Icon {
+                anchors.verticalCenter: parent.verticalCenter
+                name: "chevron_left"; size: 16
+                color: prevH.containsMouse ? Theme.c.onyx : Theme.c.slate
+                Behavior on color { ColorAnimation { duration: 150 } }
+                MouseArea { id: prevH; anchors.fill: parent; anchors.margins: -3; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.dayOffset-- }
+                Tooltip { target: parent; text: "Previous day"; hovered: prevH.containsMouse }
+            }
+            Icon {
+                anchors.verticalCenter: parent.verticalCenter
+                name: "chevron_right"; size: 16
+                color: nextH.containsMouse ? Theme.c.onyx : Theme.c.slate
+                Behavior on color { ColorAnimation { duration: 150 } }
+                MouseArea { id: nextH; anchors.fill: parent; anchors.margins: -3; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: root.dayOffset++ }
+                Tooltip { target: parent; text: "Next day"; hovered: nextH.containsMouse }
             }
             // time left in the block running now
             Text {

@@ -3,35 +3,52 @@ import Quickshell
 import "../../theme"
 import "../../services"
 
-// Top-right stack of toasts. Window is only as big as its content and
-// input-masked to it, so it never blocks clicks when empty.
+// Top-right stack of toasts. The window spans the screen width so a toast can
+// start beyond the right edge (clipped, hence "from off-screen") and leave past
+// the left; only the toast column takes input, so the rest never blocks clicks.
 PanelWindow {
     id: root
-    anchors { top: true; right: true }
-    margins { top: 12; right: 12 }
-    implicitWidth: 340
-    implicitHeight: Math.max(1, col.implicitHeight)
+    readonly property int toastWidth: 340
+    readonly property int gap: 12
+
+    anchors { top: true; left: true; right: true }
+    margins { top: 12 }
+    // fixed surface: resizing the layer every frame while a toast animates
+    // made the card tear. Only the input mask follows the content.
+    implicitHeight: screen ? screen.height - 24 : 900
     exclusiveZone: 0
     aboveWindows: true
     color: "transparent"
-    mask: Region { item: col }
-    visible: Notifications.active.length > 0
+    mask: Region { item: maskArea }
+    visible: Notifications.active.count > 0
 
+    readonly property int restX: width - toastWidth - gap     // resting position
+
+    Item {
+        id: maskArea
+        x: root.restX; width: root.toastWidth
+        y: 0; height: list.implicitHeight
+    }
+
+    // plain Column + Repeater again: the toasts animate themselves (see
+    // Toast.qml), the column only slides the stack when one leaves
     Column {
-        id: col
-        width: parent.width
+        id: list
+        x: root.restX; y: 0
+        width: root.toastWidth
         spacing: 8
+
+        move: Transition { NumberAnimation { properties: "y"; duration: 220; easing.type: Easing.OutCubic } }
+
         Repeater {
             model: Notifications.active
-            delegate: Toast {
-                required property var modelData
-                n: modelData
-                // slide in from the right
-                x: 0
-                opacity: 1
-                Component.onCompleted: { x = 40; opacity = 0; x = 0; opacity = 1; }
-                Behavior on x       { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
-                Behavior on opacity { NumberAnimation { duration: 200 } }
+            // wrapper holds the column slot: the card keeps its size while
+            // leaving, only the space it occupies collapses
+            delegate: Item {
+                required property var notif
+                width: root.toastWidth
+                height: card.fullHeight * card.slot
+                Toast { id: card; n: parent.notif; width: root.toastWidth }
             }
         }
     }

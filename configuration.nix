@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./sddm.nix
   ];
 
   ################################################
@@ -64,6 +65,19 @@
     users = [ "alex" ];
     commands = [{ command = "/run/current-system/sw/bin/set-power-mode"; options = [ "NOPASSWD" ]; }];
   }];
+
+  # The power button never shuts the machine down: shutdown goes through the
+  # sidebar's power menu (or `systemctl poweroff`). A ~4 s hold still cuts
+  # power in firmware — that is below the OS and cannot be disabled here.
+  # Pressing it while off still boots normally.
+  services.logind.settings.Login = {
+    HandlePowerKey = "suspend";
+    HandlePowerKeyLongPress = "ignore";
+  };
+
+  # Fingerprint reader (Egis ETU905A80-E, 1c7a:05a1). Enrol once with
+  # `fprintd-enroll`; then sudo/login/hyprlock accept a finger.
+  services.fprintd.enable = true;
 
   # Battery/AC state over D-Bus; the quickshell battery widget reads this.
   services.upower.enable = true;
@@ -278,6 +292,7 @@
   # System packages
   ################################################
   environment.systemPackages = with pkgs; [
+    bibata-cursors     # the greeter runs as the sddm user and needs it system-wide
     bluez
     bluez-tools
     blueman

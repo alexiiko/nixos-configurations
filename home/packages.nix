@@ -48,6 +48,7 @@
     xclip
     swaybg
     networkmanagerapplet
+    hyprpolkitagent     # polkit prompts (fprintd enrol, mounts) need an agent
     nmgui
     glib-networking
 

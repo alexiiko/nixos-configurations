@@ -9,8 +9,10 @@ import Quickshell.Services.Notifications
 Singleton {
     id: root
 
-    // notifications currently shown as toasts
-    property list<Notification> active: []
+    // Notifications currently shown as toasts. A ListModel, not an array:
+    // reassigning an array makes the Repeater rebuild every delegate, which
+    // restarted the surviving toasts' fly-in and their expiry timer.
+    property ListModel active: ListModel {}
     // everything received this session, newest first (for the centre)
     property var history: []
 
@@ -44,8 +46,11 @@ Singleton {
             console.log(`notification: app=${JSON.stringify(n.appName)} entry=${JSON.stringify(n.desktopEntry)} summary=${JSON.stringify(n.summary)} icon=${JSON.stringify(n.appIcon)} image=${n.image !== ""}`);
             root.history = [{ appName: n.appName, summary: n.summary, body: n.body, appIcon: n.appIcon, time: new Date() }, ...root.history].slice(0, 100);
             if (root.isWhatsapp(n)) root.whatsappUnread++;
-            root.active = [...root.active, n];
-            n.closed.connect(() => { root.active = root.active.filter(x => x !== n); });
+            root.active.append({ notif: n });
+            n.closed.connect(() => {
+                for (let i = 0; i < root.active.count; i++)
+                    if (root.active.get(i).notif === n) { root.active.remove(i); break; }
+            });
         }
     }
 }

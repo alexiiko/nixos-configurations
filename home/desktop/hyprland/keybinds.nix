@@ -49,10 +49,10 @@
       "$mainMod SHIFT, 9, movetoworkspace, 9"
       "$mainMod SHIFT, 0, movetoworkspace, 10"
 
-      "$mainMod, S, togglespecialworkspace, magic"
+      "$mainMod, S, exec, ~/Programming/nixos-config/home/desktop/hyprland/special-stack.sh magic"
       "SHIFT ALT, S, movetoworkspacesilent, special:magic"
       "SHIFT ALT, A, movetoworkspace, 1"        # pull a window back out of magic
-      "$mainMod SHIFT, W, togglespecialworkspace, whatsapp"
+      "$mainMod SHIFT, W, exec, ~/Programming/nixos-config/home/desktop/hyprland/special-stack.sh whatsapp"
       "$mainMod, TAB, workspace, e+1"
       "$mainMod SHIFT, TAB, workspace, e-1"
 
@@ -102,6 +102,10 @@
     ];
 
     bindl = [
+      # power key suspends; logind ignores it entirely (incl. long press), so
+      # it can never shut the machine down — that is the sidebar power menu
+      ", XF86PowerOff, exec, systemctl suspend"
+
       ", XF86AudioNext, exec, playerctl next"
       ", XF86AudioPause, exec, playerctl play-pause"
       ", XF86AudioPlay, exec, playerctl play-pause"

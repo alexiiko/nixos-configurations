@@ -13,7 +13,9 @@ Rectangle {
     required property Notification n
 
     width: 340
-    height: content.implicitHeight + 24 + (lifetime > 0 ? 6 : 0)
+    readonly property real fullHeight: content.implicitHeight + 24 + (lifetime > 0 ? 6 : 0)
+    property real slot: 1              // 1 = full slot, 0 = collapsed; the wrapper reads it
+    height: fullHeight
     radius: 14
     color: Theme.c.ivory
     border.width: 1
@@ -21,6 +23,31 @@ Rectangle {
     clip: true
 
     readonly property int lifetime: Notifications.timeoutFor(n)
+
+    // --- fly in / out ---------------------------------------------------------
+    // The model is a plain array that gets replaced wholesale, so ListView
+    // add/remove transitions never fire. The toast animates itself instead and
+    // only closes the notification once it has left the screen.
+    property real off: travel
+    readonly property int travel: 420
+    transform: Translate { x: root.off }
+    Component.onCompleted: flyIn.start()
+    NumberAnimation { id: flyIn; target: root; property: "off"; to: 0; duration: 340; easing.type: Easing.OutCubic }
+    // fly out and give up the slot at the same time, so the toast below rises
+    // smoothly instead of jumping once this one is removed
+    SequentialAnimation {
+        id: flyOut
+        ParallelAnimation {
+            NumberAnimation { target: root; property: "off"; to: root.travel; duration: 300; easing.type: Easing.InCubic }
+            SequentialAnimation {
+                PauseAnimation { duration: 140 }
+                NumberAnimation { target: root; property: "slot"; to: 0; duration: 220; easing.type: Easing.OutCubic }
+            }
+        }
+        ScriptAction { script: root.pending ? root.pending() : root.n.expire() }
+    }
+    property var pending: null
+    function leave(action) { pending = action ?? null; flyOut.start(); }
     readonly property bool whatsapp: Notifications.isWhatsapp(n)
 
     // Sender-provided image (avatars etc.) or a glyph by app name. Icon
@@ -58,7 +85,7 @@ Rectangle {
             duration: root.lifetime
             running: root.lifetime > 0
             paused: running && hover.hovered
-            onFinished: root.n.expire()
+            onFinished: root.leave()
         }
     }
 
@@ -69,8 +96,11 @@ Rectangle {
             Notifications.clearWhatsapp();
             Hyprland.dispatch("focuswindow class:^(chrome-web\\\\.whatsapp\\\\.com.*)$");
         }
-        for (const a of root.n.actions) if (a.identifier === "default") a.invoke();
-        root.n.dismiss();
+        const n = root.n;
+        root.leave(() => {
+            for (const a of n.actions) if (a.identifier === "default") a.invoke();
+            n.dismiss();
+        });
     }
 
     Column {
@@ -156,6 +186,6 @@ Rectangle {
         z: -1
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         cursorShape: Qt.PointingHandCursor
-        onClicked: (e) => e.button === Qt.RightButton ? root.n.dismiss() : root.open()
+        onClicked: (e) => e.button === Qt.RightButton ? root.leave(() => root.n.dismiss()) : root.open()
     }
 }

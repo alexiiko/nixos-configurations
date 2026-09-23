@@ -16,6 +16,7 @@
     # ======================
     exec-once = [
       "qs"
+      "systemctl --user start hyprpolkitagent"
       "walker --gapplication-service"
       "elephant"
       "~/Programming/nixos-config/home/desktop/hyprland/pen-palm-reject.sh"
