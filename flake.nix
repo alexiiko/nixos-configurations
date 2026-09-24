@@ -25,16 +25,6 @@
       url = "github:aaddrick/claude-desktop-debian/v2.0.13+claude1.8555.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Walker + Elephant (App Launcher)
-    elephant = {
-      url = "github:abenz1267/elephant";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.elephant.follows = "elephant";
-    };
   };
   ################################################
   # Outputs
@@ -60,10 +50,6 @@
         ({ pkgs, ... }: {
           nixpkgs.overlays = [
             inputs.claude-desktop.overlays.default
-            (final: prev: {
-              walker = inputs.walker.packages.${prev.stdenv.hostPlatform.system}.default;
-              elephant = inputs.elephant.packages.${prev.stdenv.hostPlatform.system}.default;
-            })
           ];
           environment.systemPackages = [ 
             pkgs.claude-desktop-fhs 
