@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 import "../../theme"
 import "../../services"
 
@@ -18,6 +19,7 @@ PanelWindow {
     implicitHeight: screen ? screen.height - 24 : 900
     exclusiveZone: 0
     aboveWindows: true
+    WlrLayershell.layer: WlrLayer.Overlay   // above fullscreen windows too
     color: "transparent"
     mask: Region { item: maskArea }
     visible: Notifications.active.count > 0

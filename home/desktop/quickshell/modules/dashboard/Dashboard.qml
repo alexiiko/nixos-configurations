@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Wayland
 import "../../theme"
 import "../../widgets"
 
@@ -19,6 +20,7 @@ PanelWindow {
     implicitHeight: 470
     exclusiveZone: 0
     aboveWindows: true
+    WlrLayershell.layer: WlrLayer.Overlay   // above fullscreen windows too
     color: "transparent"
 
     mask: Region { item: root.revealed ? surface : trigger }

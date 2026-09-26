@@ -21,6 +21,7 @@ PanelWindow {
     implicitWidth: barWidth + 380        // room for the tray pill to expand into
     exclusiveZone: 0          // overlay; windows use the full screen
     aboveWindows: true
+    WlrLayershell.layer: WlrLayer.Overlay   // above fullscreen windows too
     color: "transparent"
     // the wifi password field needs the keyboard; only then
     WlrLayershell.keyboardFocus: tray.wantsKeyboard ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None

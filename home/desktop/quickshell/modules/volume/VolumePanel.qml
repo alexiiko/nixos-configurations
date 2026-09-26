@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 import Quickshell.Services.Pipewire
 import "../../theme"
 import "../dashboard/media"
@@ -21,6 +22,7 @@ PanelWindow {
     implicitHeight: 220
     exclusiveZone: 0
     aboveWindows: true
+    WlrLayershell.layer: WlrLayer.Overlay   // above fullscreen windows too
     color: "transparent"
 
     mask: Region { item: root.revealed ? surface : trigger }
