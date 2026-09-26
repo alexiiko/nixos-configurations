@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Services.Pipewire
 import "../../theme"
 import "../dashboard/media"
 
@@ -31,7 +32,18 @@ PanelWindow {
         HoverHandler { id: triggerHover }
     }
 
-    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered
+    // Any volume change from outside (AirPods buttons, media keys, another
+    // app) flashes the bar for a moment, like the iOS volume HUD.
+    readonly property var sink: Pipewire.defaultAudioSink
+    PwObjectTracker { objects: [root.sink].filter(n => n) }
+    Connections {
+        target: root.sink?.audio ?? null
+        function onVolumeChanged() { flash.restart(); }
+        function onMutedChanged() { flash.restart(); }
+    }
+    Timer { id: flash; interval: 1400 }
+
+    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered || flash.running
     onWantVisibleChanged: {
         if (wantVisible) { hideTimer.stop(); revealed = true; }
         else hideTimer.restart();
