@@ -53,6 +53,10 @@
     enable = true;
     # Papirus with grey folders instead of the default blue
     iconTheme = { name = "Papirus"; package = pkgs.papirus-icon-theme.override { color = "grey"; }; };
+    # Sidebar places in Nautilus and in every GTK file picker (uploads etc.)
+    gtk3.bookmarks = map (d: "file://${config.home.homeDirectory}/${d}") [
+      "Downloads" "Documents" "Pictures" "Programming" "Books" "obsidian-vault"
+    ];
   };
 
   # Default apps: images in eog (not the browser); web/URL handlers as they
