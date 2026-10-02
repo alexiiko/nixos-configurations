@@ -9,7 +9,7 @@
       "$mainMod, Q, killactive,"
       "$mainMod, Ü, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
       "$mainMod, E, exec, $fileManager"
-      "$mainMod, V, togglefloating,"
+      "$mainMod SHIFT, V, togglefloating,"   # Super+V is workspace 4
       "$mainMod, SPACE, exec, $menu"
       "$mainMod, P, pseudo,"
       "$mainMod, T, layoutmsg, togglesplit"
@@ -37,6 +37,12 @@
       "$mainMod, 8, workspace, 8"
       "$mainMod, 9, workspace, 9"
       "$mainMod, 0, workspace, 10"
+
+      # Workspaces 1-4 on the bottom-left row, next to the modifier
+      "$mainMod, Y, workspace, 1"
+      "$mainMod, X, workspace, 2"
+      "$mainMod, C, workspace, 3"
+      "$mainMod, V, workspace, 4"
 
       "$mainMod SHIFT, 1, movetoworkspace, 1"
       "$mainMod SHIFT, 2, movetoworkspace, 2"
