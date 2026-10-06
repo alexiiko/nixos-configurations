@@ -55,6 +55,8 @@ in
     for app in kitty tmux; do
       cp -f "$HOME/.config/theme/$app-$mode.conf" "$HOME/.config/theme/$app.conf"
     done
+    [ "$mode" = dark ] && wp=bg-dark-mode.png || wp=bg-white-mode.png
+    ln -sfn "$HOME/.config/theme/wallpapers/$wp" "$HOME/.config/theme/wallpaper"
   '';
 
   # Palette as JSON for runtime consumers (Quickshell reads this; anything
@@ -111,6 +113,12 @@ in
 
       # hyprlock reads its colours from a plain file at launch
       cp -f "$HOME/.config/hypr/hyprlock-$mode.conf" "$HOME/.config/hypr/hyprlock-theme.conf"
+
+      # wallpaper for the mode; swaybg cannot reload, so restart it
+      [ "$mode" = dark ] && wp=bg-dark-mode.png || wp=bg-white-mode.png
+      ln -sfn "${stateDir}/wallpapers/$wp" "${stateDir}/wallpaper"
+      ${pkgs.procps}/bin/pkill -x swaybg || true
+      (${pkgs.swaybg}/bin/swaybg -i "${stateDir}/wallpaper" -m fill >/dev/null 2>&1 &)
 
       # terminal stack: swap the active file, then poke what is running
       for app in kitty tmux; do
