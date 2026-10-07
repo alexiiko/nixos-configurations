@@ -91,6 +91,8 @@
     # Claude Code Flake
     inputs.claude-code-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
 
+    opencode
+
     # Node.js
     nodejs
     vite

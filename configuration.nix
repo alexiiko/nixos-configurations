@@ -204,6 +204,17 @@
     "flakes"
   ];
 
+  # Old generations pile up with every rebuild (152 had accumulated, 175 GB
+  # of store). Weekly: drop generations older than 14 days and everything
+  # only they referenced. Identical files in the store are hard-linked.
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    persistent = true;               # catch up after the laptop was off
+    options = "--delete-older-than 7d";
+  };
+  nix.settings.auto-optimise-store = true;
+
   ################################################
   # Desktop Environment
   ################################################
@@ -354,6 +365,14 @@
   # Screen locker. The module wires PAM; without it hyprlock cannot
   # authenticate and you would be locked out.
   programs.hyprlock.enable = true;
+
+  # Open WebUI as a background service: http://localhost:2020. Listens on
+  # localhost only, so it is not reachable from the network.
+  services.open-webui = {
+    enable = true;
+    host = "127.0.0.1";
+    port = 2020;
+  };
 
   # Daemon starts on first use via socket activation, not at boot.
   virtualisation.docker = {

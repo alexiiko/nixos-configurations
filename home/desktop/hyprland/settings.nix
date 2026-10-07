@@ -124,6 +124,10 @@
     # ======================
     # Misc
     # ======================
+    # X apps (ONLYOFFICE) render at native resolution instead of being upscaled
+    # and blurred; they handle their own scaling (see desktop-entries.nix)
+    xwayland.force_zero_scaling = true;
+
     misc = {
       force_default_wallpaper = 0;
       disable_hyprland_logo = true;

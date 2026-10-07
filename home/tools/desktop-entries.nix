@@ -21,6 +21,32 @@
       terminal = false;
     };
 
+    open-webui = {
+      name = "Open WebUI";
+      exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=http://localhost:2020/'';
+      icon = "applications-internet";
+      comment = "Local Open WebUI";
+      categories = [ "Network" ];
+      terminal = false;
+    };
+
+    # Runs through XWayland. Hyprland draws X apps at native resolution
+    # (xwayland:force_zero_scaling), so the app scales itself 2x instead of
+    # being stretched, which is what made it blurry.
+    onlyoffice-desktopeditors = {
+      name = "ONLYOFFICE";
+      exec = "onlyoffice-desktopeditors --force-scale=2 %U";
+      icon = "onlyoffice-desktopeditors";
+      comment = "Office suite";
+      categories = [ "Office" ];
+      terminal = false;
+      mimeType = [ "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                   "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                   "application/msword" "application/vnd.ms-excel" "application/vnd.ms-powerpoint"
+                   "application/vnd.oasis.opendocument.text" "application/vnd.oasis.opendocument.spreadsheet" ];
+    };
+
     suspend = {
       name = "Energie sparen";
       exec = "suspend";
