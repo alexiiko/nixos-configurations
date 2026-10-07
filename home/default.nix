@@ -86,6 +86,30 @@
   };
 
   ################################################
+  # Cargo: link against the system loader
+  ################################################
+  # By default rustc on NixOS bakes a /nix/store glibc path into every binary;
+  # once nix.gc removes that glibc the binary can't start ("command not
+  # found"). /lib64/ld-linux-x86-64.so.2 is provided by programs.nix-ld and
+  # always points at a live glibc, so `cargo install`ed tools survive GC.
+  home.file.".cargo/config.toml".text = ''
+    [target.x86_64-unknown-linux-gnu]
+    rustflags = ["-C", "link-arg=-Wl,--dynamic-linker=/lib64/ld-linux-x86-64.so.2"]
+  '';
+
+  # ai-memory MCP server over HTTP, loopback only (no auth token needed there).
+  # The binary comes from `cargo install`, see the cargo config above.
+  systemd.user.services.ai-memory = {
+    Unit.Description = "ai-memory server";
+    Service = {
+      ExecStart = "%h/.cargo/bin/ai-memory serve --transport http --bind 127.0.0.1:49374";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
+
+  ################################################
   # Global Cursor
   ################################################
   home.pointerCursor = {
