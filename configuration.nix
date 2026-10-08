@@ -270,6 +270,23 @@
   services.printing = {
     enable = true;
     drivers = with pkgs; [ hplip ];
+    # cups-browsed's auto-created queue lost the printer's address after a
+    # while ("No destination host name supplied by cups-browsed") and stopped
+    # the queue. A fixed driverless queue below replaces it.
+    browsed.enable = false;
+  };
+
+  # HP DeskJet 4100 over IPP Everywhere (driverless), addressed by its
+  # mDNS name so a new DHCP address doesn't matter.
+  hardware.printers = {
+    ensurePrinters = [{
+      name = "HP_DeskJet_4100";
+      description = "HP DeskJet 4100";
+      deviceUri = "ipp://HP5081400B2F83.local/ipp/print";
+      model = "everywhere";
+      ppdOptions.PageSize = "A4";
+    }];
+    ensureDefaultPrinter = "HP_DeskJet_4100";
   };
 
   services.avahi = {
@@ -305,6 +322,7 @@
   environment.systemPackages = with pkgs; [
     bibata-cursors     # the greeter runs as the sddm user and needs it system-wide
     bluez
+    system-config-printer   # GUI to manage printers and their default options
     bluez-tools
     blueman
     git
