@@ -57,6 +57,7 @@ Rectangle {
     readonly property string glyph: {
         const a = n.appName.toLowerCase();
         if (a.includes("battery"))  return "battery_alert";
+        if (a === "shell")          return "restart_alt";
         if (n.urgency === NotificationUrgency.Critical) return "priority_high";
         if (a.includes("pomodoro")) return "timer";
         if (a.includes("calendar")) return "event";

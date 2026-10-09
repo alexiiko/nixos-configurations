@@ -105,10 +105,37 @@ PanelWindow {
                 x: (1 - root.currentTab) * tabHost.width
                 Behavior on x { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
             }
-            PerformanceTab {
+            // plain Item around the tab: PerformanceTab is a RowLayout and would
+            // try to lay out the restart button as a fourth column
+            Item {
                 width: parent.width; height: parent.height
                 x: (2 - root.currentTab) * tabHost.width
                 Behavior on x { NumberAnimation { duration: 260; easing.type: Easing.OutCubic } }
+
+                PerformanceTab { anchors.fill: parent }
+
+                // restart the whole shell; shown only while the bottom-left
+                // corner is hovered. Detached and via Hyprland, so it outlives
+                // the instance it kills.
+                // The button is a CHILD of the corner: a HoverHandler on an
+                // ancestor still sees the pointer over the button's MouseArea,
+                // a sibling's does not (that toggled it on and off = flicker).
+                Item {
+                    id: restartCorner
+                    anchors { left: parent.left; bottom: parent.bottom }
+                    width: 64; height: 64
+                    HoverHandler { id: perfHover }
+
+                    BarButton {
+                        anchors { left: parent.left; bottom: parent.bottom }
+                        icon: "restart_alt"
+                        tooltip: "Restart shell"
+                        opacity: perfHover.hovered ? 1 : 0
+                        Behavior on opacity { NumberAnimation { duration: 150 } }
+                        // the notification waits for the new instance: it is the notification server
+                        onClicked: Quickshell.execDetached(["sh", "-c", "qs kill; sleep 0.5; hyprctl dispatch exec qs; sleep 3; notify-send -a Shell 'Shell restarted' 'Quickshell was reloaded'"])
+                    }
+                }
             }
         }
     }
