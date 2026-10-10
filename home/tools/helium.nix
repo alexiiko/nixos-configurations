@@ -1,12 +1,21 @@
 { pkgs, ... }:
-{
-  # AppImage-Runner muss installiert sein
-  home.packages = with pkgs; [ appimage-run ];
 
-  # Desktop-Eintrag für Walker (sehr zuverlässig)
+let
+  # Runs the Helium AppImage in ~/Applications, whatever its version. To update
+  # Helium, drop the new AppImage there and delete the old one (if several are
+  # present, the newest version wins). Every Helium launcher goes through this.
+  helium = pkgs.writeShellScriptBin "helium" ''
+    app=$(ls -1 "$HOME"/Applications/helium*.AppImage 2>/dev/null | sort -V | tail -n1)
+    [ -n "$app" ] || { echo "no helium*.AppImage in ~/Applications" >&2; exit 1; }
+    exec ${pkgs.appimage-run}/bin/appimage-run "$app" "$@"
+  '';
+in
+{
+  home.packages = [ helium ];
+
   xdg.desktopEntries.helium = {
     name = "Helium Browser";
-    exec = "appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage";
+    exec = "helium %U";
     icon = "helium";
     comment = "Schneller und privater Browser";
     categories = [ "Network" "WebBrowser" ];

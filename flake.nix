@@ -14,6 +14,7 @@
     # Neovim
     nixvim = {
       url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # Claude Code Updated Every Hour
     claude-code-nix = {

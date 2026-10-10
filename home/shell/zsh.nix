@@ -78,8 +78,6 @@
       bindkey '^[[1;5D' backward-word
       bindkey '^[[1;5C' forward-word
 
-      # === PATH Fix für uv + npm ===
-      export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
     '';
   };
 

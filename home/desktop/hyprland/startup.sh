@@ -4,18 +4,18 @@
 # Workspace 1 - WhatsApp + Google Calendar
 # ============================================
 hyprctl dispatch workspace 1
-hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86_64.AppImage' --app='https://web.whatsapp.com'"
+hyprctl dispatch exec "helium --app='https://web.whatsapp.com'"
 sleep 1.5
 
 hyprctl dispatch workspace 1
-hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86_64.AppImage' --app='https://calendar.google.com/calendar/u/4/r'"
+hyprctl dispatch exec "helium --app='https://calendar.google.com/calendar/u/4/r'"
 sleep 1.5
 
 # ============================================
 # Workspace 2 - Helium Browser
 # ============================================
 hyprctl dispatch workspace 2
-hyprctl dispatch exec "appimage-run '/home/alex/Applications/helium-0.11.5.1-x86_64.AppImage'"
+hyprctl dispatch exec "helium"
 sleep 1.5
 
 # ============================================

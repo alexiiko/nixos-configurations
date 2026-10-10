@@ -1,11 +1,13 @@
 { pkgs, ... }:
 
 {
+  home.file.".local/share/icons/hicolor/scalable/apps/notion.svg".source = ../icons/notion.svg;
+
   xdg.desktopEntries = {
     # Deine bestehenden Web-Apps (bleiben unverändert)
     whatsapp = {
       name = "WhatsApp";
-      exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=https://web.whatsapp.com'';
+      exec = "helium --app=https://web.whatsapp.com";
       icon = "whatsapp";
       comment = "WhatsApp Web App";
       categories = [ "Network" "InstantMessaging" ];
@@ -14,7 +16,7 @@
 
     google-calendar = {
       name = "Google Calendar";
-      exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=https://calendar.google.com/calendar/u/4/r'';
+      exec = "helium --app=https://calendar.google.com/calendar/u/4/r";
       icon = "google-calendar";
       comment = "Google Calendar";
       categories = [ "Network" "InstantMessaging" ];
@@ -23,7 +25,7 @@
 
     open-webui = {
       name = "Open WebUI";
-      exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=http://localhost:2020/'';
+      exec = "helium --app=http://localhost:2020/";
       icon = "applications-internet";
       comment = "Local Open WebUI";
       categories = [ "Network" ];
@@ -76,7 +78,7 @@
 
     notion = {
       name = "Notion";
-      exec = ''${pkgs.appimage-run}/bin/appimage-run /home/alex/Applications/helium-0.11.5.1-x86_64.AppImage --app=https://www.notion.so/'';
+      exec = "helium --app=https://www.notion.so/";
       icon = "notion";
       comment = "Notion – All-in-one workspace";
       categories = [ "Office" ];

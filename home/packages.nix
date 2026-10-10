@@ -13,14 +13,6 @@
     vlc
 
     ################################################
-    # Camera
-    ################################################
-    v4l-utils
-    cheese
-    ipu6-camera-hal
-    ipu6-camera-bins
-
-    ################################################
     # Terminal & Shell
     ################################################
     kitty
@@ -47,7 +39,6 @@
     libinput
     xclip
     swaybg
-    networkmanagerapplet
     hyprpolkitagent     # polkit prompts (fprintd enrol, mounts) need an agent
     nmgui
     glib-networking
@@ -63,11 +54,6 @@
     ################################################
     # Theming & Fonts
     ################################################
-    bibata-cursors
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.symbols-only
-    gtk4
-    librsvg
     shared-mime-info
     glib
     desktop-file-utils
@@ -78,14 +64,6 @@
     gcc
     pkg-config
     openssl
-    libiconv
-    cairo
-    pango
-    fontconfig
-    freetype
-    stdenv.cc.cc.lib
-
-    ################################################
     # Development - Languages - Programming
     ################################################
     # Claude Code Flake
@@ -133,10 +111,8 @@
     ################################################
     # Browsers & Web
     ################################################
-    chromium
     google-chrome
     playwright-driver.browsers
-    firefox
 
     ################################################
     # Productivity
@@ -145,7 +121,6 @@
     anki
     readest
     onlyoffice-desktopeditors
-    anki
     zotero
 
     ################################################
@@ -161,7 +136,6 @@
     imagemagick
     inkscape
     turso-cli
-    libayatana-appindicator
     evince
     pv
     bun

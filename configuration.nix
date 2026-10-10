@@ -20,14 +20,8 @@
   services.thermald.enable = true;
   boot.kernel.sysctl."kernel.nmi_watchdog" = 0;
 
-  boot.kernelParams = [
-      "pcie_aspm=force"
-      "i915.enable_psr=2"
-      "i915.enable_fbc=1"
-      "i915.enable_dc=4"
-      "iwlwifi.power_save=1"
-      "iwlwifi.power_level=5"
-    ];
+  boot.kernelParams = [ "pcie_aspm=force" ];
+  # i915 / iwlwifi options: see boot.extraModprobeConfig below
 
   services.tlp = {
     enable = true;
@@ -41,7 +35,7 @@
       CPU_HWP_DYN_BOOST_ON_AC = 1;
       CPU_HWP_DYN_BOOST_ON_BAT = 0;
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 30;
+      CPU_MAX_PERF_ON_BAT = 50;   # 30 made the laptop sluggish unplugged
       PLATFORM_PROFILE_ON_AC = "balanced";
       PLATFORM_PROFILE_ON_BAT = "low-power";
       INTEL_GPU_MIN_FREQ_ON_BAT = 100;
@@ -78,6 +72,13 @@
   # Fingerprint reader (Egis ETU905A80-E, 1c7a:05a1). Enrol once with
   # `fprintd-enroll`; then sudo/login/hyprlock accept a finger.
   services.fprintd.enable = true;
+
+  # Compressed swap in RAM. There was no swap at all, so under memory
+  # pressure apps got killed instead of idle pages being compressed.
+  zramSwap = {
+    enable = true;
+    memoryMax = 2 * 1024 * 1024 * 1024;   # 2 GB
+  };
 
   # Battery/AC state over D-Bus; the quickshell battery widget reads this.
   services.upower.enable = true;
@@ -301,14 +302,6 @@
   };
 
   ################################################
-  # Camera
-  ################################################
-  hardware.ipu6 = {
-    enable = true;
-    platform = "ipu6ep";
-  };
-
-  ################################################
   # Bluetooth
   ################################################
   hardware.bluetooth = {
@@ -354,7 +347,6 @@
       openssl
       libgcc
       libxcrypt-legacy
-      docker-compose
       libinput
       networkmanager
       libayatana-appindicator

@@ -8,9 +8,6 @@
     NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm-global";
   };
 
-  home.sessionPath = [
-    "${config.home.homeDirectory}/.npm-global/bin"
-  ];
 
   home.file.".npmrc".text = ''
     prefix=~/.npm-global
