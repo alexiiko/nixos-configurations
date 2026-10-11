@@ -35,6 +35,7 @@
     ./tools/rust.nix
     ./tools/workspace.nix
     ./tools/git.nix
+    ./tools/opencode.nix
   ];
 
   ################################################
