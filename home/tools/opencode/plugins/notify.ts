@@ -1,5 +1,12 @@
 export const NotifyPlugin = async ({ client, $ }) => {
   return {
+    "permission.ask": async ({ title, type, pattern }, output) => {
+      if (output.status !== "ask") return;
+      const what = Array.isArray(pattern) ? pattern.join(" ") : String(pattern || type);
+      const esc = (s: string) =>
+        s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      await $`notify-send -a OpenCode ${esc(`OpenCode: ${title}`)} ${esc(what)}`;
+    },
     event: async ({ event }) => {
       if (event.type !== "session.idle") return;
 
