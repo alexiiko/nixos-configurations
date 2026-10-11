@@ -378,10 +378,19 @@
 
   # Open WebUI as a background service: http://localhost:2020. Listens on
   # localhost only, so it is not reachable from the network.
+  # Open WebUI as a background service: http://localhost:2020. Listens on
+  # localhost only, so it is not reachable from the network.
+  # ENABLE_USER_WEBHOOKS: notification targets in the web UI (chat.finished).
+  # ENABLE_LOCAL_WEB_FETCH: lets those webhooks hit 127.0.0.1 (the local
+  # notify bridge); safe here since the service is localhost-only.
   services.open-webui = {
     enable = true;
     host = "127.0.0.1";
     port = 2020;
+    environment = {
+      ENABLE_USER_WEBHOOKS = "true";
+      ENABLE_LOCAL_WEB_FETCH = "true";
+    };
   };
 
   # Daemon starts on first use via socket activation, not at boot.

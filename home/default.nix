@@ -36,6 +36,7 @@
     ./tools/workspace.nix
     ./tools/git.nix
     ./tools/opencode.nix
+    ./tools/openwebui-notify.nix
   ];
 
   ################################################
