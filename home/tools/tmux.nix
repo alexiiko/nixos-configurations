@@ -73,6 +73,10 @@ in
       bind -n M-S-Tab previous-window
       bind -n M-BTab previous-window
 
+      # Smooth wheel scrolling: one line per tick instead of the default 5.
+      bind -T copy-mode-vi WheelUpPane select-pane \; send-keys -X -N 1 scroll-up
+      bind -T copy-mode-vi WheelDownPane select-pane \; send-keys -X -N 1 scroll-down
+
       # Emacs-style editing in command prompt so Ctrl+W (from kitty's
       # Ctrl+Backspace mapping) deletes the previous word during rename etc.
       set -g status-keys emacs

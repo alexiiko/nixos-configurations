@@ -71,7 +71,8 @@
           };
         };
         clangd.enable = true;
-        jdtls.enable = true;
+        # jdtls is owned by ./java.nix (nvim-java launches it with the
+        # test/debug extensions; a plain server config would conflict).
         bashls.enable = true;
       };
       keymaps.lspBuf = {

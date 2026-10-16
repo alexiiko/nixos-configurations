@@ -98,6 +98,10 @@
     rustc
     cargo
 
+    # Java
+    jdk21
+    maven
+
     # nix
     nil
     nixd
