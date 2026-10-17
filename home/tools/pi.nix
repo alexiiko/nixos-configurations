@@ -47,7 +47,7 @@ in
       api = "openai-completions";
       apiKey = ''!python3 -c "import json;print(json.load(open('/home/alex/.local/share/opencode/auth.json'))['xiaomi-token-plan-ams']['key'])"'';
       models = [
-        { id = "mimo-v2.6-pro"; reasoning = true; }
+        { id = "mimo-v2.6-pro"; reasoning = true; contextWindow = 1000000; }
         { id = "mimo-v2.6-flash"; reasoning = true; }
       ];
     };

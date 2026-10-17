@@ -65,6 +65,7 @@ in
 
       # Enable extended keys (CSI u) so Ctrl+Tab etc. are distinguishable
       set -s extended-keys on
+      set -s extended-keys-format csi-u
       set -as terminal-features 'xterm*:extkeys'
       set -as terminal-features 'kitty*:extkeys'
 
