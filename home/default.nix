@@ -31,6 +31,7 @@
     ./tools/helium.nix
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
+    ./tools/pi.nix
     ./tools/direnv.nix
     ./tools/rust.nix
     ./tools/workspace.nix
