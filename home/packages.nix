@@ -125,7 +125,6 @@
     anki
     readest
     onlyoffice-desktopeditors
-    zotero
 
     ################################################
     # System & Utilities
