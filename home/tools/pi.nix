@@ -47,8 +47,8 @@ in
       api = "openai-completions";
       apiKey = ''!python3 -c "import json;print(json.load(open('/home/alex/.local/share/opencode/auth.json'))['xiaomi-token-plan-ams']['key'])"'';
       models = [
-        { id = "mimo-v2.6-pro"; reasoning = true; contextWindow = 1048576; maxTokens = 131072; }
-        { id = "mimo-v2.6-flash"; reasoning = true; contextWindow = 1048576; maxTokens = 131072; }
+        { id = "mimo-v2.6-pro"; reasoning = true; input = [ "text" "image" ]; contextWindow = 1048576; maxTokens = 131072; }
+        { id = "mimo-v2.6-flash"; reasoning = true; input = [ "text" "image" ]; contextWindow = 1048576; maxTokens = 131072; }
       ];
     };
   };
