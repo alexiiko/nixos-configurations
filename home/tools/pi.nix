@@ -58,11 +58,6 @@ in
   # default hides them behind codemode/tool_search).
   home.file.".pi/agent/mcp.json".text = builtins.toJSON {
     mcpServers = {
-      ai-memory = {
-        url = "http://127.0.0.1:49374/mcp";
-        exposure = "direct";
-        description = "Long-term project memory: wiki pages, sessions, handoffs";
-      };
       codegraph = {
         command = "codegraph";
         args = [ "serve" "--mcp" ];

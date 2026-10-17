@@ -24,11 +24,6 @@
       "command": ["uv", "tool", "run", "--from", "headroom-ai", "--with", "mcp<2", "python", "-m", "headroom.ccr.mcp_server"],
       "enabled": true
     },
-    "ai-memory": {
-      "type": "remote",
-      "url": "http://127.0.0.1:49374/mcp",
-      "enabled": true
-    },
     "codegraph": {
       "type": "local",
       "command": ["codegraph", "serve", "--mcp"],

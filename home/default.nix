@@ -100,18 +100,6 @@
     rustflags = ["-C", "link-arg=-Wl,--dynamic-linker=/lib64/ld-linux-x86-64.so.2"]
   '';
 
-  # ai-memory MCP server over HTTP, loopback only (no auth token needed there).
-  # The binary comes from `cargo install`, see the cargo config above.
-  systemd.user.services.ai-memory = {
-    Unit.Description = "ai-memory server";
-    Service = {
-      ExecStart = "%h/.cargo/bin/ai-memory serve --transport http --bind 127.0.0.1:49374";
-      Restart = "on-failure";
-      RestartSec = 5;
-    };
-    Install.WantedBy = [ "default.target" ];
-  };
-
   ################################################
   # Global Cursor
   ################################################
