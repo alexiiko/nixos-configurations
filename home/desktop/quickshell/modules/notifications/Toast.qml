@@ -63,6 +63,7 @@ Rectangle {
         if (a.includes("calendar")) return "event";
         if (a.includes("whatsapp")) return "chat";
         if (a.includes("claude"))   return "smart_toy";
+        if (a === "pi")             return "terminal";
         if (a.includes("screenshot")) return "photo_camera";
         if (a.includes("airpods") || a.includes("bluetooth")) return "bluetooth";
         return "notifications";
