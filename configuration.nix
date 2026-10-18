@@ -411,6 +411,8 @@
 
   hardware.graphics.enable = true;
 
+  services.gnome.gnome-keyring.enable = true;
+
   ################################################
   # System
   ################################################
