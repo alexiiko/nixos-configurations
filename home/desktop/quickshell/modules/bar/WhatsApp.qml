@@ -7,9 +7,8 @@ import "../../widgets"
 import "../../services"
 
 // WhatsApp button with an unread badge. The count is the number of WhatsApp
-// notifications since the window was last shown (the app-mode window title
-// is just the hostname, so the real count is not readable). Approximate,
-// but a reliable "something new" signal.
+// notifications since the window was last shown (the app exposes no reliable
+// unread count). Approximate, but a reliable "something new" signal.
 // Click toggles the special workspace the window lives on; launches it if
 // it is not running.
 Item {
@@ -19,7 +18,7 @@ Item {
 
     // Identify by the Wayland toplevel's appId, not Hyprland's IPC object:
     // the IPC enrichment (class/title) is often empty, the Wayland side is not.
-    readonly property var win: Hyprland.toplevels.values.find(t => (t.wayland?.appId ?? "").startsWith("chrome-web.whatsapp.com")) ?? null
+    readonly property var win: Hyprland.toplevels.values.find(t => (t.wayland?.appId ?? "").startsWith("zapfast")) ?? null
     readonly property bool running: win !== null
     readonly property int unread: Notifications.whatsappUnread
 

@@ -58,7 +58,8 @@
       "$mainMod, S, exec, ~/Programming/nixos-config/home/desktop/hyprland/special-stack.sh magic"
       "SHIFT ALT, S, movetoworkspacesilent, special:magic"
       "SHIFT ALT, A, movetoworkspace, 1"        # pull a window back out of magic
-      "$mainMod SHIFT, W, exec, ~/Programming/nixos-config/home/desktop/hyprland/special-stack.sh whatsapp"
+      # Toggle WhatsApp; starts ZapFast first if it is not running.
+      "$mainMod SHIFT, W, exec, ~/Programming/nixos-config/home/desktop/hyprland/whatsapp.sh"
       "$mainMod, TAB, workspace, e+1"
       "$mainMod SHIFT, TAB, workspace, e-1"
 

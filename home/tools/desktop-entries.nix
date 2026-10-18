@@ -5,11 +5,13 @@
 
   xdg.desktopEntries = {
     # Deine bestehenden Web-Apps (bleiben unverändert)
+    # The entry keeps the name `whatsapp` so launch-entry.sh and the keybinds
+    # stay app-agnostic. ZapFast is the native client, pinned in tools/zapfast.nix.
     whatsapp = {
       name = "WhatsApp";
-      exec = "helium --app=https://web.whatsapp.com";
+      exec = "zapfast";
       icon = "whatsapp";
-      comment = "WhatsApp Web App";
+      comment = "ZapFast WhatsApp client";
       categories = [ "Network" "InstantMessaging" ];
       terminal = false;
     };

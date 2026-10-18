@@ -22,7 +22,7 @@ Singleton {
     function clearWhatsapp() { whatsappUnread = 0; }
     function isWhatsapp(n) {
         const s = `${n.appName} ${n.desktopEntry} ${n.summary}`.toLowerCase();
-        return s.includes("whatsapp");
+        return s.includes("whatsapp") || s.includes("zapfast");
     }
 
     // urgency -> ms on screen; critical stays until dismissed

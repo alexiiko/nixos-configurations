@@ -29,6 +29,7 @@
     ./tools/power.nix
     ./tools/udiskie.nix
     ./tools/helium.nix
+    ./tools/zapfast.nix
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
     ./tools/pi.nix
