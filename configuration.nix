@@ -404,6 +404,10 @@
     binfmt = true;
   };
 
+  # Flatpak + flathub apps. The module wires portals, fuse and the export
+  # dirs; remotes and app installs stay manual (`flatpak install flathub …`).
+  services.flatpak.enable = true;
+
   services.udisks2.enable = true;
   services.gvfs.enable = true;
 
