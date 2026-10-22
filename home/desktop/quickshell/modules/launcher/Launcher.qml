@@ -36,13 +36,15 @@ PanelWindow {
 
     mask: Region { item: root.revealed ? surface : trigger }
 
+    TapGuard { id: guard; anchors.fill: parent }   // taps leave sticky hover; see widgets/TapGuard.qml
+
     Item {
         id: trigger; x: 0; y: parent.height - root.triggerHeight; width: parent.width; height: root.triggerHeight
-        HoverHandler { id: triggerHover }
+        HoverHandler { id: triggerHover; onPointChanged: guard.moved() }
     }
 
     // stays while hovered or while a search is typed
-    readonly property bool wantVisible: pinned || triggerHover.hovered || surfaceHover.hovered || query !== ""
+    readonly property bool wantVisible: pinned || ((triggerHover.hovered || surfaceHover.hovered) && guard.trusted) || query !== ""
     onWantVisibleChanged: {
         if (wantVisible) { hideTimer.stop(); revealed = true; }
         else hideTimer.restart();
@@ -82,7 +84,7 @@ PanelWindow {
         topRightRadius: 14
         clip: true
 
-        HoverHandler { id: surfaceHover }
+        HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }
 
         // ---- search ----------------------------------------------------
         Rectangle {

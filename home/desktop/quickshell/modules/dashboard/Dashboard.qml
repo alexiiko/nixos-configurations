@@ -25,12 +25,14 @@ PanelWindow {
 
     mask: Region { item: root.revealed ? surface : trigger }
 
+    TapGuard { id: guard; anchors.fill: parent }   // taps leave sticky hover; see widgets/TapGuard.qml
+
     Item {
         id: trigger; x: 0; y: 0; width: parent.width; height: root.triggerHeight
-        HoverHandler { id: triggerHover }
+        HoverHandler { id: triggerHover; onPointChanged: guard.moved() }
     }
 
-    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered
+    readonly property bool wantVisible: (triggerHover.hovered || surfaceHover.hovered) && guard.trusted
     onWantVisibleChanged: {
         if (wantVisible) { hideTimer.stop(); revealed = true; }
         else hideTimer.restart();
@@ -49,7 +51,7 @@ PanelWindow {
         bottomRightRadius: 14
         clip: true                 // content can never draw outside the panel
 
-        HoverHandler { id: surfaceHover }
+        HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }
 
         // --- tab header ---------------------------------------------------
         RowLayout {

@@ -54,11 +54,13 @@ libinput debug-events --device "$DEV" 2>/dev/null | while IFS= read -r line; do
       [ -n "$pending" ] && kill "$pending" 2>/dev/null
       { sleep "$GRACE"; touch_enabled true; } &
       pending=$!
+      qs ipc call pen away 2>/dev/null || true
       ;;
     *proximity-in*)
       [ -n "$pending" ] && kill "$pending" 2>/dev/null
       pending=""
       touch_enabled false
+      qs ipc call pen near 2>/dev/null || true
       ;;
   esac
 done

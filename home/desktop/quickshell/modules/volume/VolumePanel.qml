@@ -3,6 +3,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Services.Pipewire
 import "../../theme"
+import "../../widgets"
 import "../dashboard/media"
 
 // System volume on the right edge, vertically centred. Same auto-hide as the
@@ -31,8 +32,10 @@ PanelWindow {
         id: trigger
         x: parent.width - root.triggerWidth; y: 0
         width: root.triggerWidth; height: parent.height
-        HoverHandler { id: triggerHover }
+        HoverHandler { id: triggerHover; onPointChanged: guard.moved() }
     }
+
+    TapGuard { id: guard; anchors.fill: parent }   // taps leave sticky hover; see widgets/TapGuard.qml
 
     // Any volume change from outside (AirPods buttons, media keys, another
     // app) flashes the bar for a moment, like the iOS volume HUD.
@@ -45,7 +48,7 @@ PanelWindow {
     }
     Timer { id: flash; interval: 1400 }
 
-    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered || flash.running
+    readonly property bool wantVisible: ((triggerHover.hovered || surfaceHover.hovered) && guard.trusted) || flash.running
     onWantVisibleChanged: {
         if (wantVisible) { hideTimer.stop(); revealed = true; }
         else hideTimer.restart();
@@ -60,7 +63,7 @@ PanelWindow {
         Behavior on x { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
         color: "transparent"                   // no card: only the bar slides in
 
-        HoverHandler { id: surfaceHover }
+        HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }
         VolumeBar { anchors { fill: parent; margins: root.pad; rightMargin: root.edgeGap } }
     }
 }

@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import "../../theme"
+import "../../widgets"
 import "../power"
 import "../tray"
 
@@ -64,10 +65,14 @@ PanelWindow {
         height: power.inputHeight
     }
 
+    // hover terms below are gated by guard.trusted: taps leave a sticky
+    // synthetic hover behind (see widgets/TapGuard.qml)
+    TapGuard { id: guard; anchors.fill: parent }
+
     // hot strip on the very edge; invisible
     Item {
         id: trigger; x: 0; y: 0; width: root.triggerWidth; height: parent.height
-        HoverHandler { id: triggerHover }
+        HoverHandler { id: triggerHover; onPointChanged: guard.moved() }
     }
 
     // Hover is tracked by HoverHandlers on the trigger strip and on the
@@ -75,7 +80,7 @@ PanelWindow {
     // top blocks hover from reaching items *beneath* it, but not handlers
     // on its ancestors. Bar stays while the power popover is open, since
     // the mouse leaves us to use it.
-    readonly property bool wantVisible: triggerHover.hovered || surfaceHover.hovered || power.open || calBtn.open || tray.anyOpen
+    readonly property bool wantVisible: ((triggerHover.hovered || surfaceHover.hovered) && guard.trusted) || power.open || calBtn.open || tray.anyOpen
     onWantVisibleChanged: {
         if (wantVisible) { hideTimer.stop(); revealed = true; }
         else hideTimer.restart();
@@ -93,7 +98,7 @@ PanelWindow {
         topRightRadius: 14
         bottomRightRadius: 14
 
-        HoverHandler { id: surfaceHover }
+        HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }
 
         // Click on the bare bar (not a button): close whatever popover is open.
         // Declared before the content so the buttons sit above it.
