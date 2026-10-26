@@ -29,8 +29,12 @@
     };
 
     initContent = ''
-      # Oh My Posh Prompt laden
-      eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.omp.json)"
+      # Oh My Posh Prompt laden. The init script is generated at build time
+      # (see shell/oh-my-posh) so its embedded binary path always belongs to
+      # the running generation and survives nix.gc.
+      export POSH_CONFIG=$HOME/.config/oh-my-posh/theme.omp.json
+      export POSH_SESSION_ID=$(< /proc/sys/kernel/random/uuid)
+      source ~/.config/oh-my-posh/init.zsh
       # the prompt picks its palette from this; refresh before every prompt
       # so a theme switch shows up on the next line
       _theme_mode() { export THEME_MODE=$(<~/.config/theme/mode 2>/dev/null); : ''${THEME_MODE:=light}; }
