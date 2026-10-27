@@ -18,10 +18,10 @@ PanelWindow {
     readonly property int triggerHeight: 6
 
     // flush to the top edge so the hover trigger lies on the screen edge;
-    // the card sits 12 px below it. Left of the dashboard, right of the
-    // sidebar (x 64..364).
-    anchors { top: true; left: true }
-    margins { left: 64 }
+    // the card sits 12 px below it. Right of the dashboard, clear of the
+    // volume OSD on the right edge.
+    anchors { top: true; right: true }
+    margins { right: 25 }     // aligns with the volume card's edge gap
     implicitWidth: 300
     implicitHeight: 76
     exclusiveZone: 0
