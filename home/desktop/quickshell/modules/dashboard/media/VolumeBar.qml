@@ -11,6 +11,7 @@ Item {
     readonly property bool muted: sink?.audio?.muted ?? false
 
     implicitWidth: 28
+    property bool showValue: true         // percentage inside the bar; the OSD shows it outside instead
 
     Rectangle {                                   // track
         anchors.fill: parent
@@ -25,6 +26,7 @@ Item {
         }
     }
     Text {
+        visible: root.showValue
         anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom; bottomMargin: 8 }
         text: Math.round(root.vol * 100)
         color: root.vol > 0.12 ? Theme.c.ivory : Theme.c.onyx

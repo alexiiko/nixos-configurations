@@ -15,11 +15,10 @@ PanelWindow {
     property bool revealed: false
     readonly property int hideDelay: 150
     readonly property int triggerWidth: 6
-    readonly property int pad: 10
-    readonly property int edgeGap: 25             // space between bar and screen edge
+    readonly property int edgeGap: 25             // space between card and screen edge
 
     anchors { right: true }                   // right only: layer-shell centres it vertically
-    implicitWidth: 28 + pad + edgeGap
+    implicitWidth: 56 + edgeGap                  // card 56 wide (28 bar + 14 padding)
     implicitHeight: 220
     exclusiveZone: 0
     aboveWindows: true
@@ -61,9 +60,38 @@ PanelWindow {
         height: root.height
         x: root.revealed ? 0 : width
         Behavior on x { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
-        color: "transparent"                   // no card: only the bar slides in
+        color: "transparent"
 
         HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }
-        VolumeBar { anchors { fill: parent; margins: root.pad; rightMargin: root.edgeGap } }
+
+        // styled like the brightness bar: card, icon, bar, percentage
+        Card {
+            width: 56
+            anchors { top: parent.top; bottom: parent.bottom; right: parent.right; rightMargin: root.edgeGap }
+
+            Column {
+                anchors.fill: parent
+                spacing: 10
+
+                Icon {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    name: bar.muted ? "volume_off" : bar.vol < 0.5 ? "volume_down" : "volume_up"
+                    size: 22
+                    color: Theme.c.onyx
+                }
+                VolumeBar {
+                    id: bar
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: 28
+                    height: parent.height - 22 - 16 - 2 * parent.spacing
+                    showValue: false
+                }
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: Math.round(bar.vol * 100) + "%"
+                    color: Theme.c.onyx; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 1
+                }
+            }
+        }
     }
 }
