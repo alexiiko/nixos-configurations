@@ -30,6 +30,7 @@
     ./tools/udiskie.nix
     ./tools/helium.nix
     ./tools/zapfast.nix
+    ./tools/learnharness.nix
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
     ./tools/pi.nix
