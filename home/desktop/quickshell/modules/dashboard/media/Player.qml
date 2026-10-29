@@ -95,7 +95,7 @@ Card {
                 _fromPoll = true;
                 uri = d.item?.uri ?? "";
                 trackTitle = d.item?.decorations?.identity?.name ?? "";
-                trackArtist = (d.item?.creators ?? []).map(c => c.entity?.decorations?.identity?.name).filter(n => n).join(", ");
+                trackArtist = (d.item?.decorations?.creators ?? []).map(c => c.entity?.decorations?.identity?.name).filter(n => n).join(", ");
                 const covers = d.item?.decorations?.visual_identity?.cover ?? [];
                 trackArtUrl = (covers.find(c => c.size === "default") ?? covers[0])?.url ?? "";
                 isPlaying = d.status === "playing";
