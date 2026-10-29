@@ -31,6 +31,8 @@
     ./tools/helium.nix
     ./tools/zapfast.nix
     ./tools/learnharness.nix
+    ./tools/spotifast.nix
+    ./tools/soloist.nix
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
     ./tools/pi.nix

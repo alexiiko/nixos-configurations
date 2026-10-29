@@ -100,6 +100,15 @@
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
+  # Spotify Connect (Soloist) listens on a random high TCP port advertised
+  # via mDNS, and the default deny was dropping every device handshake.
+  # Open the ephemeral range it binds from plus mDNS so LAN devices can
+  # reach it; the wifi interface itself stays untrusted.
+  networking.firewall = {
+    allowedTCPPortRanges = [ { from = 32768; to = 60999; } ];
+    allowedUDPPorts = [ 5353 ];
+  };
+
   ################################################
   # Localization
   ################################################
