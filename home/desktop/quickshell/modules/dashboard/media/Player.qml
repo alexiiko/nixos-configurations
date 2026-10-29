@@ -18,10 +18,19 @@ Card {
     readonly property var players: (soloist.uri !== "" ? [soloist] : []).concat(Mpris.players.values)
     property int selected: 0
     readonly property var player: players[Math.min(selected, players.length - 1)] ?? null
-    // prefer whatever is playing when the selection is stale
+    // prefer whatever is playing when the selection is stale, but never
+    // steal the Soloist tab while it has a track: the other players (e.g.
+    // Spotifast) claim "playing" with dead metadata and freeze the line
     onPlayersChanged: {
         const i = players.findIndex(p => p.isPlaying);
-        if (i >= 0 && !(players[selected]?.isPlaying)) selected = i;
+        if (i >= 0 && !(players[selected]?.isPlaying) && !(soloist.uri !== "" && selected === 0)) selected = i;
+    }
+
+    // playback changes outside the UI (earbud gesture, phone): land on the
+    // Soloist tab so the line and transport are never stale
+    Connections {
+        target: root.soloist
+        function onIsPlayingChanged() { if (root.soloist.isPlaying) root.selected = 0; }
     }
 
     // MPRIS raise() is a no-op for browsers under Wayland; focus the window
@@ -86,11 +95,11 @@ Card {
                 _fromPoll = true;
                 uri = d.item?.uri ?? "";
                 trackTitle = d.item?.decorations?.identity?.name ?? "";
-                trackArtist = (d.item?.creators ?? []).map(c => c.decorations?.identity?.name).filter(n => n).join(", ");
+                trackArtist = (d.item?.creators ?? []).map(c => c.entity?.decorations?.identity?.name).filter(n => n).join(", ");
                 const covers = d.item?.decorations?.visual_identity?.cover ?? [];
                 trackArtUrl = (covers.find(c => c.size === "default") ?? covers[0])?.url ?? "";
                 isPlaying = d.status === "playing";
-                length = (d.item?.playback?.duration_ms ?? 0) / 1000;
+                length = (d.item?.decorations?.playback?.duration_ms ?? 0) / 1000;
                 position = (d.position?.position_ms ?? 0) / 1000;
                 _lastPos = position;
                 _fromPoll = false;
