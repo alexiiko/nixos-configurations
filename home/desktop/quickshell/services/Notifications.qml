@@ -16,6 +16,11 @@ Singleton {
     // everything received this session, newest first (for the centre)
     property var history: []
 
+    // Do not disturb: when on, nothing pops up. Notifications still land in
+    // history and count towards the unread badge.
+    property bool dnd: false
+    function toggleDnd() { dnd = !dnd; }
+
     // WhatsApp unread: counted from its notifications, cleared when the
     // window is shown. Approximate by nature (phone reads are invisible).
     property int whatsappUnread: 0
@@ -46,7 +51,7 @@ Singleton {
             console.log(`notification: app=${JSON.stringify(n.appName)} entry=${JSON.stringify(n.desktopEntry)} summary=${JSON.stringify(n.summary)} icon=${JSON.stringify(n.appIcon)} image=${n.image !== ""}`);
             root.history = [{ appName: n.appName, summary: n.summary, body: n.body, appIcon: n.appIcon, time: new Date() }, ...root.history].slice(0, 100);
             if (root.isWhatsapp(n)) root.whatsappUnread++;
-            root.active.append({ notif: n });
+            if (!root.dnd) root.active.append({ notif: n });
             n.closed.connect(() => {
                 for (let i = 0; i < root.active.count; i++)
                     if (root.active.get(i).notif === n) { root.active.remove(i); break; }

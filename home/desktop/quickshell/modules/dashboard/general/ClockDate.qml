@@ -19,8 +19,8 @@ Card {
     HoverHandler { id: hover }
     Process { id: themeCmd; command: ["theme", "toggle"] }
     Row {
-        anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 6 }
-        spacing: 4
+        anchors { horizontalCenter: parent.horizontalCenter; top: parent.top; topMargin: 10 }
+        spacing: 12
         opacity: hover.hovered ? 1 : 0
         Behavior on opacity { NumberAnimation { duration: 150 } }
 
@@ -65,5 +65,18 @@ Card {
             text: Qt.formatDate(root.now, "d MMM")
             color: Theme.c.charcoal; font.family: Theme.fontFamily; font.pixelSize: Theme.fontSize - 1
         }
+    }
+
+    // Outside the centred Column so the clock/date block stays vertically
+    // centred while the button is hidden. Sits at the card bottom, under the
+    // date, and fades in with the other hover buttons.
+    BarButton {
+        anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom; bottomMargin: 8 }
+        icon: Notifications.dnd ? "notifications_off" : "notifications"
+        idleColor: Theme.c.ivory
+        opacity: hover.hovered ? 1 : 0
+        Behavior on opacity { NumberAnimation { duration: 150 } }
+        tooltip: Notifications.dnd ? "Do not disturb: on" : "Do not disturb: off"
+        onClicked: Notifications.toggleDnd()
     }
 }
