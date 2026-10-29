@@ -114,8 +114,10 @@
       ", XF86PowerOff, exec, systemctl suspend"
 
       ", XF86AudioNext, exec, playerctl next"
-      ", XF86AudioPause, exec, playerctl play-pause"
-      ", XF86AudioPlay, exec, playerctl play-pause"
+      # single tap on the earbuds: instant toggle against Soloist — playerctl
+      # targets whichever MPRIS player is first, which is not what plays
+      ", XF86AudioPause, exec, sh -c 'soloist ctl now --json | grep -q status.:.playing && soloist ctl pause || soloist ctl play'"
+      ", XF86AudioPlay, exec, sh -c 'soloist ctl now --json | grep -q status.:.playing && soloist ctl pause || soloist ctl play'"
       ", XF86AudioPrev, exec, playerctl previous"
     ];
   };

@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell
+import Quickshell.Io
 import Quickshell.Services.Mpris
 import Quickshell.Hyprland
 import "../../../theme"
@@ -14,7 +15,7 @@ Card {
     id: root
     padding: 12
 
-    readonly property var players: [...Mpris.players.values]
+    readonly property var players: (soloist.uri !== "" ? [soloist] : []).concat(Mpris.players.values)
     property int selected: 0
     readonly property var player: players[Math.min(selected, players.length - 1)] ?? null
     // prefer whatever is playing when the selection is stale
@@ -50,6 +51,69 @@ Card {
         running: root.player?.isPlaying ?? false
         onTriggered: root.player.positionChanged()
     }
+
+    // ---- Soloist adapter ------------------------------------------------
+    // Soloist is the Connect receiver that actually plays (spotifast#283)
+    // and exposes no MPRIS, so its state is polled and adapted into the
+    // same player shape; it shows up as the first tab like any player.
+    readonly property var soloist: QtObject {
+        property string identity: "Soloist"
+        readonly property string desktopEntry: ""
+        property string uri: ""
+        property string trackTitle: ""
+        property string trackArtist: ""
+        property string trackArtUrl: ""
+        property bool isPlaying: false
+        property real position: 0
+        property real length: 0
+        readonly property bool lengthSupported: true
+        readonly property bool canGoNext: true
+        readonly property bool canGoPrevious: true
+        readonly property bool canTogglePlaying: true
+        readonly property bool canSeek: true
+        readonly property bool canRaise: false
+
+        property real _lastPos: 0
+        property bool _fromPoll: false
+        function raise() {}
+        function togglePlaying() { root.ctl(isPlaying ? "pause" : "play"); }
+        function next() { root.ctl("next"); }
+        function previous() { if (position > 3) root.ctl("seek", "0"); else root.ctl("prev"); }
+
+        function _parse(t) {
+            try {
+                const d = JSON.parse(t);
+                _fromPoll = true;
+                uri = d.item?.uri ?? "";
+                trackTitle = d.item?.decorations?.identity?.name ?? "";
+                trackArtist = (d.item?.creators ?? []).map(c => c.decorations?.identity?.name).filter(n => n).join(", ");
+                const covers = d.item?.decorations?.visual_identity?.cover ?? [];
+                trackArtUrl = (covers.find(c => c.size === "default") ?? covers[0])?.url ?? "";
+                isPlaying = d.status === "playing";
+                length = (d.item?.playback?.duration_ms ?? 0) / 1000;
+                position = (d.position?.position_ms ?? 0) / 1000;
+                _lastPos = position;
+                _fromPoll = false;
+            } catch (e) { uri = ""; }   // soloist not running: hide the tab
+        }
+
+        // the seek bar assigns position; ignore poll updates and the
+        // positionChanged() re-read that MPRIS players need every tick
+        onPositionChanged: {
+            if (_fromPoll || Math.abs(position - _lastPos) < 0.25) return;
+            _lastPos = position;
+            root.ctl("seek", String(Math.round(position * 1000)));
+        }
+    }
+
+    Process {
+        id: soloistPoll
+        command: ["soloist", "ctl", "now", "--json"]
+        stdout: StdioCollector { onStreamFinished: root.soloist._parse(text) }
+    }
+    Process { id: soloistCmd }
+    function ctl(...args) { soloistCmd.command = ["soloist", "ctl", ...args]; soloistCmd.running = true; }
+    Timer { interval: 1000; running: true; repeat: true; onTriggered: soloistPoll.running = true }
 
     ColumnLayout {
         anchors.fill: parent
