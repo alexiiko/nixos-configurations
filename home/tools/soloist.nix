@@ -26,8 +26,22 @@
 #     home config
 let
   pipewireLib = "${pkgs.pipewire}/lib";
+
+  # Reset a broken Connect login: the device picker spins and fails to
+  # connect, and the journal shows session_auth_info_not_found. Wipes the
+  # stored state and restarts the daemon; then close and reopen the Spotify
+  # app and pick "Soloist" again.
+  relogin = pkgs.writeShellScriptBin "soloist-relogin" ''
+    set -eu
+    systemctl --user stop soloist
+    rm -rf "$HOME/.local/share/soloist"
+    systemctl --user start soloist
+    echo "Soloist reset — close and reopen the Spotify app, then connect to 'Soloist'."
+  '';
 in
 {
+  home.packages = [ relogin ];
+
   home.file.".config/pipewire/client.conf".source = "${pkgs.pipewire}/share/pipewire/client.conf";
 
   systemd.user.services.soloist = {
