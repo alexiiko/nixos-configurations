@@ -124,9 +124,10 @@ PanelWindow {
             width: root.barWidth
             spacing: 12
 
-            Clock    { anchors.horizontalCenter: parent.horizontalCenter }
+            Spotifast { anchors.horizontalCenter: parent.horizontalCenter }
             WhatsApp { anchors.horizontalCenter: parent.horizontalCenter }
             CalendarButton { id: calBtn; anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
+            Clock    { anchors.horizontalCenter: parent.horizontalCenter }
             Tray     { id: tray; x: 6; barWindow: root }
             PowerMenu { id: power; anchors.horizontalCenter: parent.horizontalCenter; barWindow: root }
         }

@@ -12,5 +12,9 @@
     # WhatsApp (ZapFast) lives on its own special workspace; the sidebar and
     # the keybind toggle it. `silent` so it does not steal focus when it starts.
     "match:class ^zapfast$, workspace special:whatsapp silent"
+
+    # Spotifast, same treatment: its own special workspace, toggled by the
+    # sidebar button
+    "match:class ^spotifast$, workspace special:spotify silent"
   ];
 }

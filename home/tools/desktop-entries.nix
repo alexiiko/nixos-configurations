@@ -2,6 +2,7 @@
 
 {
   home.file.".local/share/icons/hicolor/scalable/apps/notion.svg".source = ../icons/notion.svg;
+  home.file.".local/share/icons/hicolor/scalable/apps/spotify.svg".source = ../icons/spotify.svg;
   home.file.".local/share/icons/hicolor/256x256/apps/learnharness.png".source = ../icons/learnharness.png;
 
   xdg.desktopEntries = {
@@ -23,6 +24,15 @@
       icon = "learnharness";
       comment = "An agent harness for learning: adaptive teaching, practice, and a persistent knowledge graph";
       categories = [ "Education" ];
+      terminal = false;
+    };
+
+    spotifast = {
+      name = "Spotifast";
+      exec = "spotifast %u";
+      icon = "spotify";
+      comment = "A native Spotify client";
+      categories = [ "AudioVideo" "Audio" "Player" "Music" ];
       terminal = false;
     };
 
