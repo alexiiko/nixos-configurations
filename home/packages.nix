@@ -101,6 +101,7 @@
     # Java
     jdk21
     maven
+    jetbrains.idea
 
     # nix
     nil
