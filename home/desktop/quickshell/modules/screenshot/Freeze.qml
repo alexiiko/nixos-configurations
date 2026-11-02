@@ -20,6 +20,9 @@ PanelWindow {
     anchors { top: true; bottom: true; left: true; right: true }
     exclusiveZone: 0
     WlrLayershell.layer: WlrLayer.Overlay
+    // own namespace: the frosted-glass blur rule targets "quickshell" and
+    // must not blur the frozen screenshot this overlay displays
+    WlrLayershell.namespace: "screenshot-freeze"
     mask: Region {}                    // input-transparent: slurp gets the pointer
     color: "transparent"
 

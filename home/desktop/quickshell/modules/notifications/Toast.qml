@@ -16,10 +16,10 @@ Rectangle {
     readonly property real fullHeight: content.implicitHeight + 24 + (lifetime > 0 ? 6 : 0)
     property real slot: 1              // 1 = full slot, 0 = collapsed; the wrapper reads it
     height: fullHeight
-    radius: 14
-    color: Theme.c.ivory
+    radius: 22
+    color: Theme.glass(Theme.c.ivory)
     border.width: 1
-    border.color: n.urgency === NotificationUrgency.Critical ? Theme.c.clay : Theme.c.mist
+    border.color: n.urgency === NotificationUrgency.Critical ? Theme.c.clay : Theme.glassRim
     clip: true
 
     readonly property int lifetime: Notifications.timeoutFor(n)

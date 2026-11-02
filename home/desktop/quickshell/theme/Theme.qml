@@ -22,6 +22,19 @@ Singleton {
     readonly property string iconFamily: "Material Symbols Rounded"
     readonly property int fontSize: 13
 
+    // Glass treatment (iOS-style): translucent fills with a highlight rim.
+    // Real backdrop blur is a compositor feature Hyprland lacks, so the
+    // glass is simulated with translucency — the wallpaper really shows
+    // through the panels. Rims read better inverted against the fill.
+    readonly property real glassAlpha: mode === "dark" ? 0.55 : 0.52
+    readonly property color glassRim: mode === "dark" ? "#2EFFFFFF" : "#24000000"
+    // palette values are hex strings; Qt.lighter coerces one into a color
+    // value so its channels can be recombined with our own alpha
+    function glass(hex, a) {
+        const c = Qt.lighter(hex, 1.0);
+        return Qt.rgba(c.r, c.g, c.b, a === undefined ? glassAlpha : a);
+    }
+
     FileView {
         id: paletteFile
         path: root.configDir + "/palette.json"

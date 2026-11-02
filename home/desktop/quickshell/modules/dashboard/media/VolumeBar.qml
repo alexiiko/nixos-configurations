@@ -16,7 +16,9 @@ Item {
     Rectangle {                                   // track
         anchors.fill: parent
         radius: width / 2
-        color: Theme.c.sand
+        color: Theme.c.silverBirch
+        border.width: 1
+        border.color: Theme.glassRim
         Rectangle {                               // fill, from the bottom
             anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
             height: parent.height * Math.max(0, Math.min(1, root.vol))

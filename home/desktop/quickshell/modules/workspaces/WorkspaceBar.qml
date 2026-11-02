@@ -45,9 +45,11 @@ PanelWindow {
         height: root.height
         y: root.revealed ? 0 : height
         Behavior on y { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
-        color: Theme.c.linen
-        topLeftRadius: 14
-        topRightRadius: 14
+        color: Theme.glass(Theme.c.linen)
+        border.width: 1
+        border.color: Theme.glassRim
+        topLeftRadius: 22
+        topRightRadius: 22
 
         HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }
         Workspaces { id: pills; anchors.centerIn: parent }

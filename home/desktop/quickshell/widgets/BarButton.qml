@@ -13,7 +13,7 @@ Rectangle {
 
     width: 28
     height: 28
-    radius: 8
+    radius: 12
     property color idleColor: Theme.c.linen
     color: active || mouse.containsMouse ? Theme.c.sand : idleColor
     Behavior on color { ColorAnimation { duration: 200 } }

@@ -42,13 +42,15 @@ PanelWindow {
     Rectangle {
         id: surface
         width: root.width
-        height: root.height
-        y: root.revealed ? 0 : -height
+        height: root.height + 1        // 1px past the top edge clips the rim
+        y: root.revealed ? -1 : -height
         Behavior on y { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
 
-        color: Theme.c.linen
-        bottomLeftRadius: 14
-        bottomRightRadius: 14
+        color: Theme.glass(Theme.c.linen)
+        border.width: 1
+        border.color: Theme.glassRim
+        bottomLeftRadius: 22
+        bottomRightRadius: 22
         clip: true                 // content can never draw outside the panel
 
         HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }

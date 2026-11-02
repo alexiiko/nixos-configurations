@@ -17,4 +17,11 @@
     # sidebar button
     "match:class ^spotifast$, workspace special:spotify silent"
   ];
+
+  # Layer surfaces need their own blur rule — decoration.blur only covers
+  # regular windows. This is what makes the quickshell panels frosted glass.
+  wayland.windowManager.hyprland.settings.layerrule = [
+    "match:namespace quickshell, blur on"
+    "match:namespace quickshell, ignore_alpha 0.2"
+  ];
 }

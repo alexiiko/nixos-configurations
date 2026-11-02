@@ -50,10 +50,10 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        radius: 14
-        color: Theme.c.linen
+        radius: 22
+        color: Theme.glass(Theme.c.linen)
         border.width: 1
-        border.color: Theme.c.mist
+        border.color: Theme.glassRim
         Item { id: inner; anchors.fill: parent; anchors.margins: root.padding }
     }
     Item { anchors.fill: parent; focus: root.open; Keys.onEscapePressed: root.open = false }

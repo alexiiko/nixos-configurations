@@ -11,7 +11,6 @@ import "../../../widgets"
 // MPRIS player: one tab per running player (browser, YouTube Music, ...),
 // art + title + transport + seek bar for the selected one.
 Card {
-    color: "transparent"; border.width: 0
     id: root
     padding: 12
 

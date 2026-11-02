@@ -61,17 +61,20 @@
       active_opacity = 1.0;
       inactive_opacity = 1.0;
 
+      # frosted-glass backdrop for the translucent quickshell panels
+      blur = {
+        enabled = true;
+        size = 8;
+        passes = 3;
+        new_optimizations = false;
+        ignore_opacity = true;
+      };
+
       shadow = {
         enabled = true;
         range = 4;
         render_power = 3;
         color = "rgba(1a1a1aee)";
-      };
-
-      blur = {
-        enabled = true;
-        size = 3;
-        passes = 1;
       };
     };
 
