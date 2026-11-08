@@ -67,7 +67,7 @@ in
       headroom = {
         command = "uv";
         args = [
-          "tool" "run" "--from" "headroom-ai" "--with" "mcp<2"
+          "tool" "run" "--from" "headroom-ai" "--with" "mcp"
           "python" "-m" "headroom.ccr.mcp_server"
         ];
         exposure = "direct";

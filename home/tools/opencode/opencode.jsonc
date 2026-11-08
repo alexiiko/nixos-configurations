@@ -21,7 +21,7 @@
   "mcp": {
     "headroom": {
       "type": "local",
-      "command": ["uv", "tool", "run", "--from", "headroom-ai", "--with", "mcp<2", "python", "-m", "headroom.ccr.mcp_server"],
+      "command": ["uv", "tool", "run", "--from", "headroom-ai", "--with", "mcp", "python", "-m", "headroom.ccr.mcp_server"],
       "enabled": true
     },
     "codegraph": {
