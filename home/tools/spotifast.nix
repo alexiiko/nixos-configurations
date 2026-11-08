@@ -6,7 +6,7 @@
 # the file and rebuild.
 let
   spotifast = pkgs.writeShellScriptBin "spotifast" ''
-    exec ${pkgs.appimage-run}/bin/appimage-run ${./spotifast/spotifast-0.14.2-x86_64.AppImage} "$@"
+    exec ${pkgs.appimage-run}/bin/appimage-run ${./spotifast/spotifast-0.17.1-x86_64.AppImage} "$@"
   '';
 in
 {
