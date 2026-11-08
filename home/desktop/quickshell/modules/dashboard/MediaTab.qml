@@ -13,6 +13,6 @@ ColumnLayout {
         Layout.fillWidth: true; Layout.fillHeight: false; Layout.preferredHeight: 150; Layout.maximumHeight: 150   // nested layouts default to fillHeight
         spacing: 12
         VolumeBar { Layout.fillHeight: true }
-        Player    { Layout.fillWidth: true; Layout.fillHeight: true; Layout.topMargin: 4 }
+        Player    { Layout.fillWidth: true; Layout.fillHeight: true; Layout.topMargin: 4; active: root.active }
     }
 }

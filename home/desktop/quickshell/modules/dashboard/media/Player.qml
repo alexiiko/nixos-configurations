@@ -16,6 +16,7 @@ Card {
 
     readonly property var players: (soloist.uri !== "" ? [soloist] : []).concat(Mpris.players.values)
     property int selected: 0
+    property bool active: false        // poll soloist only while the media tab is shown
     readonly property var player: players[Math.min(selected, players.length - 1)] ?? null
     // prefer whatever is playing when the selection is stale, but never
     // steal the Soloist tab while it has a track: the other players (e.g.
@@ -121,7 +122,7 @@ Card {
     }
     Process { id: soloistCmd }
     function ctl(...args) { soloistCmd.command = ["soloist", "ctl", ...args]; soloistCmd.running = true; }
-    Timer { interval: 1000; running: true; repeat: true; onTriggered: soloistPoll.running = true }
+    Timer { interval: 1000; running: root.active; repeat: true; onTriggered: soloistPoll.running = true }
 
     ColumnLayout {
         anchors.fill: parent
