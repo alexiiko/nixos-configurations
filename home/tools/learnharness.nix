@@ -8,10 +8,10 @@
 # `version` and the hash from the release asset. --no-sandbox is what
 # upstream's own desktop entry passes; Electron needs it on NixOS.
 let
-  version = "0.3.8";
+  version = "0.5.0";
   appimage = pkgs.fetchurl {
     url = "https://github.com/amosblomqvist/learnharness/releases/download/v${version}/LearnHarness-${version}-x86_64.AppImage";
-    hash = "sha256-g/mAHXJW/Uu2ZS+/AxpP/hunMlaljq+2tCLv7bQCCzA=";
+    hash = "sha256-tb2EmK1TyiqOtwgHNK8OxaquwbtqxV8kboUCnMumncM=";
   };
   learnharness = pkgs.writeShellScriptBin "learnharness" ''
     exec ${pkgs.appimage-run}/bin/appimage-run ${appimage} --no-sandbox "$@"
