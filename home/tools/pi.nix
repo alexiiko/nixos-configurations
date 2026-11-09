@@ -22,7 +22,7 @@ let
       cp ${./pi/package-lock.json} $out/package-lock.json
     '';
 
-    npmDepsHash = "sha256-acuSUlO1yeD4CePBSGRAZvAhKxtJAmT1xRMr3V2CNCk=";
+    npmDepsHash = "sha256-8b6aVqVcqyhwgfV63t5tGa0xBFx4845tBdgw92c/PkY=";
 
     dontNpmBuild = true;
 
