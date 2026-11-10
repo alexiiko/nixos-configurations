@@ -7,7 +7,7 @@
 # and is pi-managed on purpose — `pi update` is not used on NixOS,
 # update via this flake instead.
 let
-  version = "1.5.0";
+  version = "1.5.1";
 
   pi = pkgs.buildNpmPackage {
     pname = "pi-coding-agent";
@@ -17,12 +17,12 @@ let
       mkdir -p $out
       tar xf ${pkgs.fetchurl {
         url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-${version}.tgz";
-        hash = "sha256-W/tmhIpMS4HGN86NITa+AZRbcKrI6FVrCRywIkGzhd8=";
+        hash = "sha256-shPAYjBzVqVDSIDtnTiybCe/qwoJH+AVccdOlyr1Msk=";
       }} -C $out --strip-components=1
       cp ${./pi/package-lock.json} $out/package-lock.json
     '';
 
-    npmDepsHash = "sha256-8b6aVqVcqyhwgfV63t5tGa0xBFx4845tBdgw92c/PkY=";
+    npmDepsHash = "sha256-LlRCl7EmLhBm6cUBHwDz6w14h7xCIZ/3d/yF3DVQBoo=";
 
     dontNpmBuild = true;
 
