@@ -33,6 +33,7 @@
     ./tools/learnharness.nix
     ./tools/spotifast.nix
     ./tools/soloist.nix
+    ./tools/marker.nix
     ./tools/desktop-entries.nix
     ./tools/tmux.nix
     ./tools/pi.nix
