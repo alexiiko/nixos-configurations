@@ -6,12 +6,16 @@
 # ~/.local/share/uv/tools/marker-pdf. Its prebuilt torch expects a system
 # libstdc++, which NixOS does not ship at the usual paths — these wrappers
 # put ours on the loader path (referenced from the store, so gc keeps it).
-# The uv-created symlinks in ~/.local/bin are removed so these take
-# precedence; reinstalling the tool with uv recreates them, remove again.
+# marker expects a system libstdc++ (torch) and a llama-server binary (surya's
+# OCR backend runs through llama.cpp) — the wrappers provide both from the
+# store so nothing rots. The uv-created symlinks in ~/.local/bin are removed
+# so these take precedence; reinstalling the tool with uv recreates them,
+# remove again.
 let
   toolBin = ".local/share/uv/tools/marker-pdf/bin";
   wrap = name: pkgs.writeShellScriptBin name ''
     export LD_LIBRARY_PATH=${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH
+    export LLAMA_CPP_BINARY=${pkgs.llama-cpp}/bin/llama-server
     exec "$HOME/${toolBin}/${name}" "$@"
   '';
 in
