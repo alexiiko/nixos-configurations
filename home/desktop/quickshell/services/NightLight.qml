@@ -27,12 +27,23 @@ Singleton {
     function save() { store.adapter.on = on; store.adapter.strength = strength; store.writeAdapter(); }
 
     Process { id: cmd }
-    function apply() {
+    function run() {
         cmd.command = on ? ["hyprctl", "hyprsunset", "temperature", String(temperature)]
                          : ["hyprctl", "hyprsunset", "identity"];
         cmd.running = true;
-        save();
     }
+    function apply() { run(); save(); }
     function toggle() { on = !on; apply(); }
     function setStrength(v) { strength = Math.max(0, Math.min(1, v)); if (!on) on = true; apply(); }
+
+    // The screen turning off and on (hyprlock, dpms) resets the gamma and
+    // hyprsunset does not re-apply it, so the filter silently vanished while
+    // the state still said on. Re-assert it while enabled; a hyprctl call is
+    // a local socket round-trip, the interval is free.
+    Timer {
+        interval: 5000
+        running: root.on
+        repeat: true
+        onTriggered: root.run()
+    }
 }
