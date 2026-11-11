@@ -18,6 +18,7 @@
     kitty
     eza
     btop
+    mission-center
     oh-my-posh
     zoxide
     tree
