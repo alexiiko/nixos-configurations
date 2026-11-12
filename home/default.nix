@@ -43,6 +43,7 @@
     ./tools/git.nix
     ./tools/opencode.nix
     ./tools/openwebui-notify.nix
+    ./tools/claude-notify.nix
   ];
 
   ################################################
