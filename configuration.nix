@@ -392,8 +392,11 @@
   # ENABLE_USER_WEBHOOKS: notification targets in the web UI (chat.finished).
   # ENABLE_LOCAL_WEB_FETCH: lets those webhooks hit 127.0.0.1 (the local
   # notify bridge); safe here since the service is localhost-only.
+  # open-webui retired in favour of Claude Desktop. Kept configured but off;
+  # its dependency chain (ddgs/primp/chromadb) was also the only thing
+  # blocking `nix flake update`.
   services.open-webui = {
-    enable = true;
+    enable = false;
     host = "127.0.0.1";
     port = 2020;
     environment = {
