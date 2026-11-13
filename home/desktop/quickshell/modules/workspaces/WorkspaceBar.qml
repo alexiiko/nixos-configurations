@@ -42,7 +42,7 @@ PanelWindow {
     Rectangle {
         id: surface
         width: root.width
-        height: root.height
+        height: root.height + 1                 // bottom border hangs off-screen
         y: root.revealed ? 0 : height
         Behavior on y { NumberAnimation { duration: 180; easing.type: Easing.OutCubic } }
         color: Theme.glass(Theme.c.linen)
@@ -52,6 +52,6 @@ PanelWindow {
         topRightRadius: 22
 
         HoverHandler { id: surfaceHover; onPointChanged: guard.moved() }
-        Workspaces { id: pills; anchors.centerIn: parent }
+        Workspaces { id: pills; anchors.centerIn: parent; anchors.verticalCenterOffset: -0.5 }
     }
 }
