@@ -21,7 +21,7 @@
   boot.kernel.sysctl."kernel.nmi_watchdog" = 0;
 
   boot.kernelParams = [ "pcie_aspm=force" ];
-  # i915 / iwlwifi options: see boot.extraModprobeConfig below
+  # iwlwifi options: see boot.extraModprobeConfig below
 
   services.tlp = {
     enable = true;
@@ -91,7 +91,6 @@
   boot.extraModprobeConfig = ''
     options snd_hda_intel power_save=1 power_save_controller=Y
     options iwlwifi power_save=1 power_level=5
-    options i915 enable_fbc=1 enable_psr=2 enable_dc=4
   '';
 
   ################################################
@@ -426,6 +425,9 @@
   programs.chromium.enable = true;
 
   hardware.graphics.enable = true;
+  # VA-API (iHD) + oneVPL: video decode on the GPU instead of the CPU
+  hardware.graphics.extraPackages = with pkgs; [ intel-media-driver vpl-gpu-rt ];
+  environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
 
   services.gnome.gnome-keyring.enable = true;
 

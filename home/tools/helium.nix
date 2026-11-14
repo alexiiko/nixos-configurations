@@ -7,7 +7,10 @@ let
   helium = pkgs.writeShellScriptBin "helium" ''
     app=$(ls -1 "$HOME"/Applications/helium*.AppImage 2>/dev/null | sort -V | tail -n1)
     [ -n "$app" ] || { echo "no helium*.AppImage in ~/Applications" >&2; exit 1; }
-    exec ${pkgs.appimage-run}/bin/appimage-run "$app" "$@"
+    # the AppImage's FHS env has no libva; without it video decodes on the CPU
+    export LIBVA_DRIVER_NAME=iHD
+    exec ${pkgs.appimage-run.override { extraPkgs = p: [ p.libva ]; }}/bin/appimage-run "$app" \
+      --enable-features=AcceleratedVideoDecodeLinuxGL,AcceleratedVideoDecodeLinuxZeroCopyGL "$@"
   '';
 in
 {
